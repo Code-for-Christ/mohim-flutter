@@ -6,7 +6,7 @@ import 'package:phonebook/common/const/style.dart';
 class ListCard extends StatelessWidget {
   ListCard({super.key, required this.cell, required this.onTap});
   final String cell;
-  Function()? onTap;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

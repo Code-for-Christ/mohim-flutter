@@ -18,7 +18,7 @@ class CellContactScreen extends StatelessWidget {
         child: ListView.separated(
             padding: EdgeInsets.all(8),
             itemBuilder: ((context, index) {
-              return ContactCard();
+              return Container();
             }),
             separatorBuilder: ((context, index) {
               return Gap(12);

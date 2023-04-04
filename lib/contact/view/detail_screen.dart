@@ -53,8 +53,18 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   void initState() {
-    memberCtrl.getProfileImageUrl(memberId: widget.member.id);
+    getProfileImage();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    memberCtrl.profileImageUrl.value = '';
+    super.dispose();
+  }
+
+  getProfileImage() async {
+    await memberCtrl.getProfileImageUrl(memberId: widget.member.id);
   }
 
   @override

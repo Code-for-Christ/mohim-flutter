@@ -6,6 +6,7 @@ class MemberController extends GetxController {
   int page = 1;
   int size = 20;
   final profileImageUrl = ''.obs;
+  
   final churchMembers = <ChurchMember>[].obs;
   final memberService = MemberService();
 
