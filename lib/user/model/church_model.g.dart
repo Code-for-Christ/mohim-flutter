@@ -7,7 +7,7 @@ part of 'church_model.dart';
 // **************************************************************************
 
 ChurchModel _$ChurchModelFromJson(Map<String, dynamic> json) => ChurchModel(
-      id: json['id'] as int,
+      id: int.parse(json['id']),
       name: json['name'] as String,
       country: json['country'] as String,
     );
