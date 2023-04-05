@@ -10,6 +10,7 @@ import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/component/information_card.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
+import 'package:phonebook/contact/view/image_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -83,50 +84,10 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Center(
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 7,
-                          color: Color(0x411D2429),
-                          offset: Offset(0, 1),
-                        ),
-                      ]),
-                  child: Obx(() {
-                    return Stack(
-                      children: [
-                        Container(
-                          width: 120,
-                          height: 140,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: INPUT_BG_COLOR),
-                        ),
-                        memberCtrl.profileImageUrl.isEmpty
-                            ? SizedBox(
-                                width: imageWidth,
-                                height: imageHeight,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 55,
-                                  color: BODY_TEXT_COLOR,
-                                ))
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(7),
-                                child: Image.network(
-                                  memberCtrl.profileImageUrl.value,
-                                  width: imageWidth,
-                                  height: imageHeight,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                      ],
-                    );
-                  }),
-                ),
+                _ProfileImageBox(
+                    memberCtrl: memberCtrl,
+                    imageWidth: imageWidth,
+                    imageHeight: imageHeight),
                 Gap(4),
                 Text(
                   widget.member.name,
@@ -207,6 +168,70 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ProfileImageBox extends StatelessWidget {
+  const _ProfileImageBox({
+    Key? key,
+    required this.memberCtrl,
+    required this.imageWidth,
+    required this.imageHeight,
+  }) : super(key: key);
+
+  final MemberController memberCtrl;
+  final double imageWidth;
+  final double imageHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.to(ImageScreen(), fullscreenDialog: true),
+      child: Container(
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 7,
+                color: Color(0x411D2429),
+                offset: Offset(0, 1),
+              ),
+            ]),
+        child: Obx(() {
+          return Stack(
+            children: [
+              Container(
+                width: 120,
+                height: 140,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: INPUT_BG_COLOR),
+              ),
+              memberCtrl.profileImageUrl.isEmpty
+                  ? SizedBox(
+                      width: imageWidth,
+                      height: imageHeight,
+                      child: Icon(
+                        Icons.person,
+                        size: 55,
+                        color: BODY_TEXT_COLOR,
+                      ))
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(7),
+                      child: Image.network(
+                        memberCtrl.profileImageUrl.value,
+                        width: imageWidth,
+                        height: imageHeight,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+            ],
+          );
+        }),
       ),
     );
   }
