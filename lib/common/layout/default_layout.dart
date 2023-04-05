@@ -8,6 +8,7 @@ class DefaultLayout extends StatelessWidget {
   final Color? appBarColor;
   final bool? centerTitle;
   final PreferredSizeWidget? appBarBottom;
+  final Color? foregroundColor;
 
   const DefaultLayout(
       {super.key,
@@ -17,7 +18,8 @@ class DefaultLayout extends StatelessWidget {
       this.appBarColor,
       this.title,
       this.bottomNavigationBar,
-      this.appBarBottom});
+      this.appBarBottom,
+      this.foregroundColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class DefaultLayout extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        foregroundColor: Colors.black,
+        foregroundColor: foregroundColor,
         centerTitle: centerTitle,
         bottom: appBarBottom,
       );
