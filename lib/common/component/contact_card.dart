@@ -40,7 +40,7 @@ class ContactCard extends StatelessWidget {
                 width: 60,
                 height: 70,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                   color: INPUT_BG_COLOR,
                 ),
                 child: Icon(
@@ -50,7 +50,7 @@ class ContactCard extends StatelessWidget {
                 ),
               ),
               ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                   child: Image.memory(
                     Base64Codec().decode(member.thumbnail!),
                     width: 60,
