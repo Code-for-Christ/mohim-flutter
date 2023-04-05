@@ -6,10 +6,11 @@ part of 'parish.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Parish _$ParishFromJson(Map<String, dynamic> json) => Parish(
-      parish: json['parish'] as int,
+Parishes _$ParishesFromJson(Map<String, dynamic> json) => Parishes(
+      parishes:
+          (json['parishes'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
-Map<String, dynamic> _$ParishToJson(Parish instance) => <String, dynamic>{
-      'parish': instance.parish,
+Map<String, dynamic> _$ParishesToJson(Parishes instance) => <String, dynamic>{
+      'parishes': instance.parishes,
     };
