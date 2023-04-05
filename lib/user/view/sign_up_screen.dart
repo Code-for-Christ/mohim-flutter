@@ -94,11 +94,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) {
                       final regex = RegExp(emailPattern);
                       if (value == null || value.isEmpty) {
-                        emailValidated = false;
-                        return '입력창이 비어있습니다.';
+                        // emailValidated = false;
+                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         emailValidated = false;
-                        return '올바른 이메일을 입력하세요';
+                        return '올바른 이메일 형식이 아닙니다.';
                       } else {
                         emailValidated = true;
                         return null;
@@ -118,11 +118,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) {
                       final regex = RegExp(passwordPattern);
                       if (value == null || value.isEmpty) {
-                        passwordValidated = false;
-                        return '입력창이 비어있습니다.';
+                        // passwordValidated = false;
+                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         passwordValidated = false;
-                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요';
+                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요.';
                       } else {
                         passwordValidated = true;
                         return null;
@@ -142,11 +142,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) {
                       final regex = RegExp(passwordPattern);
                       if (value == null || value.isEmpty) {
-                        confirmationValidated = false;
-                        return '입력창이 비어있습니다.';
+                        // confirmationValidated = false;
+                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         confirmationValidated = false;
-                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요';
+                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요.';
                       } else if (value != password) {
                         confirmationValidated = false;
                         return '비밀번호가 다릅니다';

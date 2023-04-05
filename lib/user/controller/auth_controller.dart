@@ -53,6 +53,11 @@ class AuthController extends GetxController {
     return false;
   }
 
+  void logout() {
+    _deleteToken();
+    _moveToAuthBranch(0);
+  }
+
   Future<bool> checkAuth() async {
     return await authService.checkAuth();
   }

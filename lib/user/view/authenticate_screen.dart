@@ -105,7 +105,8 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                                 .map((item) => DropdownMenuItem(
                                       value: item,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18),
                                         child: Text(
                                           item.name,
                                           style: const TextStyle(
@@ -233,7 +234,7 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                           color: PRIMARY_COLOR,
                           filled: false,
                           height: 60,
-                          onTap: () {},
+                          onTap: () => authCtrl.logout(),
                           text: '로그아웃')
                     ],
                   ),
