@@ -64,183 +64,186 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(child: SafeArea(
-      child: Obx(() {
-        return churchCtrl.churchs.isEmpty
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: PRIMARY_COLOR,
-                ),
-              )
-            : SafeArea(
-                top: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          '성도 인증하기',
-                          style: titleTextStyle.copyWith(color: Colors.black),
+    return DefaultLayout(child: SingleChildScrollView(
+      child: SafeArea(
+        child: Obx(() {
+          return churchCtrl.churchs.isEmpty
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: PRIMARY_COLOR,
+                  ),
+                )
+              : SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '성도 인증하기',
+                            style: titleTextStyle.copyWith(color: Colors.black),
+                          ),
                         ),
-                      ),
-                      Gap(50),
-                      Center(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2<ChurchModel>(
-                            isExpanded: true,
-                            hint: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                '교회를 선택하세요',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-
-                            items: churchCtrl.churchs
-                                .map((item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18),
-                                        child: Text(
-                                          item.name,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                            value: selectedValue,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-
-                            onChanged: (value) {
-                              setState(() {
-                                selectedValue = value;
-                              });
-                              setDisabled();
-                            },
-                            buttonStyleData: const ButtonStyleData(
-                              height: 60,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: INPUT_BG_COLOR,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                            ),
-                            dropdownStyleData: const DropdownStyleData(
-                              maxHeight: 200,
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 50,
-                            ),
-                            dropdownSearchData: DropdownSearchData(
-                              searchController: textEditingController,
-                              searchInnerWidgetHeight: 50,
-                              searchInnerWidget: Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(
-                                  top: 8,
-                                  bottom: 4,
-                                  right: 8,
-                                  left: 8,
-                                ),
-                                child: TextFormField(
-                                  expands: true,
-                                  maxLines: null,
-                                  controller: textEditingController,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 8,
-                                    ),
-                                    hintText: '교회를 검색하세요...',
-                                    hintStyle: const TextStyle(fontSize: 13),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
+                        Gap(50),
+                        Center(
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<ChurchModel>(
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  '교회를 선택하세요',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
-                              searchMatchFn: (item, searchValue) {
-                                return (item.value!.name
-                                    .toString()
-                                    .contains(searchValue));
+
+                              items: churchCtrl.churchs
+                                  .map((item) => DropdownMenuItem(
+                                        value: item,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 18),
+                                          child: Text(
+                                            item.name,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: selectedValue,
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value;
+                                });
+                                setDisabled();
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                height: 60,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: INPUT_BG_COLOR,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                ),
+                              ),
+                              dropdownStyleData: const DropdownStyleData(
+                                maxHeight: 200,
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 50,
+                              ),
+                              dropdownSearchData: DropdownSearchData(
+                                searchController: textEditingController,
+                                searchInnerWidgetHeight: 50,
+                                searchInnerWidget: Container(
+                                  height: 50,
+                                  padding: const EdgeInsets.only(
+                                    top: 8,
+                                    bottom: 4,
+                                    right: 8,
+                                    left: 8,
+                                  ),
+                                  child: TextFormField(
+                                    expands: true,
+                                    maxLines: null,
+                                    controller: textEditingController,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 8,
+                                      ),
+                                      hintText: '교회를 검색하세요...',
+                                      hintStyle: const TextStyle(fontSize: 13),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                searchMatchFn: (item, searchValue) {
+                                  return (item.value!.name
+                                      .toString()
+                                      .contains(searchValue));
+                                },
+                              ),
+                              //This to clear the search value when you close the menu
+                              onMenuStateChange: (isOpen) {
+                                if (!isOpen) {
+                                  textEditingController.clear();
+                                }
                               },
                             ),
-                            //This to clear the search value when you close the menu
-                            onMenuStateChange: (isOpen) {
-                              if (!isOpen) {
-                                textEditingController.clear();
-                              }
-                            },
                           ),
                         ),
-                      ),
-                      Gap(20),
-                      CustomTextFormField(
-                        onChanged: (value) {
-                          name = value;
-                          setDisabled();
-                        },
-                        hintText: '이름을 입력하세요',
-                        fontSize: 16,
-                      ),
-                      Gap(20),
-                      CustomTextFormField(
-                        onChanged: (value) {
-                          phoneNumber = value;
-                          setDisabled();
-                        },
-                        inputFormatters: [
-                          MultiMaskedTextInputFormatter(
-                              masks: ['xxx-xxxx-xxxx', 'xxx-xxx-xxxx'],
-                              separator: '-')
-                        ],
-                        hintText: '전화번호를 입력하세요',
-                        fontSize: 16,
-                      ),
-                      Gap(60),
-                      ElevatedButton(
-                        style: buttonStyle,
-                        onPressed: isDisabled
-                            ? null
-                            : () async {
-                                await authCtrl.authenticate(
-                                    selectedValue!.id, name, phoneNumber);
-                              },
-                        child: Text(
-                          '인증하기',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white,
+                        Gap(20),
+                        CustomTextFormField(
+                          onChanged: (value) {
+                            name = value;
+                            setDisabled();
+                          },
+                          hintText: '이름을 입력하세요',
+                          fontSize: 16,
+                        ),
+                        Gap(20),
+                        CustomTextFormField(
+                          onChanged: (value) {
+                            phoneNumber = value;
+                            setDisabled();
+                          },
+                          inputFormatters: [
+                            MultiMaskedTextInputFormatter(
+                                masks: ['xxx-xxxx-xxxx', 'xxx-xxx-xxxx'],
+                                separator: '-')
+                          ],
+                          hintText: '전화번호를 입력하세요',
+                          fontSize: 16,
+                        ),
+                        Gap(60),
+                        ElevatedButton(
+                          style: buttonStyle,
+                          onPressed: isDisabled
+                              ? null
+                              : () async {
+                                  await authCtrl.authenticate(
+                                      selectedValue!.id, name, phoneNumber);
+                                },
+                          child: Text(
+                            '인증하기',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      Spacer(),
-                      CustomRoundedButton(
-                          color: PRIMARY_COLOR,
-                          filled: false,
-                          height: 60,
-                          onTap: () => authCtrl.logout(),
-                          text: '로그아웃')
-                    ],
+                        Gap(25),
+                        CustomRoundedButton(
+                            color: PRIMARY_COLOR,
+                            filled: false,
+                            height: 60,
+                            onTap: () => authCtrl.logout(),
+                            text: '로그아웃')
+                      ],
+                    ),
                   ),
-                ),
-              );
-      }),
+                );
+        }),
+      ),
     ));
   }
 }

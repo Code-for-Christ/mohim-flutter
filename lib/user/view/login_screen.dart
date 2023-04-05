@@ -8,6 +8,8 @@ import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
+import 'package:phonebook/user/util/page_route_with_animation.dart';
+import 'package:phonebook/user/view/email_code_input_screen.dart';
 import 'package:phonebook/user/view/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -81,8 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       final regex = RegExp(emailPattern);
                       if (value == null || value.isEmpty) {
-                        emailValidated = false;
-                        return '입력창이 비어있습니다.';
+                        // emailValidated = false;
+                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         emailValidated = false;
                         return '올바른 이메일을 입력하세요';
@@ -105,8 +107,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       final regex = RegExp(passwordPattern);
                       if (value == null || value.isEmpty) {
-                        passwordValidated = false;
-                        return '입력창이 비어있습니다.';
+                        // passwordValidated = false;
+                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         passwordValidated = false;
                         return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요';
@@ -119,7 +121,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        PageRouteWithAnimation pageRouteWithAnimation =
+                            PageRouteWithAnimation(EmailCodeInputScreen());
+                        Navigator.push(context,
+                            pageRouteWithAnimation.slideRitghtToLeft());
+                      },
                       child: Text(
                         '비밀번호를 잊으셨나요?',
                         style: TextStyle(color: Colors.black),

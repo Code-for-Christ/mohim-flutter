@@ -4,6 +4,7 @@ import 'package:phonebook/common/view/root_tab.dart';
 import 'package:phonebook/user/service/auth_service.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 import 'package:phonebook/user/view/authenticate_screen.dart';
+import 'package:phonebook/user/view/change_password_screen.dart';
 
 class AuthController extends GetxController {
   final authService = AuthService();
@@ -70,6 +71,28 @@ class AuthController extends GetxController {
     final result = await authService.authenticate(churchId, name, phoneNumber);
     if (result) {
       Get.offAll(RootTab());
+    }
+  }
+
+  Future<void> findPassword({required String email}) async {
+    final result = await authService.findPassword(email: email);
+    if (result) {
+      Get.to(
+          ChangePasswordScreen(
+            email: email,
+          ),
+          transition: Transition.cupertino);
+    }
+  }
+
+  Future<void> changePassword(
+      {required String email,
+      required String password,
+      required String code}) async {
+    final result = await authService.changePassword(
+        email: email, password: password, code: code);
+    if (result) {
+      Get.offAll(AuthBranchScreen(), transition: Transition.native);
     }
   }
 
