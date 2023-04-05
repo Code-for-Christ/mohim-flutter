@@ -6,27 +6,69 @@ import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/const/type.dart';
 import 'package:phonebook/group/view/cell_list_screen.dart';
+import 'package:phonebook/group/view/ministry_members_screen.dart';
 
 class GroupCard extends StatelessWidget {
-  const GroupCard(
-      {super.key,
-      required this.icon,
-      required this.title,
-      this.subtitle,
-      required this.type});
+  const GroupCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.subtitleData,
+    required this.type,
+    this.groupData,
+  });
   final IconData icon;
-  final String? subtitle;
+  final dynamic subtitleData;
   final String title;
   final GroupType type;
+  final dynamic groupData;
+
+  renderSubtitle() {
+    String subtitle = '';
+    if (type == GroupType.cell) {
+      subtitleData.forEach((e) {
+        subtitle += '${e.cell} ';
+      });
+    }
+    return subtitle;
+  }
+
+  renderTitle() {
+    if (type == GroupType.cell) {
+      return title;
+    }
+    if (type == GroupType.ministry) {
+      if (title == '청년회') {
+        return '청년회임원';
+      }
+      if (title == '구역') {
+        return '구역임원';
+      }
+      if (title == '교구') {
+        return '교구임원';
+      }
+      return title;
+    }
+    if (type == GroupType.gathering) {
+      return title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (type == GroupType.cell) {
-          Get.to(CellListScreen(parish: int.parse(title[0])));
+          Get.to(CellListScreen(
+            parish: int.parse(title[0]),
+            cells: subtitleData,
+          ));
         }
-        if (type == GroupType.ministry) {}
+        if (type == GroupType.ministry) {
+          Get.to(MinistryMembersScreen(
+            ministry: groupData,
+          ));
+        }
         if (type == GroupType.gathering) {}
       },
       child: Container(
@@ -50,13 +92,13 @@ class GroupCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    title,
+                    renderTitle(),
                     style: body1TextStyle.copyWith(fontSize: 22),
                   ),
                   Gap(4),
-                  subtitle != null
+                  subtitleData != null
                       ? Text(
-                          subtitle!,
+                          renderSubtitle(),
                           style: body2TextStyle,
                         )
                       : Container()
