@@ -138,7 +138,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: buttonStyle,
                     onPressed: emailValidated && passwordValidated
                         ? () async {
+                            setState(() {
+                              emailValidated = false;
+                            });
                             await authCtrl.login(email, password);
+                            setState(() {
+                              emailValidated = true;
+                            });
                           }
                         : null,
                     child: Text(
