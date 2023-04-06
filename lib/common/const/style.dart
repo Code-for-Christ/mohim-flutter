@@ -16,6 +16,8 @@ TextStyle body2TextStyle = TextStyle(
   fontSize: 14,
   color: BODY_TEXT_COLOR,
 );
+TextStyle title2TextStyle =
+    TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.w900);
 
 ButtonStyle buttonStyle = ElevatedButton.styleFrom(
   minimumSize: Size(double.infinity, 60),

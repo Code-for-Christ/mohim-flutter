@@ -8,6 +8,8 @@ const SECONDARY_COLOR = Color(0xFFDBE9FF);
 const DETAIL_BG_COLOR = Color(0xFFECEFF1);
 // 글자 색상
 const BODY_TEXT_COLOR = Color(0xFF868686);
+// 사람 아이콘 색상
+const PERSON_ICON_COLOR = Color(0xFF868686);
 // 텍스트필드 배경 색상
 const INPUT_BG_COLOR = Color(0xFFECEFF1);
 // 텍스트필드 테두리 색상
