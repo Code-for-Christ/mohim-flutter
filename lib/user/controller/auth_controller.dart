@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/view/root_tab.dart';
+import 'package:phonebook/contact/controller/member_controller.dart';
+import 'package:phonebook/group/controller/group_controller.dart';
+import 'package:phonebook/profile/controller/profile_controller.dart';
 import 'package:phonebook/user/service/auth_service.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 import 'package:phonebook/user/view/authenticate_screen.dart';
@@ -15,11 +18,17 @@ class AuthController extends GetxController {
     if (accessToken != null) {
       final result = await authService.refreshToken();
       if (result) {
-        final isAuthenticated = await checkAuth();
-        if (isAuthenticated) {
+        final auth = await checkAuth();
+        if (auth['result']) {
+          Get.put(MemberController(
+              churchId: auth['churchId'], memberId: auth['memberId']));
+          Get.put(GroupController(
+              churchId: auth['churchId'], memberId: auth['memberId']));
+          Get.put(ProfileController(
+              churchId: auth['churchId'], memberId: auth['memberId']));
           _moveToHome(1000);
         } else {
-          Get.offAll(() => AuthenticateScreen());
+          _moveToAuthenticate(1000);
         }
       } else {
         _deleteToken();
@@ -44,8 +53,8 @@ class AuthController extends GetxController {
     final result = await authService.login(email, password);
 
     if (result) {
-      final isAuthenticated = await checkAuth();
-      if (isAuthenticated) {
+      final auth = await checkAuth();
+      if (auth['result']) {
         _moveToHome(0);
       } else {
         _moveToAuthenticate(0);
@@ -59,7 +68,7 @@ class AuthController extends GetxController {
     _moveToAuthBranch(0);
   }
 
-  Future<bool> checkAuth() async {
+  Future<Map<String, dynamic>> checkAuth() async {
     return await authService.checkAuth();
   }
 
@@ -70,7 +79,7 @@ class AuthController extends GetxController {
   ) async {
     final result = await authService.authenticate(churchId, name, phoneNumber);
     if (result) {
-      Get.offAll(RootTab());
+      _moveToHome(0);
     }
   }
 

@@ -55,7 +55,7 @@ class AuthService {
     }
   }
 
-  Future<bool> checkAuth() async {
+  Future<Map<String, dynamic>> checkAuth() async {
     try {
       final dio = Dio();
       final resp = await dio.get(url,
@@ -64,10 +64,14 @@ class AuthService {
                 'Bearer ${await storage.read(key: ACCESS_TOKEN_KEY)}',
             'content-type': 'application/json'
           }));
-      return resp.data['is_authenticated'];
+      return {
+        'result': resp.data['is_authenticated'],
+        'churchId': resp.data['church_id'],
+        'memberId': resp.data['church_member_id'],
+      };
     } catch (e) {
       print('[GET] 인증여부확인 에러 : $e');
-      return false;
+      return {'result': false};
     }
   }
 
