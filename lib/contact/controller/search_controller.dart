@@ -27,7 +27,7 @@ class SearchController extends GetxController {
     debounce(searchText, (_) {
       searchMembers(searchText: _);
       print(searchText.value);
-    }, time: Duration(milliseconds: 500));
+    }, time: Duration(milliseconds: 350));
 
     super.onInit();
   }

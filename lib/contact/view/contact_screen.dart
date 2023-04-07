@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:phonebook/common/component/custom_text_form_field.dart';
@@ -64,6 +65,8 @@ class _ContactScreenState extends State<ContactScreen> {
           '연락처',
           style: titleTextStyle.copyWith(color: Colors.black, fontSize: 22),
         ),
+        systemOverlayStyle:
+            SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         centerTitle: false,
         backgroundColor: Colors.white,
         bottom: PreferredSize(

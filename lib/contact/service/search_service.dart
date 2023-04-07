@@ -20,7 +20,7 @@ class SearchService {
           },
         ),
       );
-      print(resp.data['church_members']);
+      print(resp.data['metadata']);
       final members = ChurchMember.fromJsonList(resp.data['church_members']);
       return members;
     } catch (e) {
