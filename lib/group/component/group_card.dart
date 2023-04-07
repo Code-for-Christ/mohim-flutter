@@ -6,6 +6,7 @@ import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/const/type.dart';
 import 'package:phonebook/group/view/cell_list_screen.dart';
+import 'package:phonebook/group/view/gathering_members_screen.dart';
 import 'package:phonebook/group/view/ministry_members_screen.dart';
 
 class GroupCard extends StatelessWidget {
@@ -29,6 +30,8 @@ class GroupCard extends StatelessWidget {
       subtitleData.forEach((e) {
         subtitle += '${e.cell} ';
       });
+      List cells = subtitleData.map((data) => data.cell).toList();
+      return '${cells.join(', ')}구역';
     }
     return subtitle;
   }
@@ -59,17 +62,24 @@ class GroupCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (type == GroupType.cell) {
-          Get.to(CellListScreen(
-            parish: int.parse(title[0]),
-            cells: subtitleData,
-          ));
+          Get.to(
+              CellListScreen(
+                parish: int.parse(title[0]),
+                cells: subtitleData,
+              ),
+              transition: Transition.cupertino);
         }
         if (type == GroupType.ministry) {
-          Get.to(MinistryMembersScreen(
-            ministry: groupData,
-          ));
+          Get.to(
+              MinistryMembersScreen(
+                ministry: groupData,
+              ),
+              transition: Transition.cupertino);
         }
-        if (type == GroupType.gathering) {}
+        if (type == GroupType.gathering) {
+          Get.to(GatheringMembersScreen(gathering: groupData),
+              transition: Transition.cupertino);
+        }
       },
       child: Container(
         width: double.infinity,
