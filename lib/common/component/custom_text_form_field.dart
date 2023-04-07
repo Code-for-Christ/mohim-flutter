@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     required this.onChanged,
     this.inputFormatters,
+    this.controller,
   });
   final double fontSize;
   final String? hintText;
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   String? Function(String?)? validator;
   List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
         borderSide: BorderSide(color: INPUT_BORDER_COLOR, width: 1.0));
 
     return TextFormField(
+      controller: controller,
       inputFormatters: inputFormatters,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
