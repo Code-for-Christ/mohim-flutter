@@ -25,15 +25,11 @@ class GroupCard extends StatelessWidget {
   final dynamic groupData;
 
   renderSubtitle() {
-    String subtitle = '';
     if (type == GroupType.cell) {
-      subtitleData.forEach((e) {
-        subtitle += '${e.cell} ';
-      });
       List cells = subtitleData.map((data) => data.cell).toList();
       return '${cells.join(', ')}구역';
     }
-    return subtitle;
+    return '';
   }
 
   renderTitle() {
