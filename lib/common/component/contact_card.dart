@@ -16,9 +16,11 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(DetailScreen(
-          member: member,
-        ));
+        Get.to(
+            DetailScreen(
+              member: member,
+            ),
+            transition: Transition.cupertino);
       },
       child: Container(
         padding: EdgeInsets.all(8),
