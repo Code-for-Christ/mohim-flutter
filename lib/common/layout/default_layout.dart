@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DefaultLayout extends StatelessWidget {
   final Widget child;
@@ -36,6 +37,9 @@ class DefaultLayout extends StatelessWidget {
       return null;
     } else {
       return AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.transparent),
         backgroundColor: appBarColor,
         elevation: 0,
         title: Text(
