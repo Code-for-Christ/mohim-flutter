@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/group/component/list_card.dart';
-import 'package:phonebook/group/view/cell_contact_screen.dart';
+import 'package:phonebook/group/model/cell.dart';
+import 'package:phonebook/group/view/cell_members_screen.dart';
 
 class CellListScreen extends StatelessWidget {
-  const CellListScreen({super.key, required this.parish});
+  const CellListScreen({super.key, required this.parish, required this.cells});
   final int parish;
+  final List<Cell> cells;
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
@@ -23,16 +25,17 @@ class CellListScreen extends StatelessWidget {
       child: ListView.separated(
           padding: EdgeInsets.all(16),
           itemBuilder: ((context, index) {
+            final cell = cells[index];
             return ListCard(
-              cell: '$parish${index + 1}구역',
-              onTap: () =>
-                  Get.to(CellContactScreen(cell: '$parish${index + 1}')),
+              cell: '${cell.cell}구역',
+              onTap: () => Get.to(CellMembersScreen(cell: cell),
+                  transition: Transition.cupertino),
             );
           }),
           separatorBuilder: ((context, index) {
             return Gap(16);
           }),
-          itemCount: 5),
+          itemCount: cells.length),
     );
   }
 }

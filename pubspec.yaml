@@ -46,7 +46,6 @@ dependencies:
   shared_preferences: 2.0.15
   sqflite: 2.2.0+2
   timeago: 3.2.2
-  url_launcher: 6.1.5
   gap: ^2.0.1
   dio: ^4.0.6
   flutter_secure_storage: ^5.0.2
@@ -58,6 +57,7 @@ dependencies:
   get: ^4.6.5
   dropdown_button2: ^2.0.0
   multi_masked_formatter: ^1.0.0
+  url_launcher: ^6.1.10
 
 
 dev_dependencies:

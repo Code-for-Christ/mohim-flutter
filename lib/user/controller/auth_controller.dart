@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/data.dart';
-import 'package:phonebook/common/view/root_tab.dart';
+import 'package:phonebook/common/view/root_tab_static.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 import 'package:phonebook/group/controller/group_controller.dart';
 import 'package:phonebook/profile/controller/profile_controller.dart';
@@ -20,12 +20,7 @@ class AuthController extends GetxController {
       if (result) {
         final auth = await checkAuth();
         if (auth['result']) {
-          Get.put(MemberController(
-              churchId: auth['churchId'], memberId: auth['memberId']));
-          Get.put(GroupController(
-              churchId: auth['churchId'], memberId: auth['memberId']));
-          Get.put(ProfileController(
-              churchId: auth['churchId'], memberId: auth['memberId']));
+          _bindControllers(auth: auth);
           _moveToHome(1000);
         } else {
           _moveToAuthenticate(1000);
@@ -42,6 +37,15 @@ class AuthController extends GetxController {
     await storage.deleteAll();
   }
 
+  void _bindControllers({required Map<String, dynamic> auth}) {
+    Get.put(MemberController(
+        churchId: auth['churchId'], memberId: auth['memberId']));
+    Get.put(GroupController(
+        churchId: auth['churchId'], memberId: auth['memberId']));
+    Get.put(ProfileController(
+        churchId: auth['churchId'], memberId: auth['memberId']));
+  }
+
   Future<void> signUp(String email, String password) async {
     final isSignUp = await authService.signUp(email, password);
     if (isSignUp) {
@@ -55,6 +59,7 @@ class AuthController extends GetxController {
     if (result) {
       final auth = await checkAuth();
       if (auth['result']) {
+        _bindControllers(auth: auth);
         _moveToHome(0);
       } else {
         _moveToAuthenticate(0);

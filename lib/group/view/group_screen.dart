@@ -68,8 +68,14 @@ class _GroupScreenState extends State<GroupScreen>
           padding: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
           decoration: BoxDecoration(
             color: PRIMARY_COLOR,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white,
+                width: 0.0,
+              ),
+            ),
+            // borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
           ),
           child: TabBar(
             controller: _tabController,
