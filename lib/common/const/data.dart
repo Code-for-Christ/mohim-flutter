@@ -15,6 +15,6 @@ final simulatorIp = '127.0.0.1:8000/api/v1';
 
 // final ip = Platform.isIOS ? simulatorIp : emulatorIp;
 
-// Server IP
-final ip = '52.79.157.230/api/v1';
+// baseUrl
+final baseUrl = 'https://mohim-api.com/api/v1';
 final storage = FlutterSecureStorage();
