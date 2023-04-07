@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -6,152 +7,180 @@ import 'package:phonebook/common/component/custom_square_button.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
+import 'package:phonebook/profile/component/info_divider_box.dart';
+import 'package:phonebook/profile/controller/profile_controller.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+
+  final profileCtrl = Get.find<ProfileController>();
+
+  String renderSalvationInfo() {
+    if (profileCtrl.member.value.salvationMonth != null &&
+        profileCtrl.member.value.salvationDay != null) {
+      return '${profileCtrl.member.value.salvationYear}년 ${profileCtrl.member.value.salvationMonth}월 ${profileCtrl.member.value.salvationDay}일';
+    }
+    if (profileCtrl.member.value.salvationMonth != null &&
+        profileCtrl.member.value.salvationDay == null) {
+      return '${profileCtrl.member.value.salvationYear}년 ${profileCtrl.member.value.salvationMonth}월';
+    }
+    if (profileCtrl.member.value.salvationMonth == null &&
+        profileCtrl.member.value.salvationDay != null) {
+      return '${profileCtrl.member.value.salvationYear}년 ${profileCtrl.member.value.salvationDay}일';
+    }
+    return '${profileCtrl.member.value.salvationYear}년';
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
       backgroudColor: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.bottomLeft,
-              height: MediaQuery.of(context).size.height / 4,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: PRIMARY_COLOR,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24),
-                      bottomRight: Radius.circular(24))),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 24,
-                  bottom: 24,
-                  right: 24,
-                ),
-                child: Wrap(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+      child: Obx(() {
+        return profileCtrl.member.value.name != ''
+            ? Column(
+                children: [
+                  _ProfileBox(profileCtrl: profileCtrl),
+                  Expanded(
+                    child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      shrinkWrap: true,
                       children: [
-                        _ProfileImage(),
-                        Gap(40),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '김성겸B',
-                              style: titleTextStyle.copyWith(
-                                  fontWeight: FontWeight.w600, fontSize: 24),
-                            ),
-                            Gap(4),
-                            Text(
-                              '010-7733-7981',
-                              style: body1TextStyle.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        )
+                        profileCtrl.member.value.cell != null
+                            ? InfoDividerBox(
+                                title: '구역',
+                                subTitle:
+                                    '${profileCtrl.member.value.cell!.toString()}구역',
+                                icon: CupertinoIcons.person_2_fill)
+                            : SizedBox(),
+                        profileCtrl.ministryRoles.isNotEmpty
+                            ? InfoDividerBox(
+                                title: '봉사', subTitle: '', icon: Icons.bookmark)
+                            : SizedBox(),
+                        profileCtrl.member.value.gatheringName != null
+                            ? InfoDividerBox(
+                                title: '소속',
+                                subTitle:
+                                    profileCtrl.member.value.gatheringName!,
+                                icon: CupertinoIcons.person_3_fill)
+                            : SizedBox(),
+                        profileCtrl.member.value.salvationYear != null ||
+                                profileCtrl.member.value.salvationMonth !=
+                                    null ||
+                                profileCtrl.member.value.salvationDay != null
+                            ? InfoDividerBox(
+                                title: '구원생일',
+                                subTitle: renderSalvationInfo(),
+                                icon: Icons.celebration)
+                            : SizedBox(),
+                        profileCtrl.member.value.birthYear != null
+                            ? InfoDividerBox(
+                                title: '생일',
+                                subTitle: profileCtrl.member.value.birthYear!
+                                    .toString(),
+                                icon: Icons.cake)
+                            : SizedBox(),
+                        profileCtrl.member.value.address != null
+                            ? InfoDividerBox(
+                                title: '주소',
+                                subTitle: profileCtrl.member.value.address!,
+                                icon: CupertinoIcons.house_fill)
+                            : SizedBox(),
+                        profileCtrl.member.value.carNumber != null
+                            ? InfoDividerBox(
+                                title: '차량번호',
+                                subTitle: profileCtrl.member.value.carNumber!,
+                                icon: CupertinoIcons.car_fill)
+                            : SizedBox(),
+                        Gap(60),
+                        CustomSquareButton(
+                            color: PRIMARY_COLOR,
+                            text: '로그아웃',
+                            filled: true,
+                            onTap: () {
+                              Get.put(AuthController()).logout();
+                            },
+                            height: 60)
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Center(
-                child: Column(
+                  )
+                ],
+              )
+            : Center(
+                child: CircularProgressIndicator(color: PRIMARY_COLOR),
+              );
+      }),
+    );
+  }
+}
+
+class _ProfileBox extends StatelessWidget {
+  const _ProfileBox({
+    Key? key,
+    required this.profileCtrl,
+  }) : super(key: key);
+
+  final ProfileController profileCtrl;
+
+  renderSex() {
+    if (profileCtrl.member.value.sex == null) {
+      return '';
+    }
+    if (profileCtrl.member.value.sex == 'male') {
+      return '형제';
+    }
+    if (profileCtrl.member.value.sex == 'female') {
+      return '자매';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomLeft,
+      height: MediaQuery.of(context).size.height / 4,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: PRIMARY_COLOR,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24))),
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 24,
+          bottom: 24,
+          right: 24,
+        ),
+        child: Wrap(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _ProfileImage(),
+                Gap(40),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _InfoBox(
-                      icon: CupertinoIcons.mail_solid,
-                      title: '이메일',
-                      subTitle: 'test@mail.com',
+                    Text(
+                      '${profileCtrl.member.value.name} ${renderSex()}',
+                      style: titleTextStyle.copyWith(
+                          fontWeight: FontWeight.w600, fontSize: 24),
                     ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: CupertinoIcons.person_2_fill,
-                      title: '구역',
-                      subTitle: '35구역',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: Icons.auto_awesome,
-                      title: '봉사',
-                      subTitle: '찬양대',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: Icons.bookmark,
-                      title: '소속',
-                      subTitle: '청년회',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: Icons.bookmark,
-                      title: '소속',
-                      subTitle: '청년회',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: Icons.bookmark,
-                      title: '소속',
-                      subTitle: '청년회',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    _InfoBox(
-                      icon: Icons.bookmark,
-                      title: '소속',
-                      subTitle: '청년회',
-                    ),
-                    Divider(
-                      color: INPUT_BG_COLOR,
-                      thickness: 1,
-                      height: 30,
-                    ),
-                    Gap(60),
-                    CustomSquareButton(
-                        color: PRIMARY_COLOR,
-                        text: '로그아웃',
-                        filled: true,
-                        onTap: () {
-                          Get.put(AuthController()).logout();
-                        },
-                        height: 60)
+                    Gap(4),
+                    profileCtrl.member.value.phoneNumber != null
+                        ? Text(
+                            profileCtrl.member.value.phoneNumber!,
+                            style: body1TextStyle.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Container(),
                   ],
-                ),
-              ),
-            )
+                )
+              ],
+            ),
           ],
         ),
       ),
@@ -160,12 +189,14 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class _ProfileImage extends StatelessWidget {
-  const _ProfileImage({
+  _ProfileImage({
     Key? key,
   }) : super(key: key);
 
   final double imageHeight = 180.0;
   final double imageWidht = 140.0;
+
+  final profileCtrl = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -194,12 +225,31 @@ class _ProfileImage extends StatelessWidget {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              'https://images.unsplash.com/photo-1574914629385-46448b767aec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGF0dGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-              width: imageWidht,
-              height: imageHeight,
-              fit: BoxFit.cover,
-            ),
+            child: profileCtrl.imageUrl.isNotEmpty
+                ?
+                // Image.network(
+                //     profileCtrl.imageUrl.value,
+                //     width: imageWidht,
+                //     height: imageHeight,
+                //     fit: BoxFit.cover,
+                //   )
+                CachedNetworkImage(
+                    imageUrl: profileCtrl.imageUrl.value,
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.person,
+                      size: 55,
+                      color: PERSON_ICON_COLOR,
+                    ),
+                    width: imageWidht,
+                    height: imageHeight,
+                    fit: BoxFit.cover,
+                  )
+                : Center(
+                    child: Icon(
+                    Icons.person,
+                    color: PERSON_ICON_COLOR,
+                    size: 55,
+                  )),
           ),
         ],
       ),
@@ -218,6 +268,19 @@ class _InfoBox extends StatelessWidget {
   final String title;
   final String subTitle;
   final IconData icon;
+
+  renderMinistries() {
+    if (title != '봉사') {
+      return subTitle;
+    }
+
+    final ministries = Get.find<ProfileController>()
+        .ministryRoles
+        .map((element) => element.ministryRole)
+        .toList();
+
+    return ministries.join(', ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,10 +303,23 @@ class _InfoBox extends StatelessWidget {
                   fontSize: 18),
             ),
             Gap(8),
-            Text(
-              subTitle,
-              style: body1TextStyle.copyWith(
-                  color: Colors.black, fontWeight: FontWeight.w500),
+            SizedBox(
+              width: 300,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      renderMinistries(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: body1TextStyle.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
