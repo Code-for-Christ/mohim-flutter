@@ -7,17 +7,36 @@ import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/component/contact_card.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
+import 'package:phonebook/contact/controller/search_controller.dart';
 
-class ContactScreen extends StatelessWidget {
+class ContactScreen extends StatefulWidget {
   ContactScreen({super.key});
 
-  final MemberController memberCtrl = Get.put(MemberController());
+  @override
+  State<ContactScreen> createState() => _ContactScreenState();
+}
+
+class _ContactScreenState extends State<ContactScreen> {
+  final MemberController memberCtrl = Get.find<MemberController>();
+
+  late final SearchController searchCtrl;
+
+  final TextEditingController searchTextEditController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    searchCtrl = Get.put(SearchController(
+        searchTextEditController: searchTextEditController,
+        churchId: memberCtrl.churchId));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: INPUT_BG_COLOR,
-      appBar: _appBar(),
+      appBar: _appBar(searchTextEditController: searchTextEditController),
       body: Obx(() {
         return memberCtrl.churchMembers.isNotEmpty
             ? ListView.separated(
@@ -39,10 +58,10 @@ class ContactScreen extends StatelessWidget {
     );
   }
 
-  AppBar _appBar() {
+  AppBar _appBar({required TextEditingController searchTextEditController}) {
     return AppBar(
         title: Text(
-          '전화번호부',
+          '연락처',
           style: titleTextStyle.copyWith(color: Colors.black, fontSize: 22),
         ),
         centerTitle: false,
@@ -52,13 +71,12 @@ class ContactScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: CustomTextFormField(
+                controller: searchTextEditController,
                 hintText: '이름, 전화번호, 차량번호로 검색해주세요',
                 prefixIcon: Icon(
                   CupertinoIcons.search,
                 ),
-                onChanged: (value) {
-                  print('object');
-                }),
+                onChanged: (value) {}),
           ),
         ));
   }

@@ -28,9 +28,9 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final memberCtrl = Get.find<MemberController>();
   // 이미지 넓이
-  final imageWidth = 120.0;
+  double imageWidth = 140;
   // 이미지 높이
-  final imageHeight = 140.0;
+  double imageHeight = 180;
 
   String renderSex() {
     return widget.member.sex == 'male' ? '형제' : '자매';
@@ -65,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   getProfileImage() async {
-    await memberCtrl.getProfileImageUrl(memberId: widget.member.id);
+    await memberCtrl.getProfileImageUrl();
   }
 
   @override
@@ -129,7 +129,17 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
                 Gap(30),
+                widget.member.gatheringName != null
+                    ? InformationCard(
+                        icon: CupertinoIcons.person_2_fill,
+                        height: 50,
+                        text: '소속',
+                        data: widget.member.gatheringName!,
+                      )
+                    : Container(),
+                Gap(16),
                 widget.member.carNumber != null
+                    // 드래그 가능하도록
                     ? InformationCard(
                         icon: CupertinoIcons.car,
                         height: 50,
@@ -149,10 +159,19 @@ class _DetailScreenState extends State<DetailScreen> {
                 Gap(16),
                 widget.member.salvationYear != null
                     ? InformationCard(
-                        icon: CupertinoIcons.gift_fill,
+                        icon: Icons.celebration,
                         height: 50,
                         text: '구원생일',
                         data: renderSalvationInfo(),
+                      )
+                    : Container(),
+                Gap(16),
+                widget.member.birthYear != null
+                    ? InformationCard(
+                        icon: CupertinoIcons.gift_fill,
+                        height: 50,
+                        text: '생일',
+                        data: '${widget.member.birthYear}년',
                       )
                     : Container(),
                 Gap(16),
@@ -160,10 +179,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     ? InformationCard(
                         icon: Icons.bookmark,
                         height: 50,
-                        text: '소속',
+                        text: '봉사',
                         data: widget.member.gatheringName!,
                       )
                     : Container(),
+                Gap(16),
               ],
             ),
           ),
@@ -205,8 +225,8 @@ class _ProfileImageBox extends StatelessWidget {
           return Stack(
             children: [
               Container(
-                width: 120,
-                height: 140,
+                width: imageWidth,
+                height: imageHeight,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
                     color: INPUT_BG_COLOR),

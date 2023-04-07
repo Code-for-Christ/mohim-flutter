@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:phonebook/common/const/colors.dart';
@@ -39,10 +40,16 @@ class InformationCard extends StatelessWidget {
                 color: BODY_TEXT_COLOR, fontWeight: FontWeight.w500),
           ),
           Spacer(),
-          Text(
-            data,
-            style: body2TextStyle.copyWith(
-                fontWeight: FontWeight.w500, color: Colors.black),
+          SizedBox(
+            width: 200,
+            child: Text(
+              data,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: body2TextStyle.copyWith(
+                  fontWeight: FontWeight.w500, color: Colors.black),
+              textAlign: TextAlign.end,
+            ),
           ),
         ]),
       ),
