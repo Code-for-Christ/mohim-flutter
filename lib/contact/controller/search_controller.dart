@@ -26,7 +26,6 @@ class SearchController extends GetxController {
     });
     debounce(searchText, (_) {
       searchMembers(searchText: _);
-      print(searchText.value);
     }, time: Duration(milliseconds: 350));
 
     super.onInit();
@@ -35,6 +34,6 @@ class SearchController extends GetxController {
   Future<void> searchMembers({required String searchText}) async {
     final result = await searchService.searchMembers(
         churchId: churchId, searchText: searchText);
-    memberCtrl.churchMembers.value = result;
+    memberCtrl.searchResultMembers.value = result;
   }
 }
