@@ -53,12 +53,14 @@ class ContactCard extends StatelessWidget {
               ),
               ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.memory(
-                    Base64Codec().decode(member.thumbnail!),
-                    width: 60,
-                    height: 70,
-                    fit: BoxFit.cover,
-                  )),
+                  child: member.thumbnail != null
+                      ? Image.memory(
+                          Base64Codec().decode(member.thumbnail!),
+                          width: 60,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        )
+                      : Container()),
             ],
           ),
           Gap(16),
@@ -69,10 +71,12 @@ class ContactCard extends StatelessWidget {
                 member.name,
                 style: body1TextStyle,
               ),
-              Text(
-                member.phoneNumber!,
-                style: body2TextStyle,
-              ),
+              member.phoneNumber != null
+                  ? Text(
+                      member.phoneNumber!,
+                      style: body2TextStyle,
+                    )
+                  : Container(),
             ],
           ),
           Spacer(),
