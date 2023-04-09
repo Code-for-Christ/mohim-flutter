@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 
@@ -16,14 +17,22 @@ class ImageScreen extends StatelessWidget {
       foregroundColor: Colors.white,
       backgroudColor: Colors.black,
       appBarColor: Colors.black,
-      child: Center(
-        child: Obx(() {
-          return Get.find<MemberController>().profileImageUrl.isNotEmpty
-              ? InteractiveViewer(
-                  child: Image.network(
-                      Get.find<MemberController>().profileImageUrl.value))
-              : Container();
-        }),
+      child: SafeArea(
+        child: Center(
+          child: Obx(() {
+            return Get.find<MemberController>().profileImageUrl.isNotEmpty
+                ? InteractiveViewer(
+                    child: Image.network(
+                        Get.find<MemberController>().profileImageUrl.value))
+                : Center(
+                    child: Icon(
+                      Icons.person,
+                      color: PERSON_ICON_COLOR,
+                      size: MediaQuery.of(context).size.width / 3,
+                    ),
+                  );
+          }),
+        ),
       ),
     );
   }

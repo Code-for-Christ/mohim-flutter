@@ -65,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   getProfileImage() async {
-    await memberCtrl.getProfileImageUrl();
+    await memberCtrl.getProfileImageUrl(memberId: widget.member.id);
   }
 
   @override
@@ -130,60 +130,84 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 Gap(30),
                 widget.member.gatheringName != null
-                    ? InformationCard(
-                        icon: CupertinoIcons.person_2_fill,
-                        height: 50,
-                        text: '소속',
-                        data: widget.member.gatheringName!,
+                    ? Column(
+                        children: [
+                          InformationCard(
+                            icon: CupertinoIcons.person_2_fill,
+                            height: 50,
+                            text: '소속',
+                            data: widget.member.gatheringName!,
+                          ),
+                          Gap(16),
+                        ],
                       )
                     : Container(),
-                Gap(16),
                 widget.member.carNumber != null
                     // 드래그 가능하도록
-                    ? InformationCard(
-                        icon: CupertinoIcons.car,
-                        height: 50,
-                        text: '차량번호',
-                        data: widget.member.carNumber!,
+                    ? Column(
+                        children: [
+                          InformationCard(
+                            icon: CupertinoIcons.car,
+                            height: 50,
+                            text: '차량번호',
+                            data: widget.member.carNumber!,
+                          ),
+                          Gap(16),
+                        ],
                       )
                     : Container(),
-                Gap(16),
                 widget.member.address != null
-                    ? InformationCard(
-                        icon: CupertinoIcons.house_fill,
-                        height: 50,
-                        text: '집주소',
-                        data: widget.member.address!,
+                    ? Column(
+                        children: [
+                          InformationCard(
+                            icon: CupertinoIcons.house_fill,
+                            height: 50,
+                            text: '집주소',
+                            data: widget.member.address!,
+                          ),
+                          Gap(16),
+                        ],
                       )
                     : Container(),
-                Gap(16),
                 widget.member.salvationYear != null
-                    ? InformationCard(
-                        icon: Icons.celebration,
-                        height: 50,
-                        text: '구원생일',
-                        data: renderSalvationInfo(),
+                    ? Column(
+                        children: [
+                          InformationCard(
+                            icon: Icons.celebration,
+                            height: 50,
+                            text: '구원생일',
+                            data: renderSalvationInfo(),
+                          ),
+                          Gap(16),
+                        ],
                       )
                     : Container(),
-                Gap(16),
                 widget.member.birthYear != null
-                    ? InformationCard(
-                        icon: CupertinoIcons.gift_fill,
-                        height: 50,
-                        text: '생일',
-                        data: '${widget.member.birthYear}년',
+                    ? Column(
+                        children: [
+                          InformationCard(
+                            icon: CupertinoIcons.gift_fill,
+                            height: 50,
+                            text: '생년',
+                            data: '${widget.member.birthYear}년',
+                          ),
+                          Gap(16),
+                        ],
                       )
                     : Container(),
-                Gap(16),
-                widget.member.gatheringName != null
-                    ? InformationCard(
-                        icon: Icons.bookmark,
-                        height: 50,
-                        text: '봉사',
-                        data: widget.member.gatheringName!,
-                      )
-                    : Container(),
-                Gap(16),
+                // widget.member.gatheringName != null
+                //     ? Column(
+                //         children: [
+                //           InformationCard(
+                //             icon: Icons.bookmark,
+                //             height: 50,
+                //             text: '봉사',
+                //             data: widget.member.gatheringName!,
+                //           ),
+                //           Gap(16),
+                //         ],
+                //       )
+                //     : Container(),
               ],
             ),
           ),
