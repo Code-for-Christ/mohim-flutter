@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
@@ -32,19 +33,19 @@ class _SplachScreenState extends State<SplachScreen> {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return DefaultLayout(
-        backgroudColor: PRIMARY_COLOR,
+        backgroudColor: Colors.white,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Mohim',
-                style: titleTextStyle.copyWith(fontSize: 45),
+              Image.asset(
+                'asset/img/logo/mohim_logo.png',
+                width: MediaQuery.of(context).size.width / 2,
               ),
-              Gap(20),
+              Gap(30),
               CircularProgressIndicator(
-                color: Colors.white,
+                color: PRIMARY_COLOR,
               ),
             ],
           ),

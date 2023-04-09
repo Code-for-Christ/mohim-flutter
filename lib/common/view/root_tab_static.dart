@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/contact/view/contact_screen.dart';
 import 'package:phonebook/group/view/group_screen.dart';
 import 'package:phonebook/profile/profile_screen.dart';
-import 'package:phonebook/user/controller/auth_controller.dart';
 
 class RootTab extends StatefulWidget {
   const RootTab({super.key});
