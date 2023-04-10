@@ -14,6 +14,9 @@ class MemberController extends GetxController {
   final searchResultMembers = <ChurchMember>[].obs;
   final memberService = MemberService();
 
+  // getter 추가로 인스턴스 불러오기
+  static MemberController get to => Get.find();
+
   @override
   void onInit() {
     getChuchMembers();

@@ -4,7 +4,7 @@ import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 
 class SearchService {
-  final url = 'http://$ip/churches';
+  final url = '$baseUrl/churches';
 
   Future<List<ChurchMember>> searchMembers(
       {required int churchId, required searchText}) async {

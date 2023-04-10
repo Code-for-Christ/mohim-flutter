@@ -4,7 +4,7 @@ import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 
 class MemberService {
-  final url = 'http://$ip/churches';
+  final url = '$baseUrl/churches';
 
   Future<List<ChurchMember>> getChurchMembers({
     required int churchId,
@@ -20,6 +20,7 @@ class MemberService {
           headers: {'content-type': 'application/json', 'accessToken': 'true'},
         ),
       );
+      print(resp.data['metadata']);
       List<ChurchMember> churchMembers =
           ChurchMember.fromJsonList(resp.data['church_members']);
       return churchMembers;
