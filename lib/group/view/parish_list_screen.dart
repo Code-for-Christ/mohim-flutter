@@ -11,7 +11,7 @@ import 'package:phonebook/group/controller/group_controller.dart';
 class ParishListScreen extends StatelessWidget {
   ParishListScreen({super.key});
 
-  final groupCtrl = Get.find<GroupController>();
+  final groupCtrl = Get.put(GroupController());
 
   @override
   Widget build(BuildContext context) {

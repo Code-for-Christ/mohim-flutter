@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
+import 'package:phonebook/group/controller/group_controller.dart';
 import 'package:phonebook/group/view/gathering_list_screen.dart';
 import 'package:phonebook/group/view/ministry_list_screen.dart';
 import 'package:phonebook/group/view/parish_list_screen.dart';

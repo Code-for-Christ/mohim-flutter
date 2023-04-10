@@ -77,7 +77,7 @@ class GroupService {
         'next': resp.data['metadata']['next_url']
       };
     } catch (e) {
-      return {'result': false};
+      return {'result': false, 'members': []};
     }
   }
 
@@ -152,7 +152,7 @@ class GroupService {
     }
   }
 
-  Future<List<ChurchMember>> getGatheringMembers({
+  Future<Map<String, dynamic>> getGatheringMembers({
     required int churchId,
     required int gatheringId,
     required int page,
@@ -171,7 +171,11 @@ class GroupService {
         ),
       );
       final members = ChurchMember.fromJsonList(resp.data['church_members']);
-      return members;
+      return {
+        'result': true,
+        'members': members,
+        'next': resp.data['metadata']['next_url']
+      };
     } on DioError catch (e) {
       if (e.message.contains('Network')) {
         Get.rawSnackbar(
@@ -179,7 +183,7 @@ class GroupService {
           animationDuration: Duration(milliseconds: 400),
         );
       }
-      return [];
+      return {'result': false, 'members': []};
     }
   }
 }

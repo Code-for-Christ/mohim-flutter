@@ -31,7 +31,7 @@ class GroupController extends GetxController {
   // 페이지네이션
   int page = 1;
   int size = 20;
-
+  final nextData = false.obs;
   @override
   void onInit() {
     getParishList();
@@ -55,7 +55,10 @@ class GroupController extends GetxController {
   }) async {
     final result = await groupService.getCellMembers(
         churchId: authCtrl.churchId, cellId: cellId, page: page, size: size);
-    cellMembers.value = result['members'];
+    if (result['result']) {
+      cellMembers.value = result['members'];
+      nextData.value = result['next'] != null ? true : false;
+    }
   }
 
   Future<void> getMinistryList() async {
@@ -81,10 +84,14 @@ class GroupController extends GetxController {
   Future<void> getGatheringMembers({
     required int gatheringId,
   }) async {
-    gatheringMembers.value = await groupService.getGatheringMembers(
+    final result = await groupService.getGatheringMembers(
         churchId: authCtrl.churchId,
         gatheringId: gatheringId,
         page: page,
         size: size);
+    if (result['result']) {
+      gatheringMembers.value = result['members'];
+      nextData.value = result['next'] != null ? true : false;
+    }
   }
 }

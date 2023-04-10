@@ -42,7 +42,7 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
       child: Obx(() {
         return groupCtrl.ministryMembers.isNotEmpty
             ? ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                 itemBuilder: ((context, index) {
                   final member = groupCtrl.ministryMembers[index];
                   return ContactCard(member: member);

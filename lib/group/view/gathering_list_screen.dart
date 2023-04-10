@@ -10,7 +10,7 @@ import 'package:phonebook/group/controller/group_controller.dart';
 class GatheringListScreen extends StatelessWidget {
   GatheringListScreen({super.key});
 
-  final groupCtrl = Get.find<GroupController>();
+  final groupCtrl = Get.put(GroupController());
 
   @override
   Widget build(BuildContext context) {

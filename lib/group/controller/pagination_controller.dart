@@ -6,28 +6,32 @@ import 'package:phonebook/group/service/group_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class PaginationController extends GetxController {
-  late final ScrollController scrollCtrl;
+  late final ScrollController _scrollCtrl;
   late int id;
   final GroupService _groupService = GroupService();
-  final GroupType type;
+  final GroupType _type;
   int page = 2;
   int size = 20;
-  final hasData = true.obs;
+
   PaginationController(
-      {required this.scrollCtrl, required this.type, required this.id});
+      {required ScrollController scrollCtrl,
+      required GroupType type,
+      required this.id})
+      : _type = type,
+        _scrollCtrl = scrollCtrl;
 
   @override
   void onInit() {
-    scrollCtrl.addListener(() async {
-      if (scrollCtrl.position.maxScrollExtent == scrollCtrl.position.pixels) {
+    _scrollCtrl.addListener(() async {
+      if (_scrollCtrl.position.maxScrollExtent == _scrollCtrl.position.pixels) {
         await _getChurchMembers();
       }
     });
     super.onInit();
   }
 
-  Future<bool> _getChurchMembers() async {
-    if (type == GroupType.cell) {
+  Future<void> _getChurchMembers() async {
+    if (_type == GroupType.cell) {
       final result = await _groupService.getCellMembers(
           churchId: AuthController.to.churchId,
           cellId: id,
@@ -36,11 +40,22 @@ class PaginationController extends GetxController {
       if (result['result']) {
         GroupController.to.cellMembers.addAll(result['members']);
         page++;
-        hasData.value = result['next'] != null ? true : false;
-      } else {
-        return false;
+        GroupController.to.nextData.value =
+            result['next'] != null ? true : false;
       }
     }
-    return false;
+    if (_type == GroupType.gathering) {
+      final result = await _groupService.getCellMembers(
+          churchId: AuthController.to.churchId,
+          cellId: id,
+          page: page,
+          size: size);
+      if (result['result']) {
+        GroupController.to.gatheringMembers.addAll(result['members']);
+        page++;
+        GroupController.to.nextData.value =
+            result['next'] != null ? true : false;
+      }
+    }
   }
 }
