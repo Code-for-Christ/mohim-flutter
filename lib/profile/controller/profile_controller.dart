@@ -1,12 +1,11 @@
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/profile/service/profile_service.dart';
+import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ProfileController extends GetxController {
-  late int churchId;
-  late int memberId;
+  final authCtrl = Get.find<AuthController>();
 
   final ministryRoles = <MinistryRole>[].obs;
 
@@ -43,11 +42,9 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  ProfileController({required this.churchId, required this.memberId});
-
   Future<void> getMemberProfile() async {
     final result = await profileService.getMemberProfile(
-        churchId: churchId, memberId: memberId);
+        churchId: authCtrl.churchId, memberId: authCtrl.memberId);
     if (result != null) {
       member.value = result;
     }
@@ -55,7 +52,7 @@ class ProfileController extends GetxController {
 
   Future<void> getProfileImageUrl() async {
     final result = await profileService.getProfileImageUrl(
-        churchId: churchId, memberId: memberId);
+        churchId: authCtrl.churchId, memberId: authCtrl.memberId);
     if (result != null) {
       imageUrl.value = result.replaceFirst('https', 'http');
     } else {
@@ -65,7 +62,7 @@ class ProfileController extends GetxController {
 
   Future<void> getMinistryRole() async {
     final result = await profileService.getMinistryRole(
-        memberId: memberId, churchId: churchId);
+        memberId: authCtrl.memberId, churchId: authCtrl.churchId);
     ministryRoles.value = result;
   }
 }

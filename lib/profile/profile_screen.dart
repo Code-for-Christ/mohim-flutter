@@ -14,7 +14,7 @@ import 'package:phonebook/user/controller/auth_controller.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  final profileCtrl = Get.find<ProfileController>();
+  final profileCtrl = Get.put(ProfileController());
 
   String renderSalvationInfo() {
     if (profileCtrl.member.value.salvationMonth != null &&
@@ -47,6 +47,10 @@ class ProfileScreen extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       shrinkWrap: true,
                       children: [
+                        InfoDividerBox(
+                            title: '이메일',
+                            subTitle: AuthController.to.email,
+                            icon: CupertinoIcons.person_2_fill),
                         profileCtrl.member.value.cell != null
                             ? InfoDividerBox(
                                 title: '구역',
@@ -76,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                             : SizedBox(),
                         profileCtrl.member.value.birthYear != null
                             ? InfoDividerBox(
-                                title: '생일',
+                                title: '생년',
                                 subTitle: profileCtrl.member.value.birthYear!
                                     .toString(),
                                 icon: Icons.cake)

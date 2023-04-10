@@ -54,7 +54,7 @@ class InfoDividerBox extends StatelessWidget {
                 ),
                 Gap(8),
                 SizedBox(
-                  width: 300,
+                  width: MediaQuery.of(context).size.width / 3 * 2,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Column(

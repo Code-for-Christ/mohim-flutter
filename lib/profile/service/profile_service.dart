@@ -5,7 +5,7 @@ import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 
 class ProfileService {
-  final url = 'http://$ip/churches';
+  final url = '$baseUrl/churches';
 
   Future<ChurchMember?> getMemberProfile(
       {required int churchId, required int memberId}) async {

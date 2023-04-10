@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/view/root_tab_static.dart';
-import 'package:phonebook/contact/controller/member_controller.dart';
-import 'package:phonebook/group/controller/group_controller.dart';
-import 'package:phonebook/profile/controller/profile_controller.dart';
 import 'package:phonebook/user/service/auth_service.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 import 'package:phonebook/user/view/authenticate_screen.dart';
@@ -11,6 +8,12 @@ import 'package:phonebook/user/view/change_password_screen.dart';
 
 class AuthController extends GetxController {
   final authService = AuthService();
+
+  int churchId = -1;
+  int memberId = -1;
+  String email = '';
+
+  static AuthController get to => Get.find();
 
   void checkToken() async {
     final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
@@ -20,7 +23,9 @@ class AuthController extends GetxController {
       if (result) {
         final auth = await checkAuth();
         if (auth['result']) {
-          _bindControllers(auth: auth);
+          churchId = auth['churchId'];
+          memberId = auth['memberId'];
+          email = auth['email'];
           _moveToHome(1000);
         } else {
           _moveToAuthenticate(1000);
@@ -37,14 +42,12 @@ class AuthController extends GetxController {
     await storage.deleteAll();
   }
 
-  void _bindControllers({required Map<String, dynamic> auth}) {
-    Get.put(MemberController(
-        churchId: auth['churchId'], memberId: auth['memberId']));
-    Get.put(GroupController(
-        churchId: auth['churchId'], memberId: auth['memberId']));
-    Get.put(ProfileController(
-        churchId: auth['churchId'], memberId: auth['memberId']));
-  }
+  // Future<void> _bindControllers({required Map<String, dynamic> auth}) async {
+  //   Get.put(MemberController(
+  //       churchId: auth['churchId'], memberId: auth['memberId']));
+  //   Get.put(GroupController(
+  //       churchId: auth['churchId'], memberId: auth['memberId']));
+  // }
 
   Future<void> signUp(String email, String password) async {
     final isSignUp = await authService.signUp(email, password);
@@ -59,7 +62,9 @@ class AuthController extends GetxController {
     if (result) {
       final auth = await checkAuth();
       if (auth['result']) {
-        _bindControllers(auth: auth);
+        churchId = auth['churchId'];
+        memberId = auth['memberId'];
+        email = auth['email'];
         _moveToHome(0);
       } else {
         _moveToAuthenticate(0);
@@ -82,8 +87,12 @@ class AuthController extends GetxController {
     String name,
     String phoneNumber,
   ) async {
-    final result = await authService.authenticate(churchId, name, phoneNumber);
-    if (result) {
+    final auth = await authService.authenticate(
+        churchId: churchId, name: name, phoneNumber: phoneNumber);
+    if (auth['result']) {
+      churchId = auth['churchId'];
+      memberId = auth['memberId'];
+      email = auth['email'];
       _moveToHome(0);
     }
   }

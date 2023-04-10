@@ -5,7 +5,7 @@ import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/user/model/login_response.dart';
 
 class AuthService {
-  final url = "http://$ip/auth";
+  final url = "$baseUrl/auth";
 
   Future<bool> signUp(String email, String password) async {
     try {
@@ -46,6 +46,7 @@ class AuthService {
           key: ACCESS_TOKEN_KEY, value: loginResponse.accessToken);
       return true;
     } on DioError catch (e) {
+      print(e);
       print('[GET] 로그인 에러 : ${e.response!.data}');
       Get.rawSnackbar(
         message: e.response!.data['message'].toString(),
@@ -58,6 +59,7 @@ class AuthService {
   Future<Map<String, dynamic>> checkAuth() async {
     try {
       final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(url,
           options: Options(headers: {
             'Authorization':
@@ -68,6 +70,7 @@ class AuthService {
         'result': resp.data['is_authenticated'],
         'churchId': resp.data['church_id'],
         'memberId': resp.data['church_member_id'],
+        'email' : resp.data['email']
       };
     } catch (e) {
       print('[GET] 인증여부확인 에러 : $e');
@@ -75,8 +78,10 @@ class AuthService {
     }
   }
 
-  Future<bool> authenticate(
-      int church_id, String name, String phone_number) async {
+  Future<Map<String, dynamic>> authenticate(
+      {required int churchId,
+      required String name,
+      required String phoneNumber}) async {
     try {
       final dio = Dio();
       final resp = await dio.post('$url/authenticate',
@@ -86,17 +91,22 @@ class AuthService {
             'content-type': 'application/json'
           }),
           data: {
-            'church_id': church_id,
+            'church_id': churchId,
             'name': name,
-            'phone_number': phone_number,
+            'phone_number': phoneNumber,
           });
-      return resp.data['is_authenticated'];
+
+      return {
+        'result': resp.data['is_authenticated'],
+        'churchId': resp.data['church_id'],
+        'memberId': resp.data['church_member_id'],
+      };
     } on DioError catch (e) {
       Get.rawSnackbar(
         message: e.response!.data['message'].toString(),
         animationDuration: Duration(milliseconds: 400),
       );
-      return false;
+      return {'result': false};
     }
   }
 

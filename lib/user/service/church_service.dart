@@ -3,7 +3,7 @@ import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/user/model/church_model.dart';
 
 class ChurchService {
-  final url = "http://$ip/churches";
+  final url = "$baseUrl/churches";
 
   Future<List<ChurchModel>> getChurches() async {
     try {
