@@ -7,6 +7,8 @@ import 'package:phonebook/user/controller/auth_controller.dart';
 class MemberController extends GetxController {
   int page = 1;
   int size = 20;
+  final nextData = true.obs;
+
   final profileImageUrl = ''.obs;
   final authCtrl = Get.find<AuthController>();
 
@@ -23,16 +25,15 @@ class MemberController extends GetxController {
     super.onInit();
   }
 
-  Future<bool> getChuchMembers() async {
+  Future<void> getChuchMembers() async {
     final result = await memberService.getChurchMembers(
         churchId: authCtrl.churchId, page: page, size: size);
 
-    if (result.isNotEmpty) {
-      churchMembers.addAll(result);
+    if (result['result']) {
+      churchMembers.addAll(result['members']);
       page++;
-      return true;
+      nextData.value = result['next'] != null ? true : false;
     }
-    return false;
   }
 
   Future<void> getProfileImageUrl({required int memberId}) async {

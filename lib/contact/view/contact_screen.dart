@@ -9,6 +9,7 @@ import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/component/contact_card.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 import 'package:phonebook/contact/controller/search_controller.dart';
+import 'package:phonebook/contact/util/debounce.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -29,7 +30,8 @@ class _ContactScreenState extends State<ContactScreen> {
   final ScrollController scrollCtrl = ScrollController();
 
   bool isSearching = false;
-  bool hasData = true;
+
+  final _debounce = Debounce(Duration(microseconds: 100));
 
   @override
   void initState() {
@@ -38,10 +40,8 @@ class _ContactScreenState extends State<ContactScreen> {
         churchId: authCtrl.churchId));
     scrollCtrl.addListener(() async {
       if (scrollCtrl.position.maxScrollExtent == scrollCtrl.position.pixels) {
-        final result = await memberCtrl.getChuchMembers();
-        setState(() {
-          hasData = result;
-        });
+        // final result = await memberCtrl.getChuchMembers();
+        _debounce(() => memberCtrl.getChuchMembers());
       }
     });
     super.initState();
@@ -91,7 +91,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   member: member,
                 );
               } else {
-                return hasData
+                return memberCtrl.nextData.value
                     ? Center(child: CircularProgressIndicator())
                     : Container();
               }

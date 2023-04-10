@@ -6,7 +6,7 @@ import 'package:phonebook/common/model/church_member.dart';
 class MemberService {
   final url = '$baseUrl/churches';
 
-  Future<List<ChurchMember>> getChurchMembers({
+  Future<Map<String, dynamic>> getChurchMembers({
     required int churchId,
     required int page,
     required int size,
@@ -20,13 +20,15 @@ class MemberService {
           headers: {'content-type': 'application/json', 'accessToken': 'true'},
         ),
       );
-      print(resp.data['metadata']);
       List<ChurchMember> churchMembers =
           ChurchMember.fromJsonList(resp.data['church_members']);
-      return churchMembers;
+      return {
+        'result': true,
+        'members': churchMembers,
+        'next': resp.data['metadata']['next_url']
+      };
     } catch (e) {
-      print(e);
-      return [];
+      return {'result': false};
     }
   }
 
