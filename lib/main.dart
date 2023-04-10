@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:phonebook/common/http/my_http_overrides.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/view/splash_screen.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(_App());
 }
 
@@ -17,9 +22,9 @@ class _App extends StatelessWidget {
       title: 'phonebook',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: PRIMARY_COLOR,
-        fontFamily: 'NotoSans',
-      ),
+          primaryColor: PRIMARY_COLOR,
+          fontFamily: 'NotoSans',
+          platform: TargetPlatform.iOS),
       home: SplachScreen(),
     );
   }
