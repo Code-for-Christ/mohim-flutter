@@ -10,6 +10,8 @@ import '../model/cell.dart';
 class GroupController extends GetxController {
   final authCtrl = Get.find<AuthController>();
 
+  static GroupController get to => Get.find();
+
   // 그룹 서비스
   final groupService = GroupService();
 
@@ -51,8 +53,9 @@ class GroupController extends GetxController {
   Future<void> getCellMembers({
     required int cellId,
   }) async {
-    cellMembers.value = await groupService.getCellMembers(
+    final result = await groupService.getCellMembers(
         churchId: authCtrl.churchId, cellId: cellId, page: page, size: size);
+    cellMembers.value = result['members'];
   }
 
   Future<void> getMinistryList() async {

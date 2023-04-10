@@ -11,7 +11,7 @@ import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
 
 class GroupService {
-  final url = 'http://$ip/churches';
+  final url = '$baseUrl/churches';
 
   Future<List<int>> getParishList({required int churchId}) async {
     try {
@@ -24,6 +24,7 @@ class GroupService {
               'accessToken': 'true',
             },
           ));
+
       final parishes = Parishes.fromJson(resp.data);
       return parishes.parishes;
     } catch (e) {
@@ -51,7 +52,7 @@ class GroupService {
     }
   }
 
-  Future<List<ChurchMember>> getCellMembers({
+  Future<Map<String, dynamic>> getCellMembers({
     required int churchId,
     required int cellId,
     required int page,
@@ -61,7 +62,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        '$url/$churchId/members?cell_id=$cellId&page=$page&size=$size&order_by=householder_id',
+        '$url/$churchId/members?cell_id=$cellId&page=$page&size=$size&order_by=name',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -70,9 +71,13 @@ class GroupService {
         ),
       );
       final members = ChurchMember.fromJsonList(resp.data['church_members']);
-      return members;
+      return {
+        'result': true,
+        'members': members,
+        'next': resp.data['metadata']['next_url']
+      };
     } catch (e) {
-      return [];
+      return {'result': false};
     }
   }
 
@@ -157,7 +162,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        '$url/$churchId/members?gathering_id=$gatheringId&page=$page&size=$size&order_by=householder_id',
+        '$url/$churchId/members?gathering_id=$gatheringId&page=$page&size=$size&order_by=name',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -177,6 +182,4 @@ class GroupService {
       return [];
     }
   }
-
-  
 }
