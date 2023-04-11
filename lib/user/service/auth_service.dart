@@ -66,11 +66,12 @@ class AuthService {
                 'Bearer ${await storage.read(key: ACCESS_TOKEN_KEY)}',
             'content-type': 'application/json'
           }));
+      print(resp.data['email']);
       return {
         'result': resp.data['is_authenticated'],
         'churchId': resp.data['church_id'],
         'memberId': resp.data['church_member_id'],
-        'email' : resp.data['email']
+        'email': resp.data['email']
       };
     } catch (e) {
       print('[GET] 인증여부확인 에러 : $e');
@@ -100,6 +101,7 @@ class AuthService {
         'result': resp.data['is_authenticated'],
         'churchId': resp.data['church_id'],
         'memberId': resp.data['church_member_id'],
+        'email': resp.data['email'],
       };
     } on DioError catch (e) {
       Get.rawSnackbar(
