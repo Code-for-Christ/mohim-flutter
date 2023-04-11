@@ -43,7 +43,7 @@ class _SplachScreenState extends State<SplachScreen> {
             children: [
               Image.asset(
                 'asset/img/logo/mohim_logo.png',
-                width: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(context).size.width,
               ),
               Gap(30),
               CircularProgressIndicator(
