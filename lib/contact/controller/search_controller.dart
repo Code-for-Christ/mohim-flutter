@@ -10,6 +10,9 @@ class SearchController extends GetxController {
   final searchResult = ''.obs; // Rx로 searchResult를 관리
   late final TextEditingController searchTextEditController;
   final memberCtrl = Get.find<MemberController>();
+  int page = 2; // 검색시도시 항상 1번으로 검색
+  int size = 20;
+  final hasNextPage = false.obs;
 
   late final int churchId;
 
@@ -32,8 +35,23 @@ class SearchController extends GetxController {
   }
 
   Future<void> searchMembers({required String searchText}) async {
+    // 항상 1번 페이지로 검색
     final result = await searchService.searchMembers(
-        churchId: churchId, searchText: searchText);
-    memberCtrl.searchResultMembers.value = result;
+        churchId: churchId, searchText: searchText, page: 1, size: size);
+    if (result['result']) {
+      memberCtrl.searchResultMembers.value = result['members'];
+      page = 2; // 검색후에는 page 초기화
+      hasNextPage.value = result['nextUrl'] != null ? true : false;
+    }
+  }
+
+  Future<void> loadMoreMembers() async {
+    final result = await searchService.searchMembers(
+        churchId: churchId, searchText: searchText, page: page, size: size);
+    if (result['result']) {
+      memberCtrl.searchResultMembers.addAll(result['members']);
+      page++;
+      hasNextPage.value = result['nextUrl'] != null ? true : false;
+    }
   }
 }
