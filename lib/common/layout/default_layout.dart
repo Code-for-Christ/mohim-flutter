@@ -38,8 +38,11 @@ class DefaultLayout extends StatelessWidget {
     } else {
       return AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            systemNavigationBarColor: Colors.transparent),
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
         backgroundColor: appBarColor,
         elevation: 0,
         title: Text(
