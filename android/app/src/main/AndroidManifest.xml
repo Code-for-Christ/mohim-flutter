@@ -13,8 +13,9 @@
     <data android:scheme="tel" />
   </intent>
 </queries>
+<uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="phonebook"
+        android:label="모힘"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
