@@ -70,7 +70,7 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
                   return ContactCard(member: member);
                 }),
                 separatorBuilder: ((context, index) {
-                  return Gap(16);
+                  return Gap(8);
                 }),
                 itemCount: groupCtrl.gatheringMembers.length)
             : Container();

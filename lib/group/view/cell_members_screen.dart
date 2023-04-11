@@ -21,6 +21,7 @@ class _CellMembersScreenState extends State<CellMembersScreen> {
   final groupCtrl = Get.find<GroupController>();
   final scrollCtrl = ScrollController();
   late final PaginationController paginationCtrl;
+  late int preHouseholderId;
 
   @override
   void initState() {
@@ -61,10 +62,37 @@ class _CellMembersScreenState extends State<CellMembersScreen> {
                 }
               }
               final member = groupCtrl.cellMembers[index];
+              preHouseholderId = member.householderId;
               return ContactCard(member: member);
             }),
             separatorBuilder: ((context, index) {
-              return Gap(12);
+              if (index == groupCtrl.cellMembers.length - 1) {
+                return Gap(8);
+              }
+              final currentHouseholderId =
+                  groupCtrl.cellMembers[index].householderId;
+              final nextHouseholderId = index + 1 < groupCtrl.cellMembers.length
+                  ? groupCtrl.cellMembers[index + 1].householderId
+                  : null;
+              return currentHouseholderId == nextHouseholderId
+                  ? Gap(8) // 같은 householder_id 끼리는 여백만 주기
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 12),
+                      child: Container(
+                        width: double.infinity,
+                        height: 4,
+                        // decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     color: Colors.grey),
+                      ),
+                    );
+              // Divider(
+
+              //     color: BODY_TEXT_COLOR,
+              //     thickness: 2,
+              //     height: 30,
+              //   ); // 아닌 경우는 Divider 추가
             }),
             itemCount: groupCtrl.cellMembers.length + 1);
       }),

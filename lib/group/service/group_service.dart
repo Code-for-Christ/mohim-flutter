@@ -62,7 +62,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        '$url/$churchId/members?cell_id=$cellId&page=$page&size=$size&order_by=name',
+        '$url/$churchId/members?cell_id=$cellId&page=$page&size=$size&order_by=householder_id&name',
         options: Options(
           headers: {
             'content-type': 'application/json',
