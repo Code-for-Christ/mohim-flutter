@@ -6,7 +6,6 @@ import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ProfileController extends GetxController {
   final authCtrl = Get.find<AuthController>();
-
   final ministryRoles = <MinistryRole>[].obs;
 
   final imageUrl = ''.obs;

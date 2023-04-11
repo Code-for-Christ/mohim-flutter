@@ -9,6 +9,7 @@ import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/profile/component/info_divider_box.dart';
 import 'package:phonebook/profile/controller/profile_controller.dart';
+import 'package:phonebook/profile/util/cache_manager.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -47,10 +48,18 @@ class ProfileScreen extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       shrinkWrap: true,
                       children: [
-                        InfoDividerBox(
-                            title: '이메일',
-                            subTitle: AuthController.to.email,
-                            icon: CupertinoIcons.person_2_fill),
+                        AuthController.to.email.isNotEmpty
+                            ? InfoDividerBox(
+                                title: '이메일',
+                                subTitle: AuthController.to.email,
+                                icon: CupertinoIcons.mail_solid)
+                            : SizedBox(),
+                        profileCtrl.member.value.address != null
+                            ? InfoDividerBox(
+                                title: '주소',
+                                subTitle: profileCtrl.member.value.address!,
+                                icon: CupertinoIcons.house_fill)
+                            : SizedBox(),
                         profileCtrl.member.value.cell != null
                             ? InfoDividerBox(
                                 title: '구역',
@@ -81,15 +90,9 @@ class ProfileScreen extends StatelessWidget {
                         profileCtrl.member.value.birthYear != null
                             ? InfoDividerBox(
                                 title: '생년',
-                                subTitle: profileCtrl.member.value.birthYear!
-                                    .toString(),
+                                subTitle:
+                                    '${profileCtrl.member.value.birthYear!.toString()}년',
                                 icon: Icons.cake)
-                            : SizedBox(),
-                        profileCtrl.member.value.address != null
-                            ? InfoDividerBox(
-                                title: '주소',
-                                subTitle: profileCtrl.member.value.address!,
-                                icon: CupertinoIcons.house_fill)
                             : SizedBox(),
                         profileCtrl.member.value.carNumber != null
                             ? InfoDividerBox(
@@ -225,7 +228,7 @@ class _ProfileImage extends StatelessWidget {
             width: imageWidht,
             height: imageHeight,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: INPUT_BG_COLOR),
+                borderRadius: BorderRadius.circular(5), color: INPUT_BG_COLOR),
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
@@ -247,6 +250,7 @@ class _ProfileImage extends StatelessWidget {
                     width: imageWidht,
                     height: imageHeight,
                     fit: BoxFit.cover,
+                    cacheManager: CustomCacheManager.instance,
                   )
                 : Center(
                     child: Icon(
