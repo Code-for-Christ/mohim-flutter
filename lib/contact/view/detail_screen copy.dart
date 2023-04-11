@@ -255,7 +255,7 @@ class _ProfileImageBox extends StatelessWidget {
                     borderRadius: BorderRadius.circular(7),
                     color: INPUT_BG_COLOR),
               ),
-              memberCtrl.profileImageUrl.isEmpty
+              memberCtrl.profileImageUrl.isNotEmpty
                   ? SizedBox(
                       width: imageWidth,
                       height: imageHeight,

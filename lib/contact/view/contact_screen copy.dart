@@ -7,6 +7,7 @@ import 'package:phonebook/common/component/custom_text_form_field.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/component/contact_card.dart';
+import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 import 'package:phonebook/contact/controller/search_controller.dart';
 import 'package:phonebook/contact/util/debounce.dart';
@@ -31,6 +32,8 @@ class _ContactScreenState extends State<ContactScreen> {
   final ScrollController searchScrollCtrl = ScrollController();
 
   bool isSearching = false;
+
+  List names = ['김바울', '이베드로', '최요한', '추이삭', '나마가', '박에스더', '유엘림'];
 
   final _debounce = Debounce(Duration(microseconds: 100));
 
@@ -66,11 +69,33 @@ class _ContactScreenState extends State<ContactScreen> {
           );
         }
         if (isSearching && memberCtrl.searchResultMembers.isEmpty) {
-          return Center(
-            child: Text(
-              '검색결과가 없습니다',
-              style: body1TextStyle.copyWith(fontWeight: FontWeight.w400),
-            ),
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ContactCard(
+                    member: ChurchMember(
+                        id: 0,
+                        name: names[0],
+                        thumbnail: null,
+                        gatheringId: 0,
+                        householderId: 0,
+                        birthYear: 1980,
+                        salvationYear: 2020,
+                        salvationMonth: 11,
+                        salvationDay: 12,
+                        carNumber: '97다9179',
+                        sex: 'male',
+                        phoneNumber: '010-9179-0000',
+                        address: '고양시',
+                        cell: 0,
+                        cellId: 0,
+                        chruchName: 'chruchName',
+                        churchId: 1,
+                        gatheringName: '봉사회',
+                        relationshipWithHouseholder: '아들')),
+              ),
+            ],
           );
         }
         if (isSearching && memberCtrl.searchResultMembers.isNotEmpty) {
@@ -99,21 +124,34 @@ class _ContactScreenState extends State<ContactScreen> {
             controller: scrollCtrl,
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
             itemBuilder: ((context, index) {
-              if (index < memberCtrl.churchMembers.length) {
-                final member = memberCtrl.churchMembers[index];
-                return ContactCard(
-                  member: member,
-                );
-              } else {
-                return memberCtrl.nextData.value
-                    ? Center(child: CircularProgressIndicator())
-                    : Container();
-              }
+              final member = ChurchMember(
+                  id: index,
+                  name: names[index],
+                  thumbnail: null,
+                  gatheringId: index,
+                  householderId: index,
+                  birthYear: 1980,
+                  salvationYear: 2020,
+                  salvationMonth: 11,
+                  salvationDay: 12,
+                  carNumber: '97다9179',
+                  sex: 'male',
+                  phoneNumber: '010-9179-000$index',
+                  address: '고양시',
+                  cell: index,
+                  cellId: index,
+                  chruchName: 'chruchName',
+                  churchId: 1,
+                  gatheringName: '봉사회',
+                  relationshipWithHouseholder: '아들');
+              return ContactCard(
+                member: member,
+              );
             }),
             separatorBuilder: ((context, index) {
               return Gap(10);
             }),
-            itemCount: memberCtrl.churchMembers.length + 1);
+            itemCount: names.length);
       }),
     );
   }
