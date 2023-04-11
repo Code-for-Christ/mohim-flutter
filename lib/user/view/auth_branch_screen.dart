@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/user/view/login_screen.dart';
 import 'package:phonebook/user/view/sign_up_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthBranchScreen extends StatelessWidget {
   const AuthBranchScreen({super.key});
@@ -21,11 +24,11 @@ class AuthBranchScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Spacer(),
               Image.asset(
                 'asset/img/logo/mohim_logo.png',
-                width: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(context).size.width,
               ),
-              Gap(100),
               CustomSquareButton(
                 color: PRIMARY_COLOR,
                 text: '로그인',
@@ -48,7 +51,22 @@ class AuthBranchScreen extends StatelessWidget {
                   isScrollControlled: T,
                   enterBottomSheetDuration: Duration(milliseconds: 200),
                 ),
-              )
+              ),
+              Spacer(),
+              TextButton(
+                  onPressed: () async {
+                    final url = Uri.parse(
+                        'https://sites.google.com/view/mohim-privacy-policy');
+                    if (await canLaunchUrl(url)) {
+                      // if (Platform.isIOS) {
+                      launchUrl(url, mode: LaunchMode.inAppWebView);
+                      // }
+                      // if (Platform.isAndroid){
+                      //   launchUrl(url, mode: )
+                      // }
+                    }
+                  },
+                  child: Text('개인정보 처리방침')),
             ],
           ),
         ),
