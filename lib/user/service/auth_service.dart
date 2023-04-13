@@ -10,6 +10,7 @@ class AuthService {
   Future<bool> signUp(String email, String password) async {
     try {
       final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
       final resp = await dio.post('$url/users',
           options: Options(headers: {'content-type': 'application/json'}),
           data: {
@@ -31,6 +32,7 @@ class AuthService {
     try {
       print('$url/login');
       final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
       final resp = await dio.post(
         '$url/login',
         options: Options(
@@ -85,6 +87,7 @@ class AuthService {
       required String phoneNumber}) async {
     try {
       final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
       final resp = await dio.post('$url/authenticate',
           options: Options(headers: {
             'Authorization':
@@ -115,6 +118,7 @@ class AuthService {
   Future<bool> refreshToken() async {
     try {
       final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
       final resp = await dio.post('$url/refresh-token',
           options: Options(headers: {
             'content-type': 'application/json',

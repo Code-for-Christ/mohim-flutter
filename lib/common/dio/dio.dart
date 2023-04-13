@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/view/root_tab_static.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 
 class CustomInterceptor extends Interceptor {
@@ -42,7 +43,7 @@ class CustomInterceptor extends Interceptor {
     // 다시 새로운 토큰으로 요청을 한다.
     print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
 
-    print(err.response!.data);
+    // print(err.response!.data);
     // final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
 
     // // refreshToken이 없으면
@@ -54,6 +55,14 @@ class CustomInterceptor extends Interceptor {
 
     final isStatus403 = err.response?.statusCode == 403; // 401이거나 false 거나
     final isPathRefresh = err.requestOptions.path == '/auth';
+
+    if (err.type == DioErrorType.connectTimeout ||
+        err.type == DioErrorType.sendTimeout ||
+        err.type == DioErrorType.other) {
+      Get.offAll(AuthBranchScreen());
+      Get.snackbar('네트워크 연결오류', '네트워크를 연결해주세요');
+      // 오류 처리 로직 추가
+    }
 
     if (isStatus403 && !isPathRefresh) {
       Get.offAll(AuthBranchScreen());
@@ -84,6 +93,8 @@ class CustomInterceptor extends Interceptor {
       // } catch (e) {
       //   return handler.reject(err);
     }
+
+    return handler.next(err);
   }
 
   //   return super.onError(err, handler);
