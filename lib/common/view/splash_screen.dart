@@ -38,18 +38,19 @@ class _SplachScreenState extends State<SplachScreen> {
         backgroudColor: Colors.white,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'asset/img/logo/mohim_logo.png',
-                width: MediaQuery.of(context).size.width,
-              ),
-              Gap(30),
-              CircularProgressIndicator(
-                color: PRIMARY_COLOR,
-              ),
-            ],
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'asset/img/logo/mohim_logo.png',
+                  width: MediaQuery.of(context).size.width,
+                ),
+                CircularProgressIndicator(
+                  color: PRIMARY_COLOR,
+                ),
+              ],
+            ),
           ),
         ));
   }
