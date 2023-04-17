@@ -28,15 +28,15 @@ class AuthController extends GetxController {
           churchId = auth['churchId'];
           memberId = auth['memberId'];
           email = auth['email'];
-          _moveToHome(1000);
+          _moveToHome(0);
         } else {
-          _moveToAuthenticate(1000);
+          _moveToAuthenticate(0);
         }
       } else {
         _deleteToken();
       }
     } else {
-      _moveToAuthBranch(1000);
+      _moveToAuthBranch(0);
     }
   }
 
@@ -67,9 +67,9 @@ class AuthController extends GetxController {
         churchId = auth['churchId'];
         memberId = auth['memberId'];
         email = auth['email'];
-        _moveToHome(0);
+        _moveToHome(300);
       } else {
-        _moveToAuthenticate(0);
+        _moveToAuthenticate(300);
       }
     }
     return false;
@@ -95,7 +95,7 @@ class AuthController extends GetxController {
       churchId = auth['churchId'];
       memberId = auth['memberId'];
       email = auth['email'];
-      _moveToHome(0);
+      _moveToHome(1000);
     }
   }
 
