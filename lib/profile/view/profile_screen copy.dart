@@ -206,37 +206,42 @@ class _ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(4),
-      height: 130,
-      width: 110,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        // boxShadow: [
-        //   BoxShadow(
-        //     blurRadius: 7,
-        //     color: Color(0x411D2429),
-        //     offset: Offset(0, 1),
-        //   ),
-        // ],
-      ),
-      child: Stack(
-        children: [
-          Container(
-            width: imageWidht,
-            height: imageHeight,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5), color: INPUT_BG_COLOR),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 5.8,
+      child: AspectRatio(
+        aspectRatio: 5 / 6,
+        child: Container(
+          padding: EdgeInsets.all(4),
+          height: 130,
+          width: 110,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            // boxShadow: [
+            //   BoxShadow(
+            //     blurRadius: 7,
+            //     color: Color(0x411D2429),
+            //     offset: Offset(0, 1),
+            //   ),
+            // ],
           ),
-          Center(
-            child: Icon(
-              Icons.person,
-              size: 55,
-              color: PERSON_ICON_COLOR,
-            ),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: INPUT_BG_COLOR),
+              ),
+              Center(
+                child: Icon(
+                  Icons.person,
+                  size: 55,
+                  color: PERSON_ICON_COLOR,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
