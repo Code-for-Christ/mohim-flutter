@@ -232,7 +232,10 @@ class _ProfileImageBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(ImageScreen(), fullscreenDialog: true, ),
+      onTap: () => Get.to(
+        ImageScreen(),
+        fullscreenDialog: true,
+      ),
       child: Container(
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -254,6 +257,11 @@ class _ProfileImageBox extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
                     color: INPUT_BG_COLOR),
+                child: Icon(
+                  Icons.person,
+                  size: 55,
+                  color: BODY_TEXT_COLOR,
+                ),
               ),
               memberCtrl.profileImageUrl.isNotEmpty
                   ? SizedBox(

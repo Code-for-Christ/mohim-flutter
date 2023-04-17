@@ -18,56 +18,60 @@ class AuthBranchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Spacer(),
-              Image.asset(
-                'asset/img/logo/mohim_logo.png',
-                width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'asset/img/logo/mohim_logo.png',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  CustomSquareButton(
+                    color: PRIMARY_COLOR,
+                    text: '로그인',
+                    filled: false,
+                    height: 60,
+                    onTap: () => Get.bottomSheet(
+                      LoginScreen(),
+                      isScrollControlled: T,
+                      enterBottomSheetDuration: Duration(milliseconds: 200),
+                    ),
+                  ),
+                  Gap(16),
+                  CustomSquareButton(
+                    color: PRIMARY_COLOR,
+                    text: '이메일로 시작하기',
+                    filled: true,
+                    height: 60,
+                    onTap: () => Get.bottomSheet(
+                      SignUpScreen(),
+                      isScrollControlled: T,
+                      enterBottomSheetDuration: Duration(milliseconds: 200),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        final url = Uri.parse(
+                            'https://sites.google.com/view/mohim-privacy-policy');
+                        if (await canLaunchUrl(url)) {
+                          // if (Platform.isIOS) {
+                          launchUrl(url, mode: LaunchMode.inAppWebView);
+                          // }
+                          // if (Platform.isAndroid){
+                          //   launchUrl(url, mode: )
+                          // }
+                        }
+                      },
+                      child: Text('개인정보 처리방침')),
+                ],
               ),
-              CustomSquareButton(
-                color: PRIMARY_COLOR,
-                text: '로그인',
-                filled: false,
-                height: 60,
-                onTap: () => Get.bottomSheet(
-                  LoginScreen(),
-                  isScrollControlled: T,
-                  enterBottomSheetDuration: Duration(milliseconds: 200),
-                ),
-              ),
-              Gap(16),
-              CustomSquareButton(
-                color: PRIMARY_COLOR,
-                text: '이메일로 시작하기',
-                filled: true,
-                height: 60,
-                onTap: () => Get.bottomSheet(
-                  SignUpScreen(),
-                  isScrollControlled: T,
-                  enterBottomSheetDuration: Duration(milliseconds: 200),
-                ),
-              ),
-              Spacer(),
-              TextButton(
-                  onPressed: () async {
-                    final url = Uri.parse(
-                        'https://sites.google.com/view/mohim-privacy-policy');
-                    if (await canLaunchUrl(url)) {
-                      // if (Platform.isIOS) {
-                      launchUrl(url, mode: LaunchMode.inAppWebView);
-                      // }
-                      // if (Platform.isAndroid){
-                      //   launchUrl(url, mode: )
-                      // }
-                    }
-                  },
-                  child: Text('개인정보 처리방침')),
-            ],
+            ),
           ),
         ),
       ),

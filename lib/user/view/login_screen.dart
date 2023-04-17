@@ -27,8 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isDisabled = true;
 
-
-
   final authCtrl = Get.put(AuthController());
 
   final _formKey = GlobalKey<FormState>();
@@ -113,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         passwordValidated = false;
-                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요';
+                        return '영어, 숫자를 포함하여 8자 이상으로 입력하세요';
                       } else {
                         passwordValidated = true;
                         return null;

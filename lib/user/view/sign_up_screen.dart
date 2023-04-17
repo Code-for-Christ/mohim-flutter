@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         passwordValidated = false;
-                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요.';
+                        return '영어, 숫자를 포함하여 8자 이상으로 입력하세요.';
                       } else {
                         passwordValidated = true;
                         return null;
@@ -146,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         confirmationValidated = false;
-                        return '영어, 숫자, 특수문자를 포함하여 8자 이상으로 입력하세요.';
+                        return '영어, 숫자를 포함하여 8자 이상으로 입력하세요.';
                       } else if (value != password) {
                         confirmationValidated = false;
                         return '비밀번호가 다릅니다';
