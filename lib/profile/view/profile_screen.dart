@@ -207,59 +207,58 @@ class _ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(4),
-      height: 130,
-      width: 110,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        // boxShadow: [
-        //   BoxShadow(
-        //     blurRadius: 7,
-        //     color: Color(0x411D2429),
-        //     offset: Offset(0, 1),
-        //   ),
-        // ],
-      ),
-      child: Stack(
-        children: [
-          Container(
-            width: imageWidht,
-            height: imageHeight,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5), color: INPUT_BG_COLOR),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 5.8,
+      child: AspectRatio(
+        aspectRatio: 5 / 6,
+        child: Container(
+          padding: EdgeInsets.all(4),
+          // height: MediaQuery.of(context).size.height / 5.8,
+          // width: MediaQuery.of(context).size.width / 3.2,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            // boxShadow: [
+            //   BoxShadow(
+            //     blurRadius: 7,
+            //     color: Color(0x411D2429),
+            //     offset: Offset(0, 1),
+            //   ),
+            // ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: profileCtrl.imageUrl.isNotEmpty
-                ?
-                // Image.network(
-                //     profileCtrl.imageUrl.value,
-                //     width: imageWidht,
-                //     height: imageHeight,
-                //     fit: BoxFit.cover,
-                //   )
-                CachedNetworkImage(
-                    imageUrl: profileCtrl.imageUrl.value,
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.person,
-                      size: 55,
-                      color: PERSON_ICON_COLOR,
-                    ),
-                    width: imageWidht,
-                    height: imageHeight,
-                    fit: BoxFit.cover,
-                    cacheManager: CustomCacheManager.instance,
-                  )
-                : Center(
-                    child: Icon(
-                    Icons.person,
-                    color: PERSON_ICON_COLOR,
-                    size: 55,
-                  )),
+          child: Stack(
+            children: [
+              Container(
+                // width: imageWidht,
+                // height: imageHeight,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: INPUT_BG_COLOR),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: profileCtrl.imageUrl.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: profileCtrl.imageUrl.value,
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.person,
+                          size: 55,
+                          color: PERSON_ICON_COLOR,
+                        ),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        cacheManager: CustomCacheManager.instance,
+                      )
+                    : Center(
+                        child: Icon(
+                        Icons.person,
+                        color: PERSON_ICON_COLOR,
+                        size: 55,
+                      )),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
