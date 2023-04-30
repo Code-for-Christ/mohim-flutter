@@ -146,7 +146,7 @@ class _ProfileBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.bottomLeft,
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height / 3.8,
       width: double.infinity,
       decoration: BoxDecoration(
           color: PRIMARY_COLOR,

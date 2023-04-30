@@ -64,7 +64,7 @@ class _GroupScreenState extends State<GroupScreen>
       elevation: 0,
       centerTitle: false,
       bottom: PreferredSize(
-        preferredSize: Size(double.infinity, kToolbarHeight - 12),
+        preferredSize: Size(double.infinity, kToolbarHeight),
         child: Container(
           height: kToolbarHeight + 12,
           padding: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
