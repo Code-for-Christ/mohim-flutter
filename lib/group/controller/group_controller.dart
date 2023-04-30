@@ -92,6 +92,7 @@ class GroupController extends GetxController {
     if (result['result']) {
       gatheringMembers.value = result['members'];
       nextData.value = result['next'] != null ? true : false;
+      print(nextData.value);
     }
   }
 }

@@ -21,7 +21,7 @@ class MemberController extends GetxController {
 
   @override
   void onInit() {
-    getChuchMembers();
+    // getChuchMembers();
     super.onInit();
   }
 

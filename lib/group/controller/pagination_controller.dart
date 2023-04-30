@@ -27,6 +27,7 @@ class PaginationController extends GetxController {
         await _getChurchMembers();
       }
     });
+    _scrollCtrl.toString();
     super.onInit();
   }
 
@@ -45,9 +46,9 @@ class PaginationController extends GetxController {
       }
     }
     if (_type == GroupType.gathering) {
-      final result = await _groupService.getCellMembers(
+      final result = await _groupService.getGatheringMembers(
           churchId: AuthController.to.churchId,
-          cellId: id,
+          gatheringId: id,
           page: page,
           size: size);
       if (result['result']) {

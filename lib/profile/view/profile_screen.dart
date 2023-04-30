@@ -249,12 +249,15 @@ class _ProfileImage extends StatelessWidget {
                         width: double.infinity,
                         cacheManager: CustomCacheManager.instance,
                       )
-                    : Center(
-                        child: Icon(
-                        Icons.person,
-                        color: PERSON_ICON_COLOR,
-                        size: 55,
-                      )),
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height / 5.8,
+                        child: Center(
+                            child: Icon(
+                          Icons.person,
+                          color: PERSON_ICON_COLOR,
+                          size: 55,
+                        )),
+                      ),
               ),
             ],
           ),

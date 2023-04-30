@@ -8,7 +8,7 @@ const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN';
 const emailPattern = r'^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
 const passwordPattern =
     // r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$';
-    r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@!%*#?&]{8,}$";
 
 // localhost
 final emulatorIp = '10.0.2.2:8000/api/v1';

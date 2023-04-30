@@ -60,9 +60,18 @@ class _ContactScreenState extends State<ContactScreen> {
       backgroundColor: INPUT_BG_COLOR,
       appBar: _appBar(searchTextEditController: searchTextEditController),
       body: Obx(() {
-        if (memberCtrl.churchMembers.isEmpty) {
+        if (!isSearching && memberCtrl.searchResultMembers.isEmpty) {
           return Center(
-            child: CircularProgressIndicator(color: PRIMARY_COLOR),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'asset/img/logo/mohim_logo.png',
+                  color: GRAY_LOGO_COLOR,
+                  width: MediaQuery.of(context).size.width / 2,
+                ),
+              ],
+            ),
           );
         }
         if (isSearching && memberCtrl.searchResultMembers.isEmpty) {
@@ -95,25 +104,18 @@ class _ContactScreenState extends State<ContactScreen> {
               }),
               itemCount: memberCtrl.searchResultMembers.length + 1);
         }
-        return ListView.separated(
-            controller: scrollCtrl,
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-            itemBuilder: ((context, index) {
-              if (index < memberCtrl.churchMembers.length) {
-                final member = memberCtrl.churchMembers[index];
-                return ContactCard(
-                  member: member,
-                );
-              } else {
-                return memberCtrl.nextData.value
-                    ? Center(child: CircularProgressIndicator())
-                    : Container();
-              }
-            }),
-            separatorBuilder: ((context, index) {
-              return Gap(10);
-            }),
-            itemCount: memberCtrl.churchMembers.length + 1);
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'asset/img/logo/mohim_logo.png',
+                color: GRAY_LOGO_COLOR,
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+            ],
+          ),
+        );
       }),
     );
   }
@@ -121,7 +123,7 @@ class _ContactScreenState extends State<ContactScreen> {
   AppBar _appBar({required TextEditingController searchTextEditController}) {
     return AppBar(
         title: Text(
-          '연락처',
+          '성도검색',
           style: titleTextStyle.copyWith(color: Colors.black, fontSize: 22),
         ),
         systemOverlayStyle: SystemUiOverlayStyle(

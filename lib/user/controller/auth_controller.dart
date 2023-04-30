@@ -66,7 +66,7 @@ class AuthController extends GetxController {
       if (auth['result']) {
         churchId = auth['churchId'];
         memberId = auth['memberId'];
-        email = auth['email'];
+        this.email = auth['email'];
         _moveToHome(300);
       } else {
         _moveToAuthenticate(300);

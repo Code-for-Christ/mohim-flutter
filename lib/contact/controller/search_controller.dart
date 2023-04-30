@@ -28,7 +28,9 @@ class SearchController extends GetxController {
       searchText.value = searchTextEditController.text;
     });
     debounce(searchText, (_) {
-      searchMembers(searchText: _);
+      if (searchText.isNotEmpty) {
+        searchMembers(searchText: _);
+      }
     }, time: Duration(milliseconds: 350));
 
     super.onInit();

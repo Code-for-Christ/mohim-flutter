@@ -30,6 +30,7 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
         scrollCtrl: scrollCtrl,
         type: GroupType.gathering,
         id: widget.gathering.id));
+
     groupCtrl.getGatheringMembers(gatheringId: widget.gathering.id);
     // indicator 표시 여부를 위한 초기화
     groupCtrl.nextData.value = false;
@@ -55,13 +56,12 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
       child: Obx(() {
         return groupCtrl.gatheringMembers.isNotEmpty
             ? ListView.separated(
+                controller: scrollCtrl,
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                 itemBuilder: ((context, index) {
                   if (index == groupCtrl.gatheringMembers.length) {
                     if (groupCtrl.nextData.value) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return Center(child: CircularProgressIndicator());
                     } else {
                       return Container();
                     }
@@ -72,7 +72,7 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
                 separatorBuilder: ((context, index) {
                   return Gap(8);
                 }),
-                itemCount: groupCtrl.gatheringMembers.length)
+                itemCount: groupCtrl.gatheringMembers.length + 1)
             : Container();
       }),
     );

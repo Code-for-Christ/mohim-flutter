@@ -42,8 +42,8 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
           currentIndex: _selectedIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.phone),
-              label: '연락처',
+              icon: Icon(CupertinoIcons.search),
+              label: '성도검색',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.people_outline),
