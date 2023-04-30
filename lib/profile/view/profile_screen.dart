@@ -49,12 +49,12 @@ class ProfileScreen extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       shrinkWrap: true,
                       children: [
-                        // AuthController.to.email.isNotEmpty
-                        //     ? InfoDividerBox(
-                        //         title: '이메일',
-                        //         subTitle: AuthController.to.email,
-                        //         icon: CupertinoIcons.mail_solid)
-                        //     : SizedBox(),
+                        AuthController.to.email.isNotEmpty
+                            ? InfoDividerBox(
+                                title: '이메일',
+                                subTitle: AuthController.to.email,
+                                icon: CupertinoIcons.mail_solid)
+                            : SizedBox(),
                         profileCtrl.member.value.address != null
                             ? InfoDividerBox(
                                 title: '주소',
