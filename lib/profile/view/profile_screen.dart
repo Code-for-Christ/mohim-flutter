@@ -10,6 +10,7 @@ import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/profile/component/info_divider_box.dart';
 import 'package:phonebook/profile/controller/profile_controller.dart';
 import 'package:phonebook/profile/util/cache_manager.dart';
+import 'package:phonebook/profile/view/image_screen.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -207,59 +208,65 @@ class _ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 5.8,
-      child: AspectRatio(
-        aspectRatio: 5 / 6,
-        child: Container(
-          padding: EdgeInsets.all(4),
-          // height: MediaQuery.of(context).size.height / 5.8,
-          // width: MediaQuery.of(context).size.width / 3.2,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            // boxShadow: [
-            //   BoxShadow(
-            //     blurRadius: 7,
-            //     color: Color(0x411D2429),
-            //     offset: Offset(0, 1),
-            //   ),
-            // ],
-          ),
-          child: Stack(
-            children: [
-              Container(
-                // width: imageWidht,
-                // height: imageHeight,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: INPUT_BG_COLOR),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: profileCtrl.imageUrl.isNotEmpty
-                    ? CachedNetworkImage(
-                        imageUrl: profileCtrl.imageUrl.value,
-                        errorWidget: (context, url, error) => Icon(
-                          Icons.person,
-                          size: 55,
-                          color: PERSON_ICON_COLOR,
+    return GestureDetector(
+      onTap: () => Get.to(
+        ImageScreen(),
+        fullscreenDialog: true,
+      ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height / 5.8,
+        child: AspectRatio(
+          aspectRatio: 5 / 6,
+          child: Container(
+            padding: EdgeInsets.all(4),
+            // height: MediaQuery.of(context).size.height / 5.8,
+            // width: MediaQuery.of(context).size.width / 3.2,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              // boxShadow: [
+              //   BoxShadow(
+              //     blurRadius: 7,
+              //     color: Color(0x411D2429),
+              //     offset: Offset(0, 1),
+              //   ),
+              // ],
+            ),
+            child: Stack(
+              children: [
+                Container(
+                  // width: imageWidht,
+                  // height: imageHeight,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: INPUT_BG_COLOR),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: profileCtrl.imageUrl.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: profileCtrl.imageUrl.value,
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.person,
+                            size: 55,
+                            color: PERSON_ICON_COLOR,
+                          ),
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          cacheManager: CustomCacheManager.instance,
+                        )
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height / 5.8,
+                          child: Center(
+                              child: Icon(
+                            Icons.person,
+                            color: PERSON_ICON_COLOR,
+                            size: 55,
+                          )),
                         ),
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        cacheManager: CustomCacheManager.instance,
-                      )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height / 5.8,
-                        child: Center(
-                            child: Icon(
-                          Icons.person,
-                          color: PERSON_ICON_COLOR,
-                          size: 55,
-                        )),
-                      ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
