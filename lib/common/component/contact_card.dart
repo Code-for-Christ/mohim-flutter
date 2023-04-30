@@ -10,8 +10,9 @@ import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/view/detail_screen.dart';
 
 class ContactCard extends StatelessWidget {
-  const ContactCard({super.key, required this.member});
-  final ChurchMember member;
+  const ContactCard({super.key, required this.member, this.ministryRole});
+  final dynamic member;
+  final String? ministryRole;
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -79,9 +80,32 @@ class ContactCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  member.name,
-                  style: body1TextStyle,
+                Row(
+                  children: [
+                    Text(
+                      member.name,
+                      style: body1TextStyle,
+                    ),
+                    Gap(8),
+                    ministryRole != null
+                        ? Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: PRIMARY_COLOR,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              ministryRole!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  leadingDistribution:
+                                      TextLeadingDistribution.even),
+                            ))
+                        : SizedBox(),
+                  ],
                 ),
                 member.phoneNumber != null
                     ? Text(

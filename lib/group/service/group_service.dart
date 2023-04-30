@@ -6,6 +6,7 @@ import 'package:phonebook/group/model/cell.dart';
 import 'package:phonebook/group/model/cells.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
+import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
@@ -121,7 +122,7 @@ class GroupService {
     }
   }
 
-  Future<List<ChurchMember>> getMinistryMembers({
+  Future<List<MinistryMember>> getMinistryMembers({
     required int churchId,
     required int ministryId,
     required int page,
@@ -139,7 +140,8 @@ class GroupService {
           },
         ),
       );
-      final members = ChurchMember.fromJsonList(resp.data['church_members']);
+      final members = MinistryMember.fromJsonList(resp.data['church_members']);
+      
       return members;
     } on DioError catch (e) {
       if (e.message.contains('Network')) {

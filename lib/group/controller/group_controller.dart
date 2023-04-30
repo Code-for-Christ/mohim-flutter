@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
+import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/service/group_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
@@ -22,7 +23,7 @@ class GroupController extends GetxController {
 
   // 봉사 탭
   final ministries = <Ministry>[].obs;
-  final ministryMembers = <ChurchMember>[].obs;
+  final ministryMembers = <MinistryMember>[].obs;
 
   // 회 탭
   final gatherings = <Gathering>[].obs;

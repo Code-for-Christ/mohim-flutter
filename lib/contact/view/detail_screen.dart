@@ -19,7 +19,7 @@ class DetailScreen extends StatefulWidget {
     required this.member,
   });
 
-  final ChurchMember member;
+  final dynamic member;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();

@@ -45,7 +45,7 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                 itemBuilder: ((context, index) {
                   final member = groupCtrl.ministryMembers[index];
-                  return ContactCard(member: member);
+                  return ContactCard(member: member, ministryRole: member.ministryRole,);
                 }),
                 separatorBuilder: ((context, index) {
                   return Gap(16);
