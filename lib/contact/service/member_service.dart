@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
+import 'package:phonebook/group/model/ministry_role.dart';
 
 class MemberService {
   final url = '$baseUrl/churches';
@@ -53,6 +54,30 @@ class MemberService {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Future<List<MinistryRole>> getMinistryRole({
+    required int churchId,
+    required int memberId,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        '$url/$churchId/members/$memberId/ministry-role',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final role = MinistryRole.fromJsonList(resp.data['ministry_roles']);
+      return role;
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

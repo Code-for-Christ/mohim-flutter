@@ -52,8 +52,17 @@ class _DetailScreenState extends State<DetailScreen> {
     return '${widget.member.salvationYear}년';
   }
 
+  renderMinistries() {
+    String joinedString = memberCtrl.ministryRoles
+        .map((e) => '${e.ministryName}(${e.ministryRole})')
+        .join(', ');
+
+    return joinedString;
+  }
+
   @override
   void initState() {
+    getMinistryRole();
     getProfileImage();
     super.initState();
   }
@@ -61,11 +70,17 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void dispose() {
     memberCtrl.profileImageUrl.value = '';
+    memberCtrl.ministryRoles.value = [];
+    memberCtrl.isFetchingMinistryRoles.value = true;
     super.dispose();
   }
 
   getProfileImage() async {
     await memberCtrl.getProfileImageUrl(memberId: widget.member.id);
+  }
+
+  getMinistryRole() async {
+    await memberCtrl.getMinistryRole(memberId: widget.member.id);
   }
 
   @override
@@ -129,72 +144,95 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
                 Gap(30),
-                widget.member.gatheringName != null
-                    ? Column(
-                        children: [
-                          InformationCard(
-                            icon: CupertinoIcons.person_2_fill,
-                            height: 50,
-                            text: '소속',
-                            data: widget.member.gatheringName!,
-                          ),
-                          Gap(16),
-                        ],
-                      )
-                    : Container(),
-                widget.member.carNumber != null
-                    // 드래그 가능하도록
-                    ? Column(
-                        children: [
-                          InformationCard(
-                            icon: CupertinoIcons.car,
-                            height: 50,
-                            text: '차량번호',
-                            data: widget.member.carNumber!,
-                          ),
-                          Gap(16),
-                        ],
-                      )
-                    : Container(),
-                widget.member.address != null
-                    ? Column(
-                        children: [
-                          InformationCard(
-                            icon: CupertinoIcons.house_fill,
-                            height: 50,
-                            text: '집주소',
-                            data: widget.member.address!,
-                          ),
-                          Gap(16),
-                        ],
-                      )
-                    : Container(),
-                widget.member.salvationYear != null
-                    ? Column(
-                        children: [
-                          InformationCard(
-                            icon: Icons.celebration,
-                            height: 50,
-                            text: '구원생일',
-                            data: renderSalvationInfo(),
-                          ),
-                          Gap(16),
-                        ],
-                      )
-                    : Container(),
-                widget.member.birthYear != null
-                    ? Column(
-                        children: [
-                          InformationCard(
-                            icon: CupertinoIcons.gift_fill,
-                            height: 50,
-                            text: '생년',
-                            data: '${widget.member.birthYear}년',
-                          ),
-                          Gap(16),
-                        ],
-                      )
-                    : Container(),
+                Obx(() {
+                  return !memberCtrl.isFetchingMinistryRoles.value
+                      ? Column(
+                          children: [
+                            widget.member.gatheringName != null
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: CupertinoIcons.person_2_fill,
+                                        height: 50,
+                                        text: '소속',
+                                        data: widget.member.gatheringName!,
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                            memberCtrl.ministryRoles.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: Icons.bookmark,
+                                        height: 50,
+                                        text: '봉사',
+                                        data: renderMinistries(),
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                            widget.member.carNumber != null
+                                // 드래그 가능하도록
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: CupertinoIcons.car,
+                                        height: 50,
+                                        text: '차량번호',
+                                        data: widget.member.carNumber!,
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                            widget.member.address != null
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: CupertinoIcons.house_fill,
+                                        height: 50,
+                                        text: '집주소',
+                                        data: widget.member.address!,
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                            widget.member.salvationYear != null
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: Icons.celebration,
+                                        height: 50,
+                                        text: '구원생일',
+                                        data: renderSalvationInfo(),
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                            widget.member.birthYear != null
+                                ? Column(
+                                    children: [
+                                      InformationCard(
+                                        icon: CupertinoIcons.gift_fill,
+                                        height: 50,
+                                        text: '생년',
+                                        data: '${widget.member.birthYear}년',
+                                      ),
+                                      Gap(16),
+                                    ],
+                                  )
+                                : Container(),
+                          ],
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                }),
                 // widget.member.gatheringName != null
                 //     ? Column(
                 //         children: [
@@ -232,7 +270,10 @@ class _ProfileImageBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(ImageScreen(), fullscreenDialog: true, ),
+      onTap: () => Get.to(
+        ImageScreen(),
+        fullscreenDialog: true,
+      ),
       child: Container(
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(

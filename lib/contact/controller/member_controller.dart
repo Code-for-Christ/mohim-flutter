@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/service/member_service.dart';
+import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
 class MemberController extends GetxController {
@@ -10,6 +11,9 @@ class MemberController extends GetxController {
   final nextData = true.obs;
 
   final profileImageUrl = ''.obs;
+  final ministryRoles = <MinistryRole>[].obs;
+  final isFetchingMinistryRoles = true.obs;
+
   final authCtrl = Get.find<AuthController>();
 
   final churchMembers = <ChurchMember>[].obs;
@@ -44,5 +48,12 @@ class MemberController extends GetxController {
     } else {
       profileImageUrl.value = '';
     }
+  }
+
+  Future<void> getMinistryRole({required int memberId}) async {
+    final result = await memberService.getMinistryRole(
+        churchId: authCtrl.churchId, memberId: memberId);
+    ministryRoles.value = result;
+    isFetchingMinistryRoles.value = false;
   }
 }
