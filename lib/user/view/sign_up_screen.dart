@@ -163,7 +163,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             passwordValidated &&
                             confirmationValidated
                         ? () async {
-                            authCtrl.signUp(email, password);
+                            setState(() {
+                              emailValidated = false;
+                            });
+                            await authCtrl.signUp(email, password);
+                            setState(() {
+                              emailValidated = true;
+                            });
                           }
                         : null,
                     child: Text(

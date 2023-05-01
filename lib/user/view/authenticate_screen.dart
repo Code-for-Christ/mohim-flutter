@@ -219,8 +219,14 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                           onPressed: isDisabled
                               ? null
                               : () async {
+                                  setState(() {
+                                    isDisabled = true;
+                                  });
                                   await authCtrl.authenticate(
                                       selectedValue!.id, name, phoneNumber);
+                                  setState(() {
+                                    isDisabled = false;
+                                  });
                                 },
                           child: Text(
                             '인증하기',
