@@ -30,6 +30,8 @@ class SearchController extends GetxController {
     debounce(searchText, (_) {
       if (searchText.isNotEmpty) {
         searchMembers(searchText: _);
+      } else {
+        memberCtrl.searchResultMembers.value = [];
       }
     }, time: Duration(milliseconds: 350));
 
