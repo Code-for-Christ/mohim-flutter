@@ -67,9 +67,9 @@ class AuthController extends GetxController {
         churchId = auth['churchId'];
         memberId = auth['memberId'];
         this.email = auth['email'];
-        _moveToHome(300);
+        _moveToHome(0);
       } else {
-        _moveToAuthenticate(300);
+        _moveToAuthenticate(0);
       }
     }
     return false;
@@ -92,10 +92,10 @@ class AuthController extends GetxController {
     final auth = await authService.authenticate(
         churchId: churchId, name: name, phoneNumber: phoneNumber);
     if (auth['result']) {
-      churchId = auth['churchId'];
+      this.churchId = auth['churchId'];
       memberId = auth['memberId'];
       email = auth['email'];
-      _moveToHome(1000);
+      _moveToHome(0);
     }
   }
 
