@@ -108,9 +108,14 @@ class ContactCard extends StatelessWidget {
                   ],
                 ),
                 member.phoneNumber != null
-                    ? Text(
-                        member.phoneNumber!,
-                        style: body2TextStyle,
+                    ? Column(
+                        children: [
+                          Gap(5),
+                          Text(
+                            member.phoneNumber!,
+                            style: body2TextStyle,
+                          ),
+                        ],
                       )
                     : Container(),
               ],

@@ -103,17 +103,18 @@ class _DetailScreenState extends State<DetailScreen> {
                     memberCtrl: memberCtrl,
                     imageWidth: imageWidth,
                     imageHeight: imageHeight),
-                Gap(4),
+                Gap(12),
                 Text(
                   widget.member.name,
                   style: titleTextStyle.copyWith(color: Colors.black),
                 ),
+                Gap(4),
                 Text(
                   '${widget.member.cell}구역 ${renderSex()}',
                   style: body1TextStyle.copyWith(
                       fontWeight: FontWeight.w600, color: BODY_TEXT_COLOR),
                 ),
-                Gap(16),
+                Gap(8),
                 ElevatedButton(
                   onPressed: widget.member.phoneNumber != null
                       ? () async {
@@ -138,7 +139,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       Text(
                         phoneNumber,
-                        style: body1TextStyle.copyWith(color: Colors.white),
+                        style: body1TextStyle.copyWith(
+                            color: Colors.white, height: 1.2),
                       ),
                     ],
                   ),
