@@ -33,7 +33,7 @@ class AuthController extends GetxController {
           _moveToAuthenticate(0);
         }
       } else {
-        _deleteToken();
+        // _deleteToken();
       }
     } else {
       _moveToAuthBranch(0);

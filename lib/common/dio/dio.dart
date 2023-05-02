@@ -38,65 +38,25 @@ class CustomInterceptor extends Interceptor {
   // 3) 에러가 났을 때
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    // 401에러 났을때
-    // 토큰을 재발급 받는 시도를 하고 토큰이 재발급되면
-    // 다시 새로운 토큰으로 요청을 한다.
     print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
 
-    // print(err.response!.data);
-    // final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
+    final isStatus403 = err.response?.statusCode == 403;
+    final isPathRefresh = err.requestOptions.path ==
+        'https://mohim-api.com/api/v1/auth/refresh-token';
 
-    // // refreshToken이 없으면
-    // // 당연히 에러를 던진다.
-    // if (refreshToken == null) {
-    //   // 에러를 던지는 Dio의 룰
-    //   return handler.reject(err);
-    // }
-
-    final isStatus403 = err.response?.statusCode == 403; // 401이거나 false 거나
-    final isPathRefresh = err.requestOptions.path == '/auth';
-
+    // 네트워크 오류일시에는 토큰을 삭제하지 않고 대기
     if (err.type == DioErrorType.connectTimeout ||
         err.type == DioErrorType.sendTimeout ||
         err.type == DioErrorType.other) {
-      Get.offAll(AuthBranchScreen());
       Get.snackbar('네트워크 연결오류', '네트워크를 연결해주세요');
-      // 오류 처리 로직 추가
     }
-
-    if (isStatus403 && !isPathRefresh) {
+    // 나머지 오류에는 재로그인 요청
+    else {
+      await storage.deleteAll();
+      Get.snackbar('재로그인 필요', '모힘을 찾아주신지 오래되셨네요! 다시 로그인 해주세요');
       Get.offAll(AuthBranchScreen());
-      // final dio = Dio();
-      // try {
-      //   final res = await dio.post('$ip/auth/refresh-token',
-      //       options: Options(headers: {
-      //         "Accept": "application/json",
-      //         "content-type": "application/json"
-      //         'at'
-      //       }),
-      //       );
-
-      //   final accessToken = res.data['accessToken'];
-      //   final options = err.requestOptions;
-
-      //   // 토큰 변경하기
-      //   options.headers.addAll({
-      //     'Authorization': 'Bearer $accessToken',
-      //   });
-
-      //   await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
-
-      //   // 요청 재전송
-      //   final response = await dio.fetch(options);
-
-      //   return handler.resolve(response);
-      // } catch (e) {
-      //   return handler.reject(err);
     }
 
     return handler.next(err);
   }
-
-  //   return super.onError(err, handler);
-  // }
 }
