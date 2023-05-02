@@ -62,11 +62,56 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: INPUT_BG_COLOR,
-      appBar: _appBar(searchTextEditController: searchTextEditController),
-      body: Obx(() {
-        if (!isSearching && memberCtrl.searchResultMembers.isEmpty) {
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        backgroundColor: INPUT_BG_COLOR,
+        appBar: _appBar(searchTextEditController: searchTextEditController),
+        body: Obx(() {
+          if (!isSearching && memberCtrl.searchResultMembers.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'asset/img/logo/mohim_logo.png',
+                    color: GRAY_LOGO_COLOR,
+                    width: MediaQuery.of(context).size.width / 2,
+                  ),
+                ],
+              ),
+            );
+          }
+          if (isSearching && memberCtrl.searchResultMembers.isEmpty) {
+            return Center(
+              child: Text(
+                '검색결과가 없습니다',
+                style: body1TextStyle.copyWith(fontWeight: FontWeight.w400),
+              ),
+            );
+          }
+          if (isSearching && memberCtrl.searchResultMembers.isNotEmpty) {
+            return ListView.separated(
+                controller: searchScrollCtrl,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                itemBuilder: ((context, index) {
+                  if (index == memberCtrl.searchResultMembers.length) {
+                    if (searchCtrl.hasNextPage.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Container(); // 빈 컨테이너 반환
+                    }
+                  }
+                  final member = memberCtrl.searchResultMembers[index];
+                  return ContactCard(
+                    member: member,
+                  );
+                }),
+                separatorBuilder: ((context, index) {
+                  return Gap(10);
+                }),
+                itemCount: memberCtrl.searchResultMembers.length + 1);
+          }
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -79,50 +124,8 @@ class _ContactScreenState extends State<ContactScreen> {
               ],
             ),
           );
-        }
-        if (isSearching && memberCtrl.searchResultMembers.isEmpty) {
-          return Center(
-            child: Text(
-              '검색결과가 없습니다',
-              style: body1TextStyle.copyWith(fontWeight: FontWeight.w400),
-            ),
-          );
-        }
-        if (isSearching && memberCtrl.searchResultMembers.isNotEmpty) {
-          return ListView.separated(
-              controller: searchScrollCtrl,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-              itemBuilder: ((context, index) {
-                if (index == memberCtrl.searchResultMembers.length) {
-                  if (searchCtrl.hasNextPage.value) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    return Container(); // 빈 컨테이너 반환
-                  }
-                }
-                final member = memberCtrl.searchResultMembers[index];
-                return ContactCard(
-                  member: member,
-                );
-              }),
-              separatorBuilder: ((context, index) {
-                return Gap(10);
-              }),
-              itemCount: memberCtrl.searchResultMembers.length + 1);
-        }
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'asset/img/logo/mohim_logo.png',
-                color: GRAY_LOGO_COLOR,
-                width: MediaQuery.of(context).size.width / 2,
-              ),
-            ],
-          ),
-        );
-      }),
+        }),
+      ),
     );
   }
 
