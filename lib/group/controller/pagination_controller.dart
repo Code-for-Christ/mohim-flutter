@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/type.dart';
+import 'package:phonebook/common/util/throttler.dart';
 import 'package:phonebook/group/controller/group_controller.dart';
 import 'package:phonebook/group/service/group_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
@@ -12,6 +13,7 @@ class PaginationController extends GetxController {
   final GroupType _type;
   int page = 2;
   int size = 20;
+  final _throttler = Throttler();
 
   PaginationController(
       {required ScrollController scrollCtrl,
@@ -22,9 +24,11 @@ class PaginationController extends GetxController {
 
   @override
   void onInit() {
-    _scrollCtrl.addListener(() async {
-      if (_scrollCtrl.position.maxScrollExtent == _scrollCtrl.position.pixels) {
-        await _getChurchMembers();
+    _scrollCtrl.addListener(() {
+      if (_scrollCtrl.position.maxScrollExtent <= _scrollCtrl.position.pixels) {
+        _throttler.throttle(Duration(milliseconds: 1500), () async {
+          await _getChurchMembers();
+        });
       }
     });
     _scrollCtrl.toString();
