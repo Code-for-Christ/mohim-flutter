@@ -7,6 +7,7 @@ import 'package:phonebook/common/component/custom_text_form_field.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/component/contact_card.dart';
+import 'package:phonebook/common/util/throttler.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 import 'package:phonebook/contact/controller/search_controller.dart';
 import 'package:phonebook/contact/util/debounce.dart';
@@ -33,6 +34,7 @@ class _ContactScreenState extends State<ContactScreen> {
   bool isSearching = false;
 
   final _debounce = Debounce(Duration(microseconds: 100));
+  final _throttler = Throttler();
 
   @override
   void initState() {
@@ -46,9 +48,13 @@ class _ContactScreenState extends State<ContactScreen> {
       }
     });
     searchScrollCtrl.addListener(() {
-      if (searchScrollCtrl.position.maxScrollExtent ==
+      if (searchScrollCtrl.position.maxScrollExtent <=
           searchScrollCtrl.position.pixels) {
-        _debounce(() => searchCtrl.loadMoreMembers());
+        // _debounce(() => searchCtrl.loadMoreMembers());
+        _throttler.throttle(Duration(milliseconds: 1500), () {
+          searchCtrl.loadMoreMembers();
+        });
+        // searchCtrl.loadMoreMembers();
       }
     });
     super.initState();
