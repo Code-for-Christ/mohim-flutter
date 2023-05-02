@@ -26,7 +26,7 @@ class PaginationController extends GetxController {
   void onInit() {
     _scrollCtrl.addListener(() {
       if (_scrollCtrl.position.maxScrollExtent <= _scrollCtrl.position.pixels) {
-        _throttler.throttle(Duration(milliseconds: 1500), () async {
+        _throttler.throttle(Duration(milliseconds: 2000), () async {
           await _getChurchMembers();
         });
       }

@@ -51,7 +51,7 @@ class _ContactScreenState extends State<ContactScreen> {
       if (searchScrollCtrl.position.maxScrollExtent <=
           searchScrollCtrl.position.pixels) {
         // _debounce(() => searchCtrl.loadMoreMembers());
-        _throttler.throttle(Duration(milliseconds: 1500), () {
+        _throttler.throttle(Duration(milliseconds: 2000), () {
           searchCtrl.loadMoreMembers();
         });
         // searchCtrl.loadMoreMembers();
