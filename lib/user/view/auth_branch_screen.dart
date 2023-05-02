@@ -29,9 +29,10 @@ class AuthBranchScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'asset/img/logo/mohim_logo.png',
-                    width: MediaQuery.of(context).size.width,
+                    'asset/img/logo/mohim_logo_ver2.png',
+                    width: MediaQuery.of(context).size.width / 1.5,
                   ),
+                  Gap(24),
                   CustomSquareButton(
                     color: PRIMARY_COLOR,
                     text: '로그인',

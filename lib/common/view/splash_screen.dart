@@ -43,8 +43,8 @@ class _SplachScreenState extends State<SplachScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'asset/img/logo/mohim_logo.png',
-                  width: MediaQuery.of(context).size.width,
+                  'asset/img/logo/mohim_logo_ver2.png',
+                  width: MediaQuery.of(context).size.width / 1.5,
                 ),
                 CircularProgressIndicator(
                   color: PRIMARY_COLOR,

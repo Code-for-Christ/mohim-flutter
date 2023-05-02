@@ -74,7 +74,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'asset/img/logo/mohim_logo.png',
+                    'asset/img/logo/mohim_logo_ver2.png',
                     color: GRAY_LOGO_COLOR,
                     width: MediaQuery.of(context).size.width / 2,
                   ),
@@ -117,7 +117,7 @@ class _ContactScreenState extends State<ContactScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'asset/img/logo/mohim_logo.png',
+                  'asset/img/logo/mohim_logo_ver2.png',
                   color: GRAY_LOGO_COLOR,
                   width: MediaQuery.of(context).size.width / 2,
                 ),

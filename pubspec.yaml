@@ -109,3 +109,15 @@ flutter:
             weight: 300
           - asset: asset/fonts/NotoSansKR-Thin.otf
             weight: 100
+      - family: NanumSquareNeo
+        fonts: 
+          - asset: asset/fonts/NanumSquareNeoOTF-Hv.otf
+            weight: 900
+          - asset: asset/fonts/NanumSquareNeoOTF-Eb.otf
+            weight: 700
+          - asset: asset/fonts/NanumSquareNeoOTF-Bd.otf
+            weight: 500
+          - asset: asset/fonts/NanumSquareNeoOTF-Rg.otf
+            weight: 400
+          - asset: asset/fonts/NanumSquareNeoOTF-Lt.otf
+            weight: 300
