@@ -76,7 +76,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   Image.asset(
                     'asset/img/logo/mohim_logo_ver2.png',
                     color: GRAY_LOGO_COLOR,
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width / 1.5,
                   ),
                 ],
               ),
@@ -119,7 +119,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 Image.asset(
                   'asset/img/logo/mohim_logo_ver2.png',
                   color: GRAY_LOGO_COLOR,
-                  width: MediaQuery.of(context).size.width / 2,
+                  width: MediaQuery.of(context).size.width / 1.5,
                 ),
               ],
             ),

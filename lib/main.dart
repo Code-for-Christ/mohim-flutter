@@ -28,7 +28,7 @@ class _App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: PRIMARY_COLOR,
-          fontFamily: 'NanumSquareNeo',
+          fontFamily: 'NotoSans',
           platform: TargetPlatform.iOS),
       home: SplachScreen(),
     );
