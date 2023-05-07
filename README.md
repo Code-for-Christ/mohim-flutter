@@ -1,17 +1,14 @@
-# phonebook
+# 모힘(모이기를 힘쓰라)
 
-A new Flutter project.
+성도 인증을 한 계정에 한하여 자신이 속한 교회의 성도 연락처를 제공받을 수 있습니다.
+검색, 그룹별 보기 등의 기능을 제공합니다.
 
-## Getting Started
+## 스크린샷
+![](./asset/img/mockup/mockup.png)
 
-This project is a starting point for a Flutter application.
+## 성도인증 플로우
+![](./asset/img/mockup/mohim_login.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Phonebook-Flutter-Refactoring
+## 다운로드
+* [Android](https://play.google.com/store/apps/details?id=com.codeforchrist.mohim&hl=ko)
+* [IOS](https://apps.apple.com/kr/app/%EB%AA%A8%ED%9E%98/id6447751515)
