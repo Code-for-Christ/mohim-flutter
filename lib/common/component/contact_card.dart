@@ -89,20 +89,21 @@ class ContactCard extends StatelessWidget {
                     Gap(8),
                     ministryRole != null
                         ? Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 4,
-                            ),
+                            padding:
+                                EdgeInsets.only(left: 4, right: 4, bottom: 2),
                             decoration: BoxDecoration(
                               color: PRIMARY_COLOR,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text(
-                              ministryRole!,
-                              style: TextStyle(
+                            child: Center(
+                              child: Text(
+                                ministryRole!,
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
-                                  leadingDistribution:
-                                      TextLeadingDistribution.even),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ))
                         : SizedBox(),
                   ],
