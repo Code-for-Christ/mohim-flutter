@@ -111,14 +111,14 @@ class ProfileScreen extends StatelessWidget {
                               Get.put(AuthController()).logout();
                             },
                             height: 60),
-                        Gap(8),
+                        Gap(10),
                         GestureDetector(
                           onTap: () => Get.to(DeleteAccountScreen()),
                           child: Center(
                               child: Text('회원탈퇴',
                                   style: TextStyle(
                                     color: PRIMARY_COLOR,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.underline,
                                   ))),
                         ),
