@@ -7,6 +7,7 @@ import 'package:phonebook/common/component/custom_square_button.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
+import 'package:phonebook/profile/component/delete_account_screen.dart';
 import 'package:phonebook/profile/component/info_divider_box.dart';
 import 'package:phonebook/profile/controller/profile_controller.dart';
 import 'package:phonebook/profile/util/cache_manager.dart';
@@ -109,7 +110,18 @@ class ProfileScreen extends StatelessWidget {
                             onTap: () {
                               Get.put(AuthController()).logout();
                             },
-                            height: 60)
+                            height: 60),
+                        Gap(8),
+                        GestureDetector(
+                          onTap: () => Get.to(DeleteAccountScreen()),
+                          child: Center(
+                              child: Text('회원탈퇴',
+                                  style: TextStyle(
+                                    color: PRIMARY_COLOR,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                  ))),
+                        ),
                       ],
                     ),
                   )

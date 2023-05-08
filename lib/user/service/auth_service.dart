@@ -50,10 +50,6 @@ class AuthService {
     } on DioError catch (e) {
       print(e);
       print('[GET] 로그인 에러 : ${e.response!.data}');
-      Get.rawSnackbar(
-        message: e.response!.data['message'].toString(),
-        animationDuration: Duration(milliseconds: 400),
-      );
       return false;
     }
   }
@@ -107,10 +103,6 @@ class AuthService {
         'email': resp.data['email'],
       };
     } on DioError catch (e) {
-      Get.rawSnackbar(
-        message: e.response!.data['message'].toString(),
-        animationDuration: Duration(milliseconds: 400),
-      );
       return {'result': false};
     }
   }
@@ -125,12 +117,10 @@ class AuthService {
             'authorization':
                 'Bearer ${await storage.read(key: ACCESS_TOKEN_KEY)}'
           }));
-      print(resp.data);
       await storage.write(
           key: ACCESS_TOKEN_KEY, value: resp.data['access_token']);
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -147,10 +137,6 @@ class AuthService {
       Get.snackbar('임시코드전송', '해당 이메일에서 코드를 확인해주세요');
       return true;
     } on DioError catch (e) {
-      Get.rawSnackbar(
-        message: e.response!.data['message'].toString(),
-        animationDuration: Duration(milliseconds: 400),
-      );
       return false;
     }
   }
@@ -175,10 +161,30 @@ class AuthService {
       Get.snackbar('비밀번호 변경', resp.data['message']);
       return true;
     } on DioError catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> deleteAccount({
+    required String email,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.delete(
+        '$url/users/$email',
+        options: Options(headers: {
+          'Authorization':
+              'Bearer ${await storage.read(key: ACCESS_TOKEN_KEY)}',
+          'content-type': 'application/json'
+        }),
+      );
       Get.rawSnackbar(
-        message: e.response!.data['message'].toString(),
+        message: resp.data['message'],
         animationDuration: Duration(milliseconds: 400),
       );
+      return true;
+    } on DioError catch (e) {
       return false;
     }
   }

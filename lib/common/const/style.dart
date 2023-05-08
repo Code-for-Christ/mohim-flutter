@@ -29,3 +29,8 @@ ButtonStyle buttonStyle = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.all(Radius.circular(50)),
   ),
 );
+TextStyle buttonTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: Colors.white,
+);
