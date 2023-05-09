@@ -21,7 +21,10 @@
    <application
         android:label="모힘"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"
