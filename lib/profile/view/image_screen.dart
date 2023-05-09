@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
 import 'package:phonebook/profile/controller/profile_controller.dart';
+import 'package:phonebook/profile/util/cache_manager.dart';
 
 class ImageScreen extends StatelessWidget {
   ImageScreen({
@@ -23,9 +25,21 @@ class ImageScreen extends StatelessWidget {
           child: Center(
             child: Obx(() {
               return Get.find<ProfileController>().imageUrl.isNotEmpty
-                  ? InteractiveViewer(
-                      child: Image.network(
-                          Get.find<ProfileController>().imageUrl.value))
+                  ?
+                  // InteractiveViewer(
+                  //     child: Image.network(
+                  //         Get.find<ProfileController>().imageUrl.value))
+                  CachedNetworkImage(
+                      imageUrl: Get.find<ProfileController>().imageUrl.value,
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.person,
+                        size: 55,
+                        color: PERSON_ICON_COLOR,
+                      ),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      cacheManager: CustomCacheManager.instance,
+                    )
                   : Center(
                       child: Icon(
                         Icons.person,
