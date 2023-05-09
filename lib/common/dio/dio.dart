@@ -39,9 +39,7 @@ class CustomInterceptor extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
-    print(err.response!.data);
     print(err.error);
-    print(err.message);
     final isStatus403 = err.response?.statusCode == 403;
     final isPathRefresh = err.requestOptions.path ==
         'https://mohim-api.com/api/v1/auth/refresh-token';
@@ -51,7 +49,7 @@ class CustomInterceptor extends Interceptor {
         err.type == DioErrorType.sendTimeout ||
         err.type == DioErrorType.other) {
       Get.snackbar('네트워크 연결오류', '네트워크를 연결해주세요');
-    } else if (err.response?.statusCode == 403) {
+    } else if (isStatus403 || isPathRefresh) {
       await storage.deleteAll();
       Get.snackbar('재로그인 필요', '모힘을 찾아주신지 오래되셨네요! 다시 로그인 해주세요');
       Get.offAll(AuthBranchScreen());

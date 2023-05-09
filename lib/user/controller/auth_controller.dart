@@ -124,7 +124,8 @@ class AuthController extends GetxController {
   Future<void> deleteAccount() async {
     final result = await authService.deleteAccount(email: email);
     if (result) {
-      Get.offAll(AuthBranchScreen());
+      _deleteToken();
+      _moveToAuthBranch(0);
     }
   }
 
