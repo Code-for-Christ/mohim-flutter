@@ -77,22 +77,15 @@ class _CellMembersScreenState extends State<CellMembersScreen> {
               return currentHouseholderId == nextHouseholderId
                   ? Gap(8) // 같은 householder_id 끼리는 여백만 주기
                   : Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Container(
                         width: double.infinity,
                         height: 4,
-                        // decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(10),
-                        //     color: Colors.grey),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[300]),
                       ),
                     );
-              // Divider(
-
-              //     color: BODY_TEXT_COLOR,
-              //     thickness: 2,
-              //     height: 30,
-              //   ); // 아닌 경우는 Divider 추가
             }),
             itemCount: groupCtrl.cellMembers.length + 1);
       }),

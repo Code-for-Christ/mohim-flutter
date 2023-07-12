@@ -8,7 +8,7 @@ import 'package:phonebook/profile/view/profile_screen.dart';
 
 class RootTab extends StatefulWidget {
   const RootTab({super.key});
-
+  
   @override
   State<RootTab> createState() => _RootTabState();
 }
