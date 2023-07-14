@@ -46,11 +46,9 @@ class GroupService {
           },
         ),
       );
-      print(resp.data['cells']);
       final cells = Cell.fromJsonList(resp.data['cells']);
       return cells;
     } catch (e) {
-      print(e);
       return [];
     }
   }

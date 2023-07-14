@@ -7,10 +7,12 @@ part of 'ministry.dart';
 // **************************************************************************
 
 Ministry _$MinistryFromJson(Map<String, dynamic> json) => Ministry(
-      id: int.parse(json['id']),
+      id: json['id'].runtimeType == int ? json['id'] : int.parse(json['id']),
       name: json['name'] as String,
       category: json['category'] as String,
-      churchId: int.parse(json['church_id']),
+      churchId: json['church_id'].runtimeType == int
+          ? json['church_id']
+          : int.parse(json['church_id']),
     );
 
 Map<String, dynamic> _$MinistryToJson(Ministry instance) => <String, dynamic>{
