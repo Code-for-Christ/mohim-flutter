@@ -141,7 +141,7 @@ class GroupService {
         ),
       );
       final members = MinistryMember.fromJsonList(resp.data['church_members']);
-      
+
       return members;
     } on DioError catch (e) {
       if (e.message.contains('Network')) {
@@ -186,6 +186,81 @@ class GroupService {
         );
       }
       return {'result': false, 'members': []};
+    }
+  }
+
+  Future<List<ChurchMember>> getParishLeaders({
+    required int churchId,
+    required int parish,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        'http://127.0.0.1:8000/api/v1/churches/$churchId/parishes/$parish/leaders',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final parishLeaders =
+          ChurchMember.fromJsonList(resp.data['church_members']);
+      return parishLeaders;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<ChurchMember>> getCellLeaders({
+    required int churchId,
+    required int cellId,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        'http://127.0.0.1:8000/api/v1/churches/$churchId/cells/$cellId/leaders',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final cellLeaders =
+          ChurchMember.fromJsonList(resp.data['church_members']);
+      return cellLeaders;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<ChurchMember>> getGatheringLeaders({
+    required int churchId,
+    required int gatheringId,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        'http://127.0.0.1:8000/api/v1/churches/$churchId/gatherings/$gatheringId/leaders',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final gatheringLeaders =
+          ChurchMember.fromJsonList(resp.data['church_members']);
+      return gatheringLeaders;
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

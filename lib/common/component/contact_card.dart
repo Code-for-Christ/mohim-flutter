@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:phonebook/common/component/ministry_label.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/model/church_member.dart';
@@ -88,23 +89,7 @@ class ContactCard extends StatelessWidget {
                     ),
                     Gap(8),
                     ministryRole != null
-                        ? Container(
-                            padding:
-                                EdgeInsets.only(left: 4, right: 4, bottom: 2),
-                            decoration: BoxDecoration(
-                              color: PRIMARY_COLOR,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Center(
-                              child: Text(
-                                ministryRole!,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ))
+                        ? MinistryLabel(ministryRole: ministryRole!)
                         : SizedBox(),
                   ],
                 ),

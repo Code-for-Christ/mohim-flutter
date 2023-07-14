@@ -18,8 +18,10 @@ class GroupController extends GetxController {
 
   // 구역 탭
   final parishes = <int>[].obs;
+  final parishLeaders = <ChurchMember>[].obs;
   final cells = <Cell>[].obs;
   final cellMembers = <ChurchMember>[].obs;
+  final cellLeaders = <ChurchMember>[].obs;
 
   // 봉사 탭
   final ministries = <Ministry>[].obs;
@@ -28,6 +30,7 @@ class GroupController extends GetxController {
   // 회 탭
   final gatherings = <Gathering>[].obs;
   final gatheringMembers = <ChurchMember>[].obs;
+  final gatheringLeaders = <ChurchMember>[].obs;
 
   // 페이지네이션
   int page = 1;
@@ -95,5 +98,21 @@ class GroupController extends GetxController {
       nextData.value = result['next'] != null ? true : false;
       print(nextData.value);
     }
+  }
+
+  Future<void> getParishLeaders({required int parish}) async {
+    parishLeaders.value = await groupService.getParishLeaders(
+        churchId: authCtrl.churchId, parish: parish);
+  }
+
+  Future<void> getCellLeaders({required int cellId}) async {
+    cellLeaders.value = await groupService.getCellLeaders(
+        churchId: authCtrl.churchId, cellId: cellId);
+  }
+
+  Future<void> getGatheringLeaders({required int gatheringId}) async {
+    gatheringLeaders.value = await groupService.getGatheringLeaders(
+        churchId: authCtrl.churchId, gatheringId: gatheringId);
+    print(gatheringLeaders.length);
   }
 }

@@ -7,10 +7,16 @@ part of 'cell.dart';
 // **************************************************************************
 
 Cell _$CellFromJson(Map<String, dynamic> json) => Cell(
-      id: int.parse(json['id']),
-      parish: int.parse(json['parish']),
-      cell: int.parse(json['cell']),
-      churchId: int.parse(json['church_id']),
+      id: json['id'].runtimeType == int ? json['id'] : int.parse(json['id']),
+      parish: json['parish'].runtimeType == int
+          ? json['parish']
+          : int.parse(json['parish']),
+      cell: json['cell'].runtimeType == int
+          ? json['cell']
+          : int.parse(json['cell']),
+      churchId: json['church_id'].runtimeType == int
+          ? json['church_id']
+          : int.parse(json['church_id']),
     );
 
 Map<String, dynamic> _$CellToJson(Cell instance) => <String, dynamic>{

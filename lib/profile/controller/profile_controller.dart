@@ -28,7 +28,10 @@ class ProfileController extends GetxController {
           chruchName: 'chruchName',
           churchId: -1,
           gatheringName: 'gatheringName',
-          relationshipWithHouseholder: 'relationshipWithHouseholder')
+          relationshipWithHouseholder: 'relationshipWithHouseholder',
+          parishRole: '',
+          cellRole: '',
+          gatheringRole: '')
       .obs;
 
   final profileService = ProfileService();

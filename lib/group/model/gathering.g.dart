@@ -7,9 +7,11 @@ part of 'gathering.dart';
 // **************************************************************************
 
 Gathering _$GatheringFromJson(Map<String, dynamic> json) => Gathering(
-      id: int.parse(json['id']),
+      id: json['id'].runtimeType == int ? json['id'] : int.parse(json['id']),
       name: json['name'] as String,
-      churchId: int.parse(json['church_id']),
+      churchId: json['church_id'].runtimeType == int
+          ? json['church_id']
+          : int.parse(json['church_id']),
     );
 
 Map<String, dynamic> _$GatheringToJson(Gathering instance) => <String, dynamic>{
