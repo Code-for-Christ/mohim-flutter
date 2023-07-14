@@ -34,3 +34,9 @@ TextStyle buttonTextStyle = TextStyle(
   fontSize: 18,
   color: Colors.white,
 );
+
+Icon emptyPersonIcon = Icon(
+  Icons.person,
+  size: 45,
+  color: BODY_TEXT_COLOR,
+);

@@ -10,7 +10,7 @@ ChurchMember _$ChurchMemberFromJson(Map<String, dynamic> json) => ChurchMember(
       id: json['id'] as int,
       name: json['name'] as String,
       thumbnail: json['profile_image_thumbnail'] as String?,
-      gatheringId: json['gathering_id'] as int,
+      gatheringId: json['gathering_id'] as int?,
       householderId: json['householder_id'] as int,
       birthYear: json['birth_year'] as int?,
       salvationYear: json['salvation_year'] as int?,
@@ -21,12 +21,15 @@ ChurchMember _$ChurchMemberFromJson(Map<String, dynamic> json) => ChurchMember(
       phoneNumber: json['phone_number'] as String?,
       address: json['address'] as String?,
       cell: json['cell'] as int?,
-      cellId: json['cell_id'] as int,
+      cellId: json['cell_id'] as int?,
       chruchName: json['church_name'] as String,
       churchId: json['church_id'] as int,
       gatheringName: json['gathering_name'] as String?,
       relationshipWithHouseholder:
           json['relationship_with_householder'] as String?,
+      parishRole: json['parish_role'] as String?,
+      cellRole: json['cell_role'] as String?,
+      gatheringRole: json['gathering_role'] as String?,
     );
 
 Map<String, dynamic> _$ChurchMemberToJson(ChurchMember instance) =>
@@ -50,4 +53,7 @@ Map<String, dynamic> _$ChurchMemberToJson(ChurchMember instance) =>
       'cell': instance.cell,
       'gathering_id': instance.gatheringId,
       'gathering_name': instance.gatheringName,
+      'parish_role': instance.parishRole,
+      'cell_role': instance.cellRole,
+      'gathering_role': instance.gatheringRole,
     };

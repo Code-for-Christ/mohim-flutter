@@ -51,33 +51,43 @@ class ChurchMember {
   @JsonKey(name: "church_name")
   final String chruchName;
   @JsonKey(name: 'cell_id')
-  final int cellId;
+  final int? cellId;
   final int? cell;
   @JsonKey(name: "gathering_id")
-  final int gatheringId;
+  final int? gatheringId;
   @JsonKey(name: "gathering_name")
   final String? gatheringName;
+  @JsonKey(name: 'parish_role')
+  final String? parishRole;
+  @JsonKey(name: 'cell_role')
+  final String? cellRole;
+  @JsonKey(name: 'gathering_role')
+  final String? gatheringRole;
 
-  ChurchMember(
-      {required this.id,
-      required this.name,
-      required this.thumbnail,
-      required this.gatheringId,
-      required this.householderId,
-      required this.birthYear,
-      required this.salvationYear,
-      required this.salvationMonth,
-      required this.salvationDay,
-      required this.carNumber,
-      required this.sex,
-      required this.phoneNumber,
-      required this.address,
-      required this.cell,
-      required this.cellId,
-      required this.chruchName,
-      required this.churchId,
-      required this.gatheringName,
-      required this.relationshipWithHouseholder});
+  ChurchMember({
+    required this.id,
+    required this.name,
+    required this.thumbnail,
+    required this.gatheringId,
+    required this.householderId,
+    required this.birthYear,
+    required this.salvationYear,
+    required this.salvationMonth,
+    required this.salvationDay,
+    required this.carNumber,
+    required this.sex,
+    required this.phoneNumber,
+    required this.address,
+    required this.cell,
+    required this.cellId,
+    required this.chruchName,
+    required this.churchId,
+    required this.gatheringName,
+    required this.relationshipWithHouseholder,
+    required this.parishRole,
+    required this.cellRole,
+    required this.gatheringRole,
+  });
 
   factory ChurchMember.fromJson(Map<String, dynamic> json) =>
       _$ChurchMemberFromJson(json);
