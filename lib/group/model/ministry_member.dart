@@ -2,31 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'ministry_member.g.dart';
 
-//flutter pub run build_runner build
 @JsonSerializable()
 class MinistryMember {
-  // "id": 0,
-  // "name": "string",
-  // "householder_id": 0,
-  // "relationship_with_householder": "string",
-  // "birth_year": 0,
-  // "salvation_year": 0,
-  // "salvation_month": 0,
-  // "salvation_day": 0,
-  // "car_number": "string",
-  // "sex": "male",
-  // "phone_number": "string",
-  // "address": "string",
-  // "profile_image_thumbnail": "string",
-  // "church_id": 0,
-  // "church_name": "string",
-  // "cell_id": 0,
-  // "cell": 0,
-  // "gathering_id": 0,
-  // "gathering_name": "string"
-  // "ministry_id": 0,
-  // "ministry_name": "string",
-  // "ministry_role": "string"
   final int id;
   final String name;
   @JsonKey(name: 'householder_id')

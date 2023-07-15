@@ -3,11 +3,9 @@ import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/cell.dart';
-import 'package:phonebook/group/model/cells.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
-import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
 
@@ -209,7 +207,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return parishLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }
@@ -234,7 +231,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return cellLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }
@@ -259,7 +255,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return gatheringLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }

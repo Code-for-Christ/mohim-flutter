@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/component/ministry_label.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
-import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/view/detail_screen.dart';
 
 class ContactCard extends StatelessWidget {
@@ -20,13 +19,6 @@ class ContactCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
         color: Colors.white,
-        boxShadow: [
-          // BoxShadow(
-          //   blurRadius: 1,
-          //   color: Color(0x411D2429),
-          //   offset: Offset(0, 1),
-          // ),
-        ],
       ),
       child: InkWell(
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -41,13 +33,6 @@ class ContactCard extends StatelessWidget {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(16)),
-            boxShadow: [
-              // BoxShadow(
-              //   blurRadius: 1,
-              //   color: Color(0x411D2429),
-              //   offset: Offset(0, 1),
-              // ),
-            ],
           ),
           child: Row(children: [
             Stack(

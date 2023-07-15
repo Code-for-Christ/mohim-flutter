@@ -3,7 +3,6 @@ import 'package:phonebook/group/model/cell.dart';
 
 part 'cells.g.dart';
 
-//flutter pub run build_runner build
 @JsonSerializable()
 class Cells {
   List<Cell> cells;

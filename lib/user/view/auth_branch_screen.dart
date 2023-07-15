@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:phonebook/common/component/custom_square_button.dart';
 import 'package:phonebook/common/const/colors.dart';
-import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/user/view/login_screen.dart';
 import 'package:phonebook/user/view/sign_up_screen.dart';
@@ -61,12 +58,7 @@ class AuthBranchScreen extends StatelessWidget {
                         final url = Uri.parse(
                             'https://sites.google.com/view/mohim-privacy-policy');
                         if (await canLaunchUrl(url)) {
-                          // if (Platform.isIOS) {
                           launchUrl(url, mode: LaunchMode.inAppWebView);
-                          // }
-                          // if (Platform.isAndroid){
-                          //   launchUrl(url, mode: )
-                          // }
                         }
                       },
                       child: Text('개인정보 처리방침')),

@@ -96,7 +96,6 @@ class GroupController extends GetxController {
     if (result['result']) {
       gatheringMembers.value = result['members'];
       nextData.value = result['next'] != null ? true : false;
-      print(nextData.value);
     }
   }
 
@@ -113,6 +112,5 @@ class GroupController extends GetxController {
   Future<void> getGatheringLeaders({required int gatheringId}) async {
     gatheringLeaders.value = await groupService.getGatheringLeaders(
         churchId: authCtrl.churchId, gatheringId: gatheringId);
-    print(gatheringLeaders.length);
   }
 }

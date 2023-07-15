@@ -8,41 +8,24 @@ import 'package:phonebook/profile/view/profile_screen.dart';
 
 class RootTab extends StatefulWidget {
   const RootTab({super.key});
-
+  
   @override
   State<RootTab> createState() => _RootTabState();
 }
 
 class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
-  late TabController controller;
-  int index = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller = TabController(length: 3, vsync: this);
-    controller.addListener(tabListener);
-  }
-
-  void tabListener() {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
     setState(() {
-      index = controller.index;
+      _selectedIndex = index;
     });
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(tabListener);
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      child: TabBarView(
-        controller: controller,
-        physics: NeverScrollableScrollPhysics(),
+      child: IndexedStack(
+        index: _selectedIndex,
         children: [
           ContactScreen(),
           GroupScreen(),
@@ -54,15 +37,13 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
           unselectedItemColor: BODY_TEXT_COLOR,
           selectedFontSize: 10,
           unselectedFontSize: 10,
+          onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
-          onTap: (int index) {
-            controller.animateTo(index);
-          },
-          currentIndex: index,
+          currentIndex: _selectedIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.phone),
-              label: '연락처',
+              icon: Icon(CupertinoIcons.search),
+              label: '성도검색',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.people_outline),

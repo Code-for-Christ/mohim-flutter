@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/service/member_service.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
@@ -22,12 +21,6 @@ class MemberController extends GetxController {
 
   // getter 추가로 인스턴스 불러오기
   static MemberController get to => Get.find();
-
-  @override
-  void onInit() {
-    // getChuchMembers();
-    super.onInit();
-  }
 
   Future<void> getChuchMembers() async {
     final result = await memberService.getChurchMembers(

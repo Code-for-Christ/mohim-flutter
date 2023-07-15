@@ -19,7 +19,6 @@ class AuthService {
           });
       return true;
     } on DioError catch (e) {
-      print(e.response!.data);
       Get.rawSnackbar(
         message: e.response!.data['message'].toString(),
         animationDuration: Duration(milliseconds: 400),
@@ -30,7 +29,6 @@ class AuthService {
 
   login(String username, String password) async {
     try {
-      print('$url/login');
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.post(
@@ -48,8 +46,6 @@ class AuthService {
           key: ACCESS_TOKEN_KEY, value: loginResponse.accessToken);
       return true;
     } on DioError catch (e) {
-      print(e);
-      print('[GET] 로그인 에러 : ${e.response!.data}');
       return false;
     }
   }
@@ -64,7 +60,6 @@ class AuthService {
                 'Bearer ${await storage.read(key: ACCESS_TOKEN_KEY)}',
             'content-type': 'application/json'
           }));
-      print(resp.data['email']);
       return {
         'result': resp.data['is_authenticated'],
         'churchId': resp.data['church_id'],
@@ -72,7 +67,6 @@ class AuthService {
         'email': resp.data['email']
       };
     } catch (e) {
-      print('[GET] 인증여부확인 에러 : $e');
       return {'result': false};
     }
   }

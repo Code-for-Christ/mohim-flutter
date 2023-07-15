@@ -47,7 +47,6 @@ class ProfileService {
       final String imageUrl = resp.data['profile_image_url'];
       return imageUrl;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -71,7 +70,6 @@ class ProfileService {
       final role = MinistryRole.fromJsonList(resp.data['ministry_roles']);
       return role;
     } catch (e) {
-      print(e);
       return [];
     }
   }
