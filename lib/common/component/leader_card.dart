@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:phonebook/common/component/ministry_label.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
@@ -63,16 +62,6 @@ class LeaderCard extends StatelessWidget {
         ),
         Gap(4),
         MinistryLabel(ministryRole: role),
-        // SizedBox(
-        //   width: 76,
-        //   child: Text(
-        //     role,
-        //     style: body2TextStyle.copyWith(fontWeight: FontWeight.w500),
-        //     maxLines: 1,
-        //     overflow: TextOverflow.clip,
-        //     textAlign: TextAlign.center,
-        //   ),
-        // ),
         Text(
           name,
           style: body2TextStyle.copyWith(

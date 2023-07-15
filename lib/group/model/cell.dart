@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cell.g.dart';
 
-//flutter pub run build_runner build
 @JsonSerializable()
 class Cell {
   int id;

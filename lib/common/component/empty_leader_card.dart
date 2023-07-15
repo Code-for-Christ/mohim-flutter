@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:phonebook/common/const/colors.dart';
-import 'package:phonebook/common/const/style.dart';
 
 class EmptyLeaderCard extends StatelessWidget {
   const EmptyLeaderCard({super.key});

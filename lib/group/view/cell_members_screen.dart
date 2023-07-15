@@ -111,7 +111,6 @@ class _CellMembersScreenState extends State<CellMembersScreen> {
                 return ListView.separated(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    // controller: scrollCtrl,
                     itemBuilder: ((context, index) {
                       if (index == groupCtrl.cellMembers.length) {
                         if (groupCtrl.nextData.value) {

@@ -3,11 +3,9 @@ import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/cell.dart';
-import 'package:phonebook/group/model/cells.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
-import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
 
@@ -197,7 +195,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/parishes/$parish/leaders',
+        '$url/$churchId/parishes/$parish/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -209,7 +207,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return parishLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }
@@ -222,7 +219,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/cells/$cellId/leaders',
+        '$url/$churchId/cells/$cellId/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -234,7 +231,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return cellLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }
@@ -247,7 +243,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/gatherings/$gatheringId/leaders',
+        '$url/$churchId/gatherings/$gatheringId/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -259,7 +255,6 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return gatheringLeaders;
     } catch (e) {
-      print(e);
       return [];
     }
   }

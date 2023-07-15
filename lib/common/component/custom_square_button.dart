@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:phonebook/common/const/colors.dart';
 
 class CustomSquareButton extends StatelessWidget {

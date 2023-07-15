@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:phonebook/common/const/data.dart';
-import 'package:phonebook/common/view/root_tab_static.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 
 class CustomInterceptor extends Interceptor {

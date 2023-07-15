@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:phonebook/common/component/custom_rounded_button.dart';
 import 'package:phonebook/common/component/custom_text_form_field.dart';
-import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
@@ -64,8 +62,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   validator: (value) {
                     final regex = RegExp(passwordPattern);
                     if (value == null || value.isEmpty) {
-                      // passwordValidated = false;
-                      // return '입력창이 비어있습니다.';
                     } else if (!regex.hasMatch(value)) {
                       passwordValidated = false;
                       return '영어, 숫자를 포함하여 8자 이상으로 입력하세요.';
@@ -88,8 +84,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   validator: (value) {
                     final regex = RegExp(passwordPattern);
                     if (value == null || value.isEmpty) {
-                      // confirmationValidated = false;
-                      // return '입력창이 비어있습니다.';
                     } else if (!regex.hasMatch(value)) {
                       confirmationValidated = false;
                       return '영어, 숫자를 포함하여 8자 이상으로 입력하세요.';

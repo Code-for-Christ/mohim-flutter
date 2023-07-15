@@ -83,8 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       final regex = RegExp(emailPattern);
                       if (value == null || value.isEmpty) {
-                        // emailValidated = false;
-                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         emailValidated = false;
                         return '올바른 이메일을 입력하세요';
@@ -107,8 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       final regex = RegExp(passwordPattern);
                       if (value == null || value.isEmpty) {
-                        // passwordValidated = false;
-                        // return '입력창이 비어있습니다.';
                       } else if (!regex.hasMatch(value)) {
                         passwordValidated = false;
                         return '영어, 숫자를 포함하여 8자 이상으로 입력하세요';

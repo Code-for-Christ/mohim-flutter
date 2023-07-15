@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:phonebook/common/component/contact_card.dart';
-import 'package:phonebook/common/component/empty_leader_card.dart';
 import 'package:phonebook/common/component/leader_card.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
@@ -97,17 +96,6 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
                                     return Gap(8);
                                   },
                                   itemCount: groupCtrl.gatheringLeaders.length);
-                              // : ListView.separated(
-                              //     // 데이터가 비어있거나 로드에 실패한 경우
-                              //     shrinkWrap: true,
-                              //     scrollDirection: Axis.horizontal,
-                              //     itemBuilder: (context, index) {
-                              //       return EmptyLeaderCard();
-                              //     },
-                              //     separatorBuilder: (context, index) {
-                              //       return Gap(8);
-                              //     },
-                              //     itemCount: 4);
                             }),
                           ),
                         ],

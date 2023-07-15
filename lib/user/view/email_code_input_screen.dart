@@ -51,8 +51,6 @@ class _EmailCodeInputScreenState extends State<EmailCodeInputScreen> {
                 validator: (value) {
                   final regex = RegExp(emailPattern);
                   if (value == null || value.isEmpty) {
-                    // emailValidated = false;
-                    // return '입력창이 비어있습니다.';
                   } else if (!regex.hasMatch(value)) {
                     emailValidated = false;
                     return '올바른 이메일을 입력하세요';

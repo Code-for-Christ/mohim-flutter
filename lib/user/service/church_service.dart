@@ -19,7 +19,6 @@ class ChurchService {
       final churches = ChurchModel.fromJsonList(resp.data['churches']);
       return churches;
     } catch (e) {
-      print(e);
       return [];
     }
   }

@@ -53,24 +53,6 @@ class InfoDividerBox extends StatelessWidget {
                       fontSize: 18),
                 ),
                 Gap(8),
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width / 3 * 2,
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Column(
-                //       mainAxisSize: MainAxisSize.min,
-                //       children: [
-                //         Text(
-                //           renderMinistries(),
-                //           maxLines: 1,
-                //           overflow: TextOverflow.ellipsis,
-                //           style: body1TextStyle.copyWith(
-                //               color: Colors.black, fontWeight: FontWeight.w500),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 4 * 3,
                   child: Text(

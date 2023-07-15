@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'parish.g.dart';
 
-//flutter pub run build_runner build
 @JsonSerializable()
 class Parishes {
   List<int> parishes;

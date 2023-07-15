@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:phonebook/common/const/data.dart';
-import 'package:phonebook/common/view/root_tab_static.dart';
+import 'package:phonebook/common/view/root_tab.dart';
 import 'package:phonebook/user/service/auth_service.dart';
 import 'package:phonebook/user/view/auth_branch_screen.dart';
 import 'package:phonebook/user/view/authenticate_screen.dart';
@@ -33,7 +31,7 @@ class AuthController extends GetxController {
           _moveToAuthenticate(0);
         }
       } else {
-        // _deleteToken();
+        _deleteToken();
       }
     } else {
       _moveToAuthBranch(0);
@@ -43,13 +41,6 @@ class AuthController extends GetxController {
   void _deleteToken() async {
     await storage.deleteAll();
   }
-
-  // Future<void> _bindControllers({required Map<String, dynamic> auth}) async {
-  //   Get.put(MemberController(
-  //       churchId: auth['churchId'], memberId: auth['memberId']));
-  //   Get.put(GroupController(
-  //       churchId: auth['churchId'], memberId: auth['memberId']));
-  // }
 
   Future<void> signUp(String email, String password) async {
     final isSignUp = await authService.signUp(email, password);
