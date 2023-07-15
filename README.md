@@ -10,5 +10,11 @@
 ![](./readme/mockup/mohim_login.png)
 
 ## 다운로드
-* [Android](https://play.google.com/store/apps/details?id=com.codeforchrist.mohim&hl=ko)
-* [IOS](https://apps.apple.com/kr/app/%EB%AA%A8%ED%9E%98/id6447751515)
+
+<a href="https://play.google.com/store/apps/details?id=com.codeforchrist.mohim&hl=ko" target="_blank">
+<img width="328" alt="image" src="https://user-images.githubusercontent.com/37360089/201863295-6efb29a6-3c97-451b-b8e0-8d23544d38ee.png">
+</a>
+
+<a href="https://apps.apple.com/kr/app/%EB%AA%A8%ED%9E%98/id6447751515" target="_blank">
+<img width="328" alt="image" src="https://user-images.githubusercontent.com/37360089/201863345-6666a78a-79f2-4200-a7d5-5c2fccfd67ff.png">
+</a>
