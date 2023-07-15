@@ -197,7 +197,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/parishes/$parish/leaders',
+        '$url/$churchId/parishes/$parish/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -222,7 +222,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/cells/$cellId/leaders',
+        '$url/$churchId/cells/$cellId/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -247,7 +247,7 @@ class GroupService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/gatherings/$gatheringId/leaders',
+        '$url/$churchId/gatherings/$gatheringId/leaders',
         options: Options(
           headers: {
             'content-type': 'application/json',
