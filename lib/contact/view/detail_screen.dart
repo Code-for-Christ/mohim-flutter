@@ -235,19 +235,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: CircularProgressIndicator(),
                         );
                 }),
-                // widget.member.gatheringName != null
-                //     ? Column(
-                //         children: [
-                //           InformationCard(
-                //             icon: Icons.bookmark,
-                //             height: 50,
-                //             text: '봉사',
-                //             data: widget.member.gatheringName!,
-                //           ),
-                //           Gap(16),
-                //         ],
-                //       )
-                //     : Container(),
               ],
             ),
           ),
