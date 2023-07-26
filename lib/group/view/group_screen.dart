@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
+import 'package:phonebook/group/view/duty_list_screen.dart';
 import 'package:phonebook/group/view/gathering_list_screen.dart';
 import 'package:phonebook/group/view/ministry_list_screen.dart';
 import 'package:phonebook/group/view/parish_list_screen.dart';
@@ -23,11 +24,12 @@ class _GroupScreenState extends State<GroupScreen>
     Tab(text: '구역별'),
     Tab(text: '봉사별'),
     Tab(text: '회별'),
+    Tab(text: '직분별'),
   ];
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -45,8 +47,9 @@ class _GroupScreenState extends State<GroupScreen>
         controller: _tabController,
         children: [
           ParishListScreen(),
-          MinistryScreen(),
+          MinistryListScreen(),
           GatheringListScreen(),
+          DutyListScreen(),
         ],
       ),
     );

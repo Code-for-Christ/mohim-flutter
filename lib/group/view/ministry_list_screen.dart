@@ -8,8 +8,8 @@ import 'package:phonebook/common/layout/default_layout.dart';
 import 'package:phonebook/group/component/group_card.dart';
 import 'package:phonebook/group/controller/group_controller.dart';
 
-class MinistryScreen extends StatelessWidget {
-  MinistryScreen({super.key});
+class MinistryListScreen extends StatelessWidget {
+  MinistryListScreen({super.key});
 
   final groupCtrl = Get.put(GroupController());
 
