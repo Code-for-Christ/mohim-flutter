@@ -43,6 +43,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-./macos/
-./linux/
-./lib/common/const/data.dart
+/macos/
+/linux/
+/lib/common/const/data.dart
+
+/ios/Runner/Podfile.lock
