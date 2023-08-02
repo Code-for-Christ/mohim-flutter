@@ -1,14 +1,15 @@
+import 'dart:io';
+
+import 'package:phonebook/common/const/data.dart' as data;
+
 class Config {
   final String baseUrl;
-  final String token;
 
   Config._dev()
-      : baseUrl = '', // dev url
-        token = ''; // dev token
+      : baseUrl =
+            Platform.isAndroid ? data.emulatorIp : data.simulatorIp; // dev url
 
-  Config._product()
-      : baseUrl = '', // product url
-        token = ''; // product token
+  Config._product() : baseUrl = data.baseUrl; // product url
 
   factory Config(String? _flavor) {
     if (_flavor == 'dev') {
