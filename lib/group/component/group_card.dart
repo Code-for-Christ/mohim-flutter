@@ -32,27 +32,6 @@ class GroupCard extends StatelessWidget {
     return '';
   }
 
-  // renderTitle() {
-  //   if (type == GroupType.cell) {
-  //     return title;
-  //   }
-  //   if (type == GroupType.ministry) {
-  //     if (title == '청년회') {
-  //       return '청년회임원';
-  //     }
-  //     if (title == '구역') {
-  //       return '구역임원';
-  //     }
-  //     if (title == '교구') {
-  //       return '교구임원';
-  //     }
-  //     return title;
-  //   }
-  //   if (type == GroupType.gathering) {
-  //     return title;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

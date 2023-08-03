@@ -34,10 +34,6 @@ class ListCard extends StatelessWidget {
                         style: body1TextStyle.copyWith(
                             fontSize: 18, color: Colors.black),
                       ),
-                      // Text(
-                      //   '00명',
-                      //   style: body2TextStyle,
-                      // ),
                     ],
                   ),
                   Spacer(),
