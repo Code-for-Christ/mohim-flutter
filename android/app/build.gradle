@@ -73,6 +73,22 @@ android {
         // signingConfig signingConfigs.debug
        }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.codeforchrist.mohim.dev"
+            resValue "string", "app_name", "데브힘"
+        }
+        prod {
+            dimension "app"
+            applicationId "com.codeforchrist.mohim"
+            resValue "string", "app_name", "모힘"
+        }
+    }
+
 }
 
 flutter {
