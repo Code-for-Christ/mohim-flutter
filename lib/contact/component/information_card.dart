@@ -11,7 +11,7 @@ class InformationCard extends StatelessWidget {
   InformationCard({
     super.key,
     this.height = 100,
-    required this.icon,
+    this.icon = Icons.circle,
     required this.text,
     required this.data,
   });
@@ -30,6 +30,7 @@ class InformationCard extends StatelessWidget {
           Icon(
             icon,
             color: PRIMARY_COLOR,
+            size: 8,
           ),
           Gap(8),
           Text(
@@ -38,15 +39,17 @@ class InformationCard extends StatelessWidget {
                 color: BODY_TEXT_COLOR, fontWeight: FontWeight.w500),
           ),
           Spacer(),
-          SizedBox(
-            width: 200,
-            child: Text(
-              data,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: body2TextStyle.copyWith(
-                  fontWeight: FontWeight.w500, color: Colors.black),
-              textAlign: TextAlign.end,
+          SingleChildScrollView(
+            child: SizedBox(
+              width: 200,
+              child: Text(
+                data,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: body2TextStyle.copyWith(
+                    fontWeight: FontWeight.w500, color: Colors.black),
+                textAlign: TextAlign.end,
+              ),
             ),
           ),
         ]),

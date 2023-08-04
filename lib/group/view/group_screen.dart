@@ -22,7 +22,7 @@ class _GroupScreenState extends State<GroupScreen>
   final _tabs = [
     Tab(text: '구역별'),
     Tab(text: '봉사별'),
-    Tab(text: '회별'),
+    Tab(text: '교제부서별'),
   ];
 
   @override
