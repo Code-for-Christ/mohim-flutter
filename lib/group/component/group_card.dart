@@ -8,6 +8,7 @@ import 'package:phonebook/common/const/type.dart';
 import 'package:phonebook/group/view/cell_list_screen.dart';
 import 'package:phonebook/group/view/gathering_members_screen.dart';
 import 'package:phonebook/group/view/ministry_members_screen.dart';
+import 'package:phonebook/group/view/position_members_screen.dart';
 
 class GroupCard extends StatelessWidget {
   const GroupCard({
@@ -54,6 +55,9 @@ class GroupCard extends StatelessWidget {
         if (type == GroupType.gathering) {
           Get.to(GatheringMembersScreen(gathering: groupData),
               transition: Transition.cupertino);
+        }
+        if (type == GroupType.position) {
+          Get.to(PositionMembersScreen(position: groupData));
         }
       },
       child: Container(

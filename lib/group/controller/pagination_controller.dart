@@ -63,5 +63,18 @@ class PaginationController extends GetxController {
             result['next'] != null ? true : false;
       }
     }
+    if (_type == GroupType.position) {
+      final result = await _groupService.getPositionMembers(
+          churchId: AuthController.to.churchId,
+          positionId: id,
+          page: page,
+          size: size);
+      if (result['result']) {
+        GroupController.to.positionMembers.addAll(result['members']);
+        page++;
+        GroupController.to.nextData.value =
+            result['next'] != null ? true : false;
+      }
+    }
   }
 }

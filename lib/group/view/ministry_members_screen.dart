@@ -51,7 +51,7 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
                   );
                 }),
                 separatorBuilder: ((context, index) {
-                  return Gap(16);
+                  return Gap(8);
                 }),
                 itemCount: groupCtrl.ministryMembers.length)
             : Container();
