@@ -8,6 +8,7 @@ import 'package:phonebook/common/const/type.dart';
 import 'package:phonebook/group/view/cell_list_screen.dart';
 import 'package:phonebook/group/view/gathering_members_screen.dart';
 import 'package:phonebook/group/view/ministry_members_screen.dart';
+import 'package:phonebook/group/view/position_members_screen.dart';
 
 class GroupCard extends StatelessWidget {
   const GroupCard({
@@ -32,27 +33,6 @@ class GroupCard extends StatelessWidget {
     return '';
   }
 
-  // renderTitle() {
-  //   if (type == GroupType.cell) {
-  //     return title;
-  //   }
-  //   if (type == GroupType.ministry) {
-  //     if (title == '청년회') {
-  //       return '청년회임원';
-  //     }
-  //     if (title == '구역') {
-  //       return '구역임원';
-  //     }
-  //     if (title == '교구') {
-  //       return '교구임원';
-  //     }
-  //     return title;
-  //   }
-  //   if (type == GroupType.gathering) {
-  //     return title;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,6 +55,9 @@ class GroupCard extends StatelessWidget {
         if (type == GroupType.gathering) {
           Get.to(GatheringMembersScreen(gathering: groupData),
               transition: Transition.cupertino);
+        }
+        if (type == GroupType.position) {
+          Get.to(PositionMembersScreen(position: groupData));
         }
       },
       child: Container(

@@ -3,6 +3,7 @@ import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
+import 'package:phonebook/group/model/position.dart';
 import 'package:phonebook/group/service/group_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
@@ -32,6 +33,10 @@ class GroupController extends GetxController {
   final gatheringMembers = <ChurchMember>[].obs;
   final gatheringLeaders = <ChurchMember>[].obs;
 
+  // 직분 탭
+  final positions = <Position>[].obs;
+  final positionMembers = <ChurchMember>[].obs;
+
   // 페이지네이션
   int page = 1;
   int size = 20;
@@ -42,6 +47,7 @@ class GroupController extends GetxController {
     getCellList();
     getMinistryList();
     getGatheringList();
+    getPositionList();
     super.onInit();
   }
 
@@ -75,6 +81,11 @@ class GroupController extends GetxController {
         await groupService.getGatheringList(churchId: authCtrl.churchId);
   }
 
+  Future<void> getPositionList() async {
+    positions.value =
+        await groupService.getPositionList(churchId: authCtrl.churchId);
+  }
+
   Future<void> getMinistryMembers({
     required int ministryId,
   }) async {
@@ -95,6 +106,20 @@ class GroupController extends GetxController {
         size: size);
     if (result['result']) {
       gatheringMembers.value = result['members'];
+      nextData.value = result['next'] != null ? true : false;
+    }
+  }
+
+  Future<void> getPositionMembers({
+    required int positionId,
+  }) async {
+    final result = await groupService.getPositionMembers(
+        churchId: authCtrl.churchId,
+        positionId: positionId,
+        page: page,
+        size: size);
+    if (result['result']) {
+      positionMembers.value = result['members'];
       nextData.value = result['next'] != null ? true : false;
     }
   }

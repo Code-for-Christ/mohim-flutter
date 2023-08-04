@@ -8,6 +8,7 @@ import 'package:phonebook/group/model/ministry.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
+import 'package:phonebook/group/model/position.dart';
 
 class GroupService {
   final url = '$baseUrl/churches';
@@ -120,6 +121,26 @@ class GroupService {
     }
   }
 
+  Future<List<Position>> getPositionList({required int churchId}) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        'http://$simulatorIp/churches/$churchId/positions',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final positions = Position.fromJsonList(resp.data['positions']);
+      return positions;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future<List<MinistryMember>> getMinistryMembers({
     required int churchId,
     required int ministryId,
@@ -183,6 +204,35 @@ class GroupService {
           animationDuration: Duration(milliseconds: 400),
         );
       }
+      return {'result': false, 'members': []};
+    }
+  }
+
+  Future<Map<String, dynamic>> getPositionMembers({
+    required int churchId,
+    required int positionId,
+    required int page,
+    required int size,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        'http://$simulatorIp/churches/$churchId/members?position_id=$positionId&page=$page&size=$size',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final members = ChurchMember.fromJsonList(resp.data['church_members']);
+      return {
+        'result': true,
+        'members': members,
+        'next': resp.data['metadata']['next_url']
+      };
+    } catch (e) {
       return {'result': false, 'members': []};
     }
   }

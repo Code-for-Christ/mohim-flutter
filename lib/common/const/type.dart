@@ -1,1 +1,1 @@
-enum GroupType { cell, ministry, gathering }
+enum GroupType { cell, ministry, gathering, position }

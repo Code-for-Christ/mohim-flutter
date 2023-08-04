@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/http/my_http_overrides.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/view/splash_screen.dart';
@@ -14,6 +15,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  String? flavor =
+      await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
+  Config(flavor);
+
   runApp(_App());
 }
 
