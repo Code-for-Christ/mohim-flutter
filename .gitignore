@@ -46,5 +46,3 @@ app.*.map.json
 /macos/
 /linux/
 /lib/common/const/data.dart
-
-/ios/Runner/Podfile.lock
