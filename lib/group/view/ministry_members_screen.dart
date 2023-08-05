@@ -22,7 +22,7 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
 
   @override
   void initState() {
-    groupCtrl.getMinistryMembers(ministryId: widget.ministry.id);
+    groupCtrl.getMinistryLeaders(ministryId: widget.ministry.id);
     super.initState();
   }
 
