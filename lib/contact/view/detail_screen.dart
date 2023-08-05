@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
-import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/component/household_card.dart';
 import 'package:phonebook/contact/component/information_card.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
