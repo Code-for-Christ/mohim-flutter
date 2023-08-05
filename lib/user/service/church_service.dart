@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/user/model/church_model.dart';
 
 class ChurchService {
-  final url = "$baseUrl/churches";
+  final url = "${Config.instance.baseUrl}/churches";
 
   Future<List<ChurchModel>> getChurches() async {
     try {

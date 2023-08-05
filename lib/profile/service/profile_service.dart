@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 
 class ProfileService {
-  final url = '$baseUrl/churches';
+  final url = '${Config.instance.baseUrl}/churches';
 
   Future<ChurchMember?> getMemberProfile(
       {required int churchId, required int memberId}) async {

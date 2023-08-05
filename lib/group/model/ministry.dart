@@ -6,14 +6,12 @@ part 'ministry.g.dart';
 class Ministry {
   int id;
   String name;
-  String category;
   @JsonKey(name: 'church_id')
   int churchId;
 
   Ministry(
       {required this.id,
       required this.name,
-      required this.category,
       required this.churchId});
 
   factory Ministry.fromJson(Map<String, dynamic> json) =>

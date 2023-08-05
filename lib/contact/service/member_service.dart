@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/contact/model/church_member_detail.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 
 class MemberService {
-  final url = '$baseUrl/churches';
+  final url = '${Config.instance.baseUrl}/churches';
 
   Future<Map<String, dynamic>> getChurchMembers({
     required int churchId,
@@ -88,7 +88,7 @@ class MemberService {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        'http://127.0.0.1:8000/api/v1/churches/$churchId/members/$memberId',
+        '$url/$churchId/members/$memberId',
         options: Options(
           headers: {
             'content-type': 'application/json',

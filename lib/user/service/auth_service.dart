@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/const/data.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/user/model/login_response.dart';
 
 class AuthService {
-  final url = "$baseUrl/auth";
+  final url = "${Config.instance.baseUrl}/auth";
 
   Future<bool> signUp(String email, String password) async {
     try {
