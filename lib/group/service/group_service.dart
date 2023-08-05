@@ -290,8 +290,6 @@ class GroupService {
   Future<List<MinistryMember>> getMinistryLeaders({
     required int churchId,
     required int ministryId,
-    required int page,
-    required int size,
   }) async {
     try {
       final dio = Dio();
