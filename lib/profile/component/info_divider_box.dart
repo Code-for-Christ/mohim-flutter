@@ -10,22 +10,33 @@ class InfoDividerBox extends StatelessWidget {
     super.key,
     required this.title,
     required this.subTitle,
-    required this.icon,
+    this.icon = Icons.circle,
+    this.showDivider = true,
   });
 
   final String title;
   final String subTitle;
   final IconData icon;
+  final bool showDivider;
 
   renderMinistries() {
     if (title != '봉사') {
       return subTitle;
     }
 
+    // String joinedString = Get.find<ProfileController>()
+    //     .member
+    //     .value
+    //     .ministries
+    //     .map((e) => '${e.name}(${e.role})')
+    //     .join(', ');
+
     String joinedString = Get.find<ProfileController>()
-        .ministryRoles
-        .map((e) => '${e.ministryName}(${e.ministryRole})')
-        .join(', ');
+        .member
+        .value
+        .ministries
+        .map((e) => e.role != null ? '${e.name}(${e.role})' : e.name)
+        .join('\n');
 
     return joinedString;
   }
@@ -34,41 +45,47 @@ class InfoDividerBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: PRIMARY_COLOR,
-            ),
-            Gap(16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: body2TextStyle.copyWith(
-                      color: BODY_TEXT_COLOR,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Icon(
+                  icon,
+                  color: PRIMARY_COLOR,
+                  size: 10,
                 ),
-                Gap(8),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 4 * 3,
-                  child: Text(
-                    renderMinistries(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: body1TextStyle.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w500),
+              ),
+              Gap(12),
+              Text(
+                title,
+                style: body2TextStyle.copyWith(
+                    color: BODY_TEXT_COLOR,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
+              ),
+              Spacer(),
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.8,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      renderMinistries(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: body1TextStyle.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         Divider(
-          color: INPUT_BG_COLOR,
+          color: showDivider ? INPUT_BG_COLOR : Colors.white,
           thickness: 1,
           height: 30,
         ),
