@@ -43,18 +43,15 @@ class _ContactScreenState extends State<ContactScreen> {
         churchId: authCtrl.churchId));
     scrollCtrl.addListener(() async {
       if (scrollCtrl.position.maxScrollExtent == scrollCtrl.position.pixels) {
-        // final result = await memberCtrl.getChuchMembers();
         _debounce(() => memberCtrl.getChuchMembers());
       }
     });
     searchScrollCtrl.addListener(() {
       if (searchScrollCtrl.position.maxScrollExtent <=
           searchScrollCtrl.position.pixels) {
-        // _debounce(() => searchCtrl.loadMoreMembers());
         _throttler.throttle(Duration(milliseconds: 2000), () {
           searchCtrl.loadMoreMembers();
         });
-        // searchCtrl.loadMoreMembers();
       }
     });
     super.initState();
@@ -93,7 +90,7 @@ class _ContactScreenState extends State<ContactScreen> {
           if (isSearching && memberCtrl.searchResultMembers.isNotEmpty) {
             return ListView.separated(
                 controller: searchScrollCtrl,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 itemBuilder: ((context, index) {
                   if (index == memberCtrl.searchResultMembers.length) {
                     if (searchCtrl.hasNextPage.value) {

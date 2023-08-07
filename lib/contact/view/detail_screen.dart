@@ -55,7 +55,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   renderMinistries() {
     String joinedString = memberCtrl.churchMemberDetail.value.ministries
-        .map((e) => e.role != null ? '${e.name}(${e.role})' : '${e.name}')
+        .map((e) => e.role != null ? '${e.name}(${e.role})' : e.name)
         .join('\n');
 
     return joinedString;

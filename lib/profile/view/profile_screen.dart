@@ -19,6 +19,9 @@ class ProfileScreen extends StatelessWidget {
 
   final profileCtrl = Get.put(ProfileController());
 
+  final associationList = ['parish', 'cell', 'gatheringName', 'ministries'];
+  final personalInformationList = [''];
+
   String renderSalvationInfo() {
     if (profileCtrl.member.value.salvationMonth != null &&
         profileCtrl.member.value.salvationDay != null) {
@@ -47,38 +50,54 @@ class ProfileScreen extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                       shrinkWrap: true,
                       children: [
-                        AuthController.to.email.isNotEmpty
+                        Text(
+                          '소속',
+                          style: body1TextStyle,
+                        ),
+                        Gap(12),
+                        profileCtrl.member.value.parish != null
                             ? InfoDividerBox(
-                                title: '이메일',
-                                subTitle: AuthController.to.email,
-                                icon: CupertinoIcons.mail_solid)
-                            : SizedBox(),
-                        profileCtrl.member.value.address != null
-                            ? InfoDividerBox(
-                                title: '주소',
-                                subTitle: profileCtrl.member.value.address!,
-                                icon: CupertinoIcons.house_fill)
+                                title: '교구',
+                                subTitle: profileCtrl.member.value.parishRole ==
+                                        null
+                                    ? '${profileCtrl.member.value.gatheringName}'
+                                    : '${profileCtrl.member.value.gatheringName}(${profileCtrl.member.value.gatheringRole})')
                             : SizedBox(),
                         profileCtrl.member.value.cell != null
                             ? InfoDividerBox(
                                 title: '구역',
-                                subTitle:
-                                    '${profileCtrl.member.value.cell!.toString()}구역',
-                                icon: CupertinoIcons.person_2_fill)
-                            : SizedBox(),
-                        profileCtrl.ministryRoles.isNotEmpty
-                            ? InfoDividerBox(
-                                title: '봉사', subTitle: '', icon: Icons.bookmark)
+                                subTitle: profileCtrl.member.value.cellRole ==
+                                        null
+                                    ? '${profileCtrl.member.value.cell}구역'
+                                    : '${profileCtrl.member.value.cellRole}구역(${profileCtrl.member.value.cellRole})')
                             : SizedBox(),
                         profileCtrl.member.value.gatheringName != null
                             ? InfoDividerBox(
-                                title: '소속',
+                                title: '교제부서',
+                                subTitle: profileCtrl
+                                            .member.value.gatheringRole ==
+                                        null
+                                    ? '${profileCtrl.member.value.gatheringName}'
+                                    : '${profileCtrl.member.value.gatheringName}(${profileCtrl.member.value.gatheringRole})')
+                            : SizedBox(),
+                        profileCtrl.member.value.ministries.isNotEmpty
+                            ? InfoDividerBox(
+                                title: '봉사',
+                                subTitle: '',
+                              )
+                            : SizedBox(),
+                        Gap(12),
+                        Text('인적사항', style: body1TextStyle),
+                        Gap(12),
+                        profileCtrl.member.value.birthYear != null
+                            ? InfoDividerBox(
+                                title: '생년',
                                 subTitle:
-                                    profileCtrl.member.value.gatheringName!,
-                                icon: CupertinoIcons.person_3_fill)
+                                    '${profileCtrl.member.value.birthYear!.toString()}년',
+                              )
                             : SizedBox(),
                         profileCtrl.member.value.salvationYear != null ||
                                 profileCtrl.member.value.salvationMonth !=
@@ -87,20 +106,19 @@ class ProfileScreen extends StatelessWidget {
                             ? InfoDividerBox(
                                 title: '구원생일',
                                 subTitle: renderSalvationInfo(),
-                                icon: Icons.celebration)
+                              )
                             : SizedBox(),
-                        profileCtrl.member.value.birthYear != null
+                        profileCtrl.member.value.address != null
                             ? InfoDividerBox(
-                                title: '생년',
-                                subTitle:
-                                    '${profileCtrl.member.value.birthYear!.toString()}년',
-                                icon: Icons.cake)
+                                title: '주소',
+                                subTitle: profileCtrl.member.value.address!,
+                              )
                             : SizedBox(),
                         profileCtrl.member.value.carNumber != null
                             ? InfoDividerBox(
                                 title: '차량번호',
                                 subTitle: profileCtrl.member.value.carNumber!,
-                                icon: CupertinoIcons.car_fill)
+                              )
                             : SizedBox(),
                         Gap(60),
                         CustomSquareButton(
@@ -197,6 +215,14 @@ class _ProfileBox extends StatelessWidget {
                             ),
                           )
                         : Container(),
+                    Gap(4),
+                    AuthController.to.email.isNotEmpty
+                        ? Text(AuthController.to.email,
+                            style: body2TextStyle.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ))
+                        : SizedBox(),
                   ],
                 )
               ],
