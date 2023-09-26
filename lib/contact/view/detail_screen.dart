@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/const/colors.dart';
 import 'package:phonebook/common/const/style.dart';
 import 'package:phonebook/common/layout/default_layout.dart';
+import 'package:phonebook/common/view/bottom_modal_detail_screen.dart';
 import 'package:phonebook/contact/component/household_card.dart';
 import 'package:phonebook/contact/component/information_card.dart';
 import 'package:phonebook/contact/controller/member_controller.dart';
@@ -28,8 +29,10 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   final memberCtrl = Get.find<MemberController>();
+
   // 이미지 넓이
   double imageWidth = 140;
+
   // 이미지 높이
   double imageHeight = 180;
 
@@ -319,7 +322,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                               return HouseholdCard(
                                                   member: member);
                                             },
-                                            separatorBuilder: (context, index) {
+                                            separatorBuilder:
+                                                (context, index) {
                                               return Gap(8);
                                             },
                                             itemCount: memberCtrl
