@@ -30,7 +30,7 @@ class InformationCard extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onLongPress: () {
+        onTap: () {
           Clipboard.setData(ClipboardData(text: data));
           Get.rawSnackbar(message: '$text 정보가 복사되었습니다.');
         },

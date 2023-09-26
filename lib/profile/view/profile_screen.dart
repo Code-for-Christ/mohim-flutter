@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +65,8 @@ class ProfileScreen extends StatelessWidget {
                                 title: '교구',
                                 subTitle: profileCtrl.member.value.parishRole ==
                                         null
-                                    ? '${profileCtrl.member.value.gatheringName}'
-                                    : '${profileCtrl.member.value.gatheringName}(${profileCtrl.member.value.gatheringRole})')
+                                    ? '${profileCtrl.member.value.parish}교구'
+                                    : '${profileCtrl.member.value.parish}교구(${profileCtrl.member.value.parishRole})')
                             : SizedBox(),
                         profileCtrl.member.value.cell != null
                             ? InfoDividerBox(
@@ -72,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                                 subTitle: profileCtrl.member.value.cellRole ==
                                         null
                                     ? '${profileCtrl.member.value.cell}구역'
-                                    : '${profileCtrl.member.value.cellRole}구역(${profileCtrl.member.value.cellRole})')
+                                    : '${profileCtrl.member.value.cell}구역(${profileCtrl.member.value.cellRole})')
                             : SizedBox(),
                         profileCtrl.member.value.gatheringName != null
                             ? InfoDividerBox(
@@ -175,6 +177,7 @@ class _ProfileBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Container(
       alignment: Alignment.bottomLeft,
       height: MediaQuery.of(context).size.height / 3.8,
@@ -217,11 +220,21 @@ class _ProfileBox extends StatelessWidget {
                         : Container(),
                     Gap(4),
                     AuthController.to.email.isNotEmpty
-                        ? Text(AuthController.to.email,
-                            style: body2TextStyle.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ))
+                        ? SizedBox(
+                            width: screenWidth / 2.2,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                AuthController.to.email,
+                                style: body2TextStyle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
                         : SizedBox(),
                   ],
                 )

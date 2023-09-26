@@ -24,13 +24,6 @@ class InfoDividerBox extends StatelessWidget {
       return subTitle;
     }
 
-    // String joinedString = Get.find<ProfileController>()
-    //     .member
-    //     .value
-    //     .ministries
-    //     .map((e) => '${e.name}(${e.role})')
-    //     .join(', ');
-
     String joinedString = Get.find<ProfileController>()
         .member
         .value
