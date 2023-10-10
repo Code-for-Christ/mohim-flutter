@@ -27,7 +27,7 @@ class GroupController extends GetxController {
   // 봉사 탭
   final ministries = <Ministry>[].obs;
   final ministryMembers = <MinistryMember>[].obs;
-  final ministriLeaders = <MinistryMember>[].obs;
+  final ministryLeaders = <MinistryMember>[].obs;
 
   // 회 탭
   final gatherings = <Gathering>[].obs;
@@ -143,7 +143,7 @@ class GroupController extends GetxController {
   Future<void> getMinistryLeaders({
     required int ministryId,
   }) async {
-    ministryMembers.value = await groupService.getMinistryLeaders(
+    ministryLeaders.value = await groupService.getMinistryLeaders(
         churchId: authCtrl.churchId, ministryId: ministryId);
   }
 }
