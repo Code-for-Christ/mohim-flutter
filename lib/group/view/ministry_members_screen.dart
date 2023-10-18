@@ -27,12 +27,14 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
   @override
   void initState() {
     groupCtrl.getMinistryLeaders(ministryId: widget.ministry.id);
+    groupCtrl.getMinistryMembers(ministryId: widget.ministry.id);
     super.initState();
   }
 
   @override
   void dispose() {
     groupCtrl.ministryLeaders.value = [];
+    groupCtrl.ministryMembers.value = [];
     super.dispose();
   }
 
@@ -89,15 +91,15 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
               Obx(() {
                 return groupCtrl.ministryMembers.isNotEmpty
                     ? ListView.separated(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 16,
+                        ),
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: ((context, index) {
                           final member = groupCtrl.ministryMembers[index];
                           return ContactCard(
                             member: member,
-                            ministryRole: member.ministryRole,
                           );
                         }),
                         separatorBuilder: ((context, index) {
