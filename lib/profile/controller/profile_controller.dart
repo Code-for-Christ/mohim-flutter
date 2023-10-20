@@ -46,6 +46,7 @@ class ProfileController extends GetxController {
   void onInit() {
     getMemberProfile();
     getProfileImageUrl();
+    getMinistryRole();
     super.onInit();
   }
 
@@ -65,5 +66,11 @@ class ProfileController extends GetxController {
     } else {
       imageUrl.value = '';
     }
+  }
+
+  Future<void> getMinistryRole() async {
+    final result = await profileService.getMinistryRole(
+        memberId: authCtrl.memberId, churchId: authCtrl.churchId);
+    ministryRoles.value = result;
   }
 }

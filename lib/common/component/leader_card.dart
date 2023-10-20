@@ -18,7 +18,7 @@ class LeaderCard extends StatelessWidget {
     required this.thumbnail,
     required this.leader,
   });
-  final dynamic leader;
+  final ChurchMember leader;
   final String name;
   final String role;
   final String? thumbnail;

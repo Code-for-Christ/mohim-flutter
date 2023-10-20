@@ -5,7 +5,6 @@ import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/cell.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
-import 'package:phonebook/group/model/ministry_leader.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
@@ -146,7 +145,9 @@ class GroupService {
 
   Future<List<MinistryMember>> getMinistryMembers({
     required int churchId,
-    required int ministryId
+    required int ministryId,
+    required int page,
+    required int size,
   }) async {
     try {
       final dio = Dio();
@@ -286,7 +287,7 @@ class GroupService {
     }
   }
 
-  Future<List<MinistryLeader>> getMinistryLeaders({
+  Future<List<MinistryMember>> getMinistryLeaders({
     required int churchId,
     required int ministryId,
   }) async {
@@ -302,7 +303,7 @@ class GroupService {
           },
         ),
       );
-      final members = MinistryLeader.fromJsonList(resp.data['church_members']);
+      final members = MinistryMember.fromJsonList(resp.data['church_members']);
 
       return members;
     } on DioError catch (e) {

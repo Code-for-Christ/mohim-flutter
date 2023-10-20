@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
-import 'package:phonebook/group/model/ministry_leader.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/model/position.dart';
 import 'package:phonebook/group/service/group_service.dart';
@@ -28,7 +27,7 @@ class GroupController extends GetxController {
   // 봉사 탭
   final ministries = <Ministry>[].obs;
   final ministryMembers = <MinistryMember>[].obs;
-  final ministryLeaders = <MinistryLeader>[].obs;
+  final ministriLeaders = <MinistryMember>[].obs;
 
   // 회 탭
   final gatherings = <Gathering>[].obs;
@@ -92,9 +91,10 @@ class GroupController extends GetxController {
     required int ministryId,
   }) async {
     ministryMembers.value = await groupService.getMinistryMembers(
-      churchId: authCtrl.churchId,
-      ministryId: ministryId,
-    );
+        churchId: authCtrl.churchId,
+        ministryId: ministryId,
+        page: page,
+        size: size);
   }
 
   Future<void> getGatheringMembers({
@@ -143,7 +143,7 @@ class GroupController extends GetxController {
   Future<void> getMinistryLeaders({
     required int ministryId,
   }) async {
-    ministryLeaders.value = await groupService.getMinistryLeaders(
+    ministryMembers.value = await groupService.getMinistryLeaders(
         churchId: authCtrl.churchId, ministryId: ministryId);
   }
 }
