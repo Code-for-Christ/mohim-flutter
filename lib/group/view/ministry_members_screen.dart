@@ -49,6 +49,7 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Obx(() {
                 return groupCtrl.ministryLeaders.isNotEmpty
@@ -88,11 +89,13 @@ class _MinistryMembersScreenState extends State<MinistryMembersScreen> {
                       )
                     : SizedBox();
               }),
+              Gap(16),
+              Text('${widget.ministry.name}명단', style: body1TextStyle),
               Obx(() {
                 return groupCtrl.ministryMembers.isNotEmpty
                     ? ListView.separated(
                         padding: EdgeInsets.symmetric(
-                          vertical: 16,
+                          vertical: 8,
                         ),
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
