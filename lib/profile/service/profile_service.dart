@@ -1,19 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
+import 'package:phonebook/contact/model/church_member_detail.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 
 class ProfileService {
-  final url = '$baseUrl/churches';
+  final url = '${Config.instance.baseUrl}/churches';
 
-  Future<ChurchMember?> getMemberProfile(
+  Future<ChurchMemberDetail?> getMemberProfile(
       {required int churchId, required int memberId}) async {
     try {
       final dio = Dio();
       dio.interceptors.add(CustomInterceptor());
       final resp = await dio.get(
-        '$url/$churchId/members?member_id=$memberId',
+        '$url/$churchId/members/$memberId',
         options: Options(
           headers: {
             'content-type': 'application/json',
@@ -21,7 +22,7 @@ class ProfileService {
           },
         ),
       );
-      final profile = ChurchMember.fromJson(resp.data['church_members'][0]);
+      final profile = ChurchMemberDetail.fromJson(resp.data);
       return profile;
     } catch (e) {
       return null;

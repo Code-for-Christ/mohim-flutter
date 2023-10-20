@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
+import 'package:phonebook/group/model/ministry_leader.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
+import 'package:phonebook/group/model/position.dart';
 import 'package:phonebook/group/service/group_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
 
@@ -26,11 +28,16 @@ class GroupController extends GetxController {
   // 봉사 탭
   final ministries = <Ministry>[].obs;
   final ministryMembers = <MinistryMember>[].obs;
+  final ministryLeaders = <MinistryLeader>[].obs;
 
   // 회 탭
   final gatherings = <Gathering>[].obs;
   final gatheringMembers = <ChurchMember>[].obs;
   final gatheringLeaders = <ChurchMember>[].obs;
+
+  // 직분 탭
+  final positions = <Position>[].obs;
+  final positionMembers = <ChurchMember>[].obs;
 
   // 페이지네이션
   int page = 1;
@@ -42,6 +49,7 @@ class GroupController extends GetxController {
     getCellList();
     getMinistryList();
     getGatheringList();
+    getPositionList();
     super.onInit();
   }
 
@@ -75,14 +83,18 @@ class GroupController extends GetxController {
         await groupService.getGatheringList(churchId: authCtrl.churchId);
   }
 
+  Future<void> getPositionList() async {
+    positions.value =
+        await groupService.getPositionList(churchId: authCtrl.churchId);
+  }
+
   Future<void> getMinistryMembers({
     required int ministryId,
   }) async {
     ministryMembers.value = await groupService.getMinistryMembers(
-        churchId: authCtrl.churchId,
-        ministryId: ministryId,
-        page: page,
-        size: size);
+      churchId: authCtrl.churchId,
+      ministryId: ministryId,
+    );
   }
 
   Future<void> getGatheringMembers({
@@ -95,6 +107,20 @@ class GroupController extends GetxController {
         size: size);
     if (result['result']) {
       gatheringMembers.value = result['members'];
+      nextData.value = result['next'] != null ? true : false;
+    }
+  }
+
+  Future<void> getPositionMembers({
+    required int positionId,
+  }) async {
+    final result = await groupService.getPositionMembers(
+        churchId: authCtrl.churchId,
+        positionId: positionId,
+        page: page,
+        size: size);
+    if (result['result']) {
+      positionMembers.value = result['members'];
       nextData.value = result['next'] != null ? true : false;
     }
   }
@@ -112,5 +138,12 @@ class GroupController extends GetxController {
   Future<void> getGatheringLeaders({required int gatheringId}) async {
     gatheringLeaders.value = await groupService.getGatheringLeaders(
         churchId: authCtrl.churchId, gatheringId: gatheringId);
+  }
+
+  Future<void> getMinistryLeaders({
+    required int ministryId,
+  }) async {
+    ministryLeaders.value = await groupService.getMinistryLeaders(
+        churchId: authCtrl.churchId, ministryId: ministryId);
   }
 }

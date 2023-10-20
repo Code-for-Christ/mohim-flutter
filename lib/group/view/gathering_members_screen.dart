@@ -104,7 +104,7 @@ class _GatheringMembersScreenState extends State<GatheringMembersScreen> {
               }),
               Gap(16),
               Text(
-                '회별명단',
+                '${widget.gathering.name}명단',
                 style: body1TextStyle,
               ),
               Gap(8),

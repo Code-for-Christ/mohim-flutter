@@ -19,11 +19,13 @@ Flutter/App.framework
 Flutter/Flutter.framework
 Flutter/Flutter.podspec
 Flutter/Generated.xcconfig
+Flutter/Generated 2.xcconfig
 Flutter/ephemeral/
 Flutter/app.flx
 Flutter/app.zip
 Flutter/flutter_assets/
 Flutter/flutter_export_environment.sh
+Flutter/flutter_export_environment 2.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
 

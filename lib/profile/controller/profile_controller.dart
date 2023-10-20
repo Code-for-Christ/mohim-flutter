@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:phonebook/common/model/church_member.dart';
+import 'package:phonebook/contact/model/church_member_detail.dart';
 import 'package:phonebook/group/model/ministry_role.dart';
 import 'package:phonebook/profile/service/profile_service.dart';
 import 'package:phonebook/user/controller/auth_controller.dart';
@@ -9,7 +10,7 @@ class ProfileController extends GetxController {
   final ministryRoles = <MinistryRole>[].obs;
 
   final imageUrl = ''.obs;
-  final member = ChurchMember(
+  final member = ChurchMemberDetail(
           id: 0,
           name: '',
           thumbnail: '',
@@ -31,7 +32,12 @@ class ProfileController extends GetxController {
           relationshipWithHouseholder: 'relationshipWithHouseholder',
           parishRole: '',
           cellRole: '',
-          gatheringRole: '')
+          gatheringRole: '',
+          household: [],
+          ministries: [],
+          parish: -1,
+          positionId: -1,
+          positionName: null)
       .obs;
 
   final profileService = ProfileService();
@@ -40,7 +46,6 @@ class ProfileController extends GetxController {
   void onInit() {
     getMemberProfile();
     getProfileImageUrl();
-    getMinistryRole();
     super.onInit();
   }
 
@@ -60,11 +65,5 @@ class ProfileController extends GetxController {
     } else {
       imageUrl.value = '';
     }
-  }
-
-  Future<void> getMinistryRole() async {
-    final result = await profileService.getMinistryRole(
-        memberId: authCtrl.memberId, churchId: authCtrl.churchId);
-    ministryRoles.value = result;
   }
 }

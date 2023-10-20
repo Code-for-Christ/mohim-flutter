@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 
 class SearchService {
-  final url = '$baseUrl/churches';
+  final url = '${Config.instance.baseUrl}/churches';
 
   Future<Map<String, dynamic>> searchMembers(
       {required int churchId, required searchText, required int page, required int size}) async {

@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
-import 'package:phonebook/common/const/data.dart';
+import 'package:phonebook/common/config/config.dart';
 import 'package:phonebook/common/dio/dio.dart';
 import 'package:phonebook/common/model/church_member.dart';
 import 'package:phonebook/group/model/cell.dart';
 import 'package:phonebook/group/model/gathering.dart';
 import 'package:phonebook/group/model/ministry.dart';
+import 'package:phonebook/group/model/ministry_leader.dart';
 import 'package:phonebook/group/model/ministry_member.dart';
 import 'package:phonebook/group/model/parish.dart';
 import 'package:dio/dio.dart';
+import 'package:phonebook/group/model/position.dart';
 
 class GroupService {
-  final url = '$baseUrl/churches';
+  final url = '${Config.instance.baseUrl}/churches';
 
   Future<List<int>> getParishList({required int churchId}) async {
     try {
@@ -47,6 +49,7 @@ class GroupService {
       final cells = Cell.fromJsonList(resp.data['cells']);
       return cells;
     } catch (e) {
+      print(e);
       return [];
     }
   }
@@ -96,6 +99,7 @@ class GroupService {
       final ministries = Ministry.fromJsonList(resp.data['ministries']);
       return ministries;
     } catch (e) {
+      print(e);
       return [];
     }
   }
@@ -120,11 +124,29 @@ class GroupService {
     }
   }
 
+  Future<List<Position>> getPositionList({required int churchId}) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        '$url/$churchId/positions',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final positions = Position.fromJsonList(resp.data['positions']);
+      return positions;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future<List<MinistryMember>> getMinistryMembers({
     required int churchId,
-    required int ministryId,
-    required int page,
-    required int size,
+    required int ministryId
   }) async {
     try {
       final dio = Dio();
@@ -187,6 +209,35 @@ class GroupService {
     }
   }
 
+  Future<Map<String, dynamic>> getPositionMembers({
+    required int churchId,
+    required int positionId,
+    required int page,
+    required int size,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        '$url/$churchId/members?position_id=$positionId&page=$page&size=$size',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final members = ChurchMember.fromJsonList(resp.data['church_members']);
+      return {
+        'result': true,
+        'members': members,
+        'next': resp.data['metadata']['next_url']
+      };
+    } catch (e) {
+      return {'result': false, 'members': []};
+    }
+  }
+
   Future<List<ChurchMember>> getParishLeaders({
     required int churchId,
     required int parish,
@@ -231,6 +282,36 @@ class GroupService {
           ChurchMember.fromJsonList(resp.data['church_members']);
       return cellLeaders;
     } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<MinistryLeader>> getMinistryLeaders({
+    required int churchId,
+    required int ministryId,
+  }) async {
+    try {
+      final dio = Dio();
+      dio.interceptors.add(CustomInterceptor());
+      final resp = await dio.get(
+        '$url/$churchId/ministries/$ministryId/leaders',
+        options: Options(
+          headers: {
+            'content-type': 'application/json',
+            'accessToken': 'true',
+          },
+        ),
+      );
+      final members = MinistryLeader.fromJsonList(resp.data['church_members']);
+
+      return members;
+    } on DioError catch (e) {
+      if (e.message.contains('Network')) {
+        Get.rawSnackbar(
+          message: '네트워크를 연결해주세요',
+          animationDuration: Duration(milliseconds: 400),
+        );
+      }
       return [];
     }
   }

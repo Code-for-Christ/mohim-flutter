@@ -19,7 +19,7 @@
 </queries>
 <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="모힘"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
