@@ -72,7 +72,7 @@ class _CellListScreenState extends State<CellListScreen> {
                               leader: leader,
                               name: leader.name,
                               role: leader.parishRole!,
-                              thumbnail: leader.thumbnail!,
+                              thumbnail: leader.thumbnail,
                             );
                           },
                           separatorBuilder: (context, index) {
