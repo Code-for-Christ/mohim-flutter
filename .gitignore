@@ -47,4 +47,3 @@ app.*.map.json
 
 /linux/
 /macos/
-/lib/common/const/
