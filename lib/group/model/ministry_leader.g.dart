@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ministry_member.dart';
+part of 'ministry_leader.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MinistryMember _$MinistryMemberFromJson(Map<String, dynamic> json) =>
-    MinistryMember(
+MinistryLeader _$MinistryMemberFromJson(Map<String, dynamic> json) =>
+    MinistryLeader(
       id: json['id'] as int,
       name: json['name'] as String,
       thumbnail: json['profile_image_thumbnail'] as String?,
@@ -33,7 +33,7 @@ MinistryMember _$MinistryMemberFromJson(Map<String, dynamic> json) =>
       ministryRole: json['ministry_role'] as String?,
     );
 
-Map<String, dynamic> _$MinistryMemberToJson(MinistryMember instance) =>
+Map<String, dynamic> _$MinistryMemberToJson(MinistryLeader instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
