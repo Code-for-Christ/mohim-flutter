@@ -63,20 +63,6 @@ class PaginationController extends GetxController {
             result['next'] != null ? true : false;
       }
     }
-    // ministry Member에 pagination 필요시
-    // if (_type == GroupType.ministry) {
-    //   final result = await _groupService.getMinistryMembers(
-    //       churchId: AuthController.to.churchId,
-    //       ministryId: id,
-    //       page: page,
-    //       size: size);
-    //   if (result['result']) {
-    //     GroupController.to.ministryMembers.addAll(result['members']);
-    //     page++;
-    //     GroupController.to.nextData.value =
-    //         result['next'] != null ? true : false;
-    //   }
-    // }
     if (_type == GroupType.position) {
       final result = await _groupService.getPositionMembers(
           churchId: AuthController.to.churchId,
